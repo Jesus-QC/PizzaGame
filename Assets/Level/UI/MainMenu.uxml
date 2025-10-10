@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%; width: 548px; height: 1415px; align-self: center; align-content: center; position: relative; top: 0; left: -800px; -unity-background-image-tint-color: rgb(0, 0, 0); background-image: none; background-color: rgb(254, 235, 246); -unity-background-scale-mode: stretch-to-fill; border-left-color: rgb(254, 201, 229); border-right-color: rgb(254, 201, 229); border-top-color: rgb(254, 201, 229); border-bottom-color: rgb(254, 201, 229); border-top-width: 47px; border-right-width: 47px; border-bottom-width: 47px; border-left-width: 47px;" />
+    </ui:VisualElement>
+</ui:UXML>
