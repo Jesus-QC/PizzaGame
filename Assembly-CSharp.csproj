@@ -46,7 +46,9 @@
     <Analyzer Include="D:\Program Files\Unity\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\Test.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\MovementController.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\PlayerController.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Program Files\Unity\Editor\6000.2.6f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -869,6 +871,9 @@
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ProBuilder.Editor">
+      <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.ProBuilder.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -886,6 +891,9 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
@@ -914,11 +922,17 @@
     <Reference Include="Unity.Multiplayer.Center.Editor">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+      <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Runtime">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.Rendering.LightTransport.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder">
+      <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.ProBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
@@ -940,6 +954,9 @@
     </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Settings.Editor">
+      <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\Unity.Settings.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:\Users\jesusqc\RiderProjects\PizzaGame\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
