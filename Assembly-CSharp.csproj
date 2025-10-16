@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Scripts\Player\PickUpAndDropController.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\OpenCloseDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\MovementController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\PlayerController.cs" />
