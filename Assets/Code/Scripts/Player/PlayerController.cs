@@ -10,6 +10,7 @@ namespace Assets.Code.Scripts.Player
         public MovementController MovementController;
         public CameraController CameraController;
         public OpenCloseDoor OpenCloseDoor;
+        public PickUpAndDropController PickUpAndDropController;
 
         private void Awake()
         {
