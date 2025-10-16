@@ -9,9 +9,9 @@ namespace Assets.Code.Scripts.Player
         public Rigidbody PlayerRigidbody;
         public MovementController MovementController;
         public CameraController CameraController;
-        public OpenCloseDoor OpenCloseDoor;
-        public PickUpAndDropController PickUpAndDropController;
-
+        public InteractableController InteractableController;
+        public ItemsController ItemsController;
+        
         private void Awake()
         {
             Instance = this;
