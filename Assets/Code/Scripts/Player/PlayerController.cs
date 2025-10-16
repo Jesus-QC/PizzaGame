@@ -9,6 +9,7 @@ namespace Assets.Code.Scripts.Player
         public Rigidbody PlayerRigidbody;
         public MovementController MovementController;
         public CameraController CameraController;
+        public OpenCloseDoor OpenCloseDoor;
 
         private void Awake()
         {
