@@ -17,6 +17,12 @@ namespace Assets.Code.Scripts.Player
 
             if (interactable == null)
             {
+                if (PlayerController.Instance.InterfaceController.OverlayImage.isActiveAndEnabled)
+                {
+                    PlayerController.Instance.InterfaceController.OverlayImage.enabled = false;
+                    return;
+                }
+                
                 PlayerController.Instance.ItemsController.HeldObject = null;
                 return;
             }

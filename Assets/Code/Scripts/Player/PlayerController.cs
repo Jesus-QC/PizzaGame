@@ -11,6 +11,7 @@ namespace Assets.Code.Scripts.Player
         public CameraController CameraController;
         public InteractableController InteractableController;
         public ItemsController ItemsController;
+        public InterfaceController InterfaceController;
         
         private void Awake()
         {
