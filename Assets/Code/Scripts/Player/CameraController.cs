@@ -9,9 +9,9 @@ namespace Assets.Code.Scripts.Player
     public class CameraController : MonoBehaviour
     {
         public float Sensitivity = 100f;
-        public float ShakeAmount = 0.005f;
-        public float VignetteIntensity = 0.5f;
-        public float ChromaticAberrationIntensity = 0.5f;
+        public float ShakeAmount = 0.008f;
+        public float VignetteIntensity = 0.27f;
+        public float ChromaticAberrationIntensity = 1f;
 
         public Transform Camera;
         public Volume GlobalVolume;
