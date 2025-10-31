@@ -6,9 +6,8 @@ namespace Assets.Code.Scripts.Player
 {
     public class CameraController : MonoBehaviour
     {
-        private const float ShakeAmount = 0.05f;
-        private const float EnemyShakeDistance = 10f;
-        
+        public float ShakeAmount = 0.005f;
+        public float EnemyShakeDistance = 10f;
         public float Sensitivity = 100f;
         public Transform Camera;
 
