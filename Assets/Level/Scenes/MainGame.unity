@@ -13162,6 +13162,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1904
       objectReference: {fileID: 0}
+    - target: {fileID: 9163549527709728362, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
+      propertyPath: near clip plane
+      value: 0.18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
