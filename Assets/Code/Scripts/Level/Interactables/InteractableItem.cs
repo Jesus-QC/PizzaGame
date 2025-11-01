@@ -5,7 +5,7 @@ namespace Code.Scripts.Level.Interactables
 {
     public class InteractableItem : MonoBehaviour, IInteractable
     {
-        public const float ThrowForce = 3f;
+        public const float ThrowForce = 5f;
         
         private Rigidbody _rigidbody;
         private Collider _collider;
@@ -13,7 +13,7 @@ namespace Code.Scripts.Level.Interactables
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _collider = GetComponent<Collider>();
+            _collider = GetComponentInChildren<Collider>();
         }
 
         public void Interact()

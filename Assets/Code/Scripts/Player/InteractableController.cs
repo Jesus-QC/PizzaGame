@@ -22,7 +22,7 @@ namespace Assets.Code.Scripts.Player
                     PlayerController.Instance.InterfaceController.OverlayImage.enabled = false;
                     return;
                 }
-                
+
                 PlayerController.Instance.ItemsController.HeldObject = null;
                 return;
             }
