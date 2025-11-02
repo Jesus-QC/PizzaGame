@@ -12242,10 +12242,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1061251094}
-    - target: {fileID: 2640692019951269908, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
-      propertyPath: LadderController
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3253748906788334227, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -12256,7 +12252,7 @@ PrefabInstance:
       objectReference: {fileID: 2077662885}
     - target: {fileID: 3396619791375828815, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_VersionIndex
-      value: 3641
+      value: 3647
       objectReference: {fileID: 0}
     - target: {fileID: 5589243309091396272, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
@@ -12268,7 +12264,7 @@ PrefabInstance:
       objectReference: {fileID: 1499727040}
     - target: {fileID: 6498255614991844954, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_VersionIndex
-      value: 1997
+      value: 2003
       objectReference: {fileID: 0}
     - target: {fileID: 6678774582267019192, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
@@ -12284,7 +12280,7 @@ PrefabInstance:
       objectReference: {fileID: 1061251094}
     - target: {fileID: 7995320044365058757, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_VersionIndex
-      value: 2000
+      value: 2006
       objectReference: {fileID: 0}
     - target: {fileID: 8003456604216301044, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
@@ -12292,7 +12288,7 @@ PrefabInstance:
       objectReference: {fileID: 1961632299}
     - target: {fileID: 8003456604216301044, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_VersionIndex
-      value: 1997
+      value: 2003
       objectReference: {fileID: 0}
     - target: {fileID: 8622617234891858819, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
@@ -12300,7 +12296,7 @@ PrefabInstance:
       objectReference: {fileID: 1116321668}
     - target: {fileID: 8622617234891858819, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_VersionIndex
-      value: 2000
+      value: 2006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
