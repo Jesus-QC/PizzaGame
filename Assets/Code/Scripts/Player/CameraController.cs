@@ -91,8 +91,11 @@ namespace Assets.Code.Scripts.Player
 
         private void UpdateEnemyEffects()
         {
-            bool enemyVisible = CanSeeObject(EnemyController.Instance.gameObject);
+            EnemyController enemyController = EnemyController.Instance;
+            bool enemyVisible = CanSeeObject(enemyController.gameObject);
 
+            enemyController.IsBeingSeen = enemyVisible;
+            
             float targetVignette = enemyVisible ? VignetteIntensity : 0f;
             float targetChromaticAberration = enemyVisible ? ChromaticAberrationIntensity : 0f;
             float targetAperture = enemyVisible ? 0.1f : 16f;
