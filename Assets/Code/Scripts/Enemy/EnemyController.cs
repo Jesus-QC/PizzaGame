@@ -12,8 +12,9 @@ namespace Code.Scripts.Enemy
         public AudioClip StingerEffect;
 
         private bool _seenByPlayer;
-        private float _timeSinceLastSeen = MinStingerInterval;
-        
+
+        public float TimeSinceLastSeen { get; private set; } = MinStingerInterval;
+
         public bool IsBeingSeen
         {
             get => _seenByPlayer;
@@ -27,14 +28,14 @@ namespace Code.Scripts.Enemy
                 if (value)
                 {
                     EffectsSource.volume = 1;
-                    if (_timeSinceLastSeen > MinStingerInterval)
+                    if (TimeSinceLastSeen > MinStingerInterval)
                     {
                         EffectsSource.PlayDelayed(5);
                         EffectsSource.PlayOneShot(StingerEffect);
                     }
                 }
 
-                _timeSinceLastSeen = 0f;
+                TimeSinceLastSeen = 0f;
             }
         }
         
@@ -45,7 +46,7 @@ namespace Code.Scripts.Enemy
 
         void Update()
         {
-            _timeSinceLastSeen += Time.deltaTime;
+            TimeSinceLastSeen += Time.deltaTime;
 
             if (_seenByPlayer || !EffectsSource.isPlaying)
                 return;

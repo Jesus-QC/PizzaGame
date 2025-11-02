@@ -92,9 +92,8 @@ namespace Assets.Code.Scripts.Player
         private void UpdateEnemyEffects()
         {
             EnemyController enemyController = EnemyController.Instance;
-            bool enemyVisible = CanSeeObject(enemyController.gameObject);
-
-            enemyController.IsBeingSeen = enemyVisible;
+            enemyController.IsBeingSeen = CanSeeObject(enemyController.gameObject);
+            bool enemyVisible = enemyController.TimeSinceLastSeen < 5f || enemyController.IsBeingSeen;
             
             float targetVignette = enemyVisible ? VignetteIntensity : 0f;
             float targetChromaticAberration = enemyVisible ? ChromaticAberrationIntensity : 0f;
@@ -104,19 +103,21 @@ namespace Assets.Code.Scripts.Player
                 ? _localPosition + Random.insideUnitSphere * ShakeAmount 
                 : _localPosition;
 
+            float speed = Time.deltaTime * (enemyVisible ? 5f : 0.5f);
+
             if (_vignette != null)
             {
-                _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, targetVignette, Time.deltaTime * 5f);
+                _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, targetVignette, speed);
             }
 
             if (_chromaticAberration != null)
             {
-                _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, targetChromaticAberration, Time.deltaTime * 5f);
+                _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, targetChromaticAberration, speed);
             }
 
             if (_depthOfField != null)
             {
-                _depthOfField.aperture.value = Mathf.Lerp(_depthOfField.aperture.value, targetAperture, Time.deltaTime * 5f);
+                _depthOfField.aperture.value = Mathf.Lerp(_depthOfField.aperture.value, targetAperture, speed);
             }
         }
     }
