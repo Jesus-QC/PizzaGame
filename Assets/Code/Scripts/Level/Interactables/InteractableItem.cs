@@ -29,6 +29,8 @@ namespace Code.Scripts.Level.Interactables
 
         public virtual void OnDropped()
         {
+            Vector3 dropPosition = PlayerController.Instance.CameraController.Camera.position;
+            transform.position = dropPosition;
             transform.SetParent(null);
             
             if (_collider) _collider.enabled = true;
