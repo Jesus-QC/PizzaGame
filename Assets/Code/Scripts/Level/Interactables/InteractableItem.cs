@@ -5,7 +5,7 @@ namespace Code.Scripts.Level.Interactables
 {
     public class InteractableItem : MonoBehaviour, IInteractable
     {
-        public const float ThrowForce = 3f;
+        public const float ThrowForce = 5f;
         
         private Rigidbody _rigidbody;
         private Collider _collider;
@@ -13,7 +13,7 @@ namespace Code.Scripts.Level.Interactables
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _collider = GetComponent<Collider>();
+            _collider = GetComponentInChildren<Collider>();
         }
 
         public void Interact()
@@ -29,6 +29,8 @@ namespace Code.Scripts.Level.Interactables
 
         public virtual void OnDropped()
         {
+            Vector3 dropPosition = PlayerController.Instance.CameraController.Camera.position;
+            transform.position = dropPosition;
             transform.SetParent(null);
             
             if (_collider) _collider.enabled = true;

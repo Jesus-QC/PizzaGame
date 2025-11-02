@@ -1,32 +1,81 @@
 using Code.Scripts.Enemy;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace Assets.Code.Scripts.Player
 {
     public class CameraController : MonoBehaviour
     {
-        public float ShakeAmount = 0.005f;
-        public float EnemyShakeDistance = 10f;
         public float Sensitivity = 100f;
-        public Transform Camera;
+        public float ShakeAmount = 0.008f;
+        public float VignetteIntensity = 0.27f;
+        public float ChromaticAberrationIntensity = 1f;
 
+        public Transform Camera;
+        public Volume GlobalVolume;
+        
         private Vector3 _localPosition;
         private Vector2 _lookInput;
         private float _xRotation;
+        
+        private Vignette _vignette;
+        private ChromaticAberration _chromaticAberration;
+        private DepthOfField _depthOfField;
 
-        private void Start()
+        public bool CanSeeObject(GameObject target)
         {
-            _localPosition = Camera.localPosition;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (target == null)
+                return false;
+
+            Collider targetCollider = target.GetComponent<Collider>();
+            if (targetCollider == null)
+                return false;
+
+            Vector3 targetPosition = targetCollider.bounds.center;
+
+            Camera cam = Camera.GetComponent<Camera>();
+            if (cam == null)
+                return false;
+
+            Vector3 viewportPoint = cam.WorldToViewportPoint(targetPosition);
+
+            bool isWithinView = viewportPoint is { z: > 0, x: >= 0 and <= 1, y: >= 0 and <= 1 };
+
+            if (!isWithinView)
+                return false;
+
+            Vector3 origin = Camera.transform.position;
+            Vector3 direction = (targetPosition - origin).normalized;
+            float distance = Vector3.Distance(origin, targetPosition);
+
+            if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
+                return hit.transform == target.transform;
+
+            return false;
         }
+
         
         public void OnLook(InputValue value)
         {
             _lookInput = value.Get<Vector2>();
         }
-
+        
+        private void Start()
+        {
+            _localPosition = Camera.localPosition;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            
+            if (GlobalVolume != null)
+            {
+                _vignette = GlobalVolume.profile.TryGet(out Vignette vignette) ? vignette : GlobalVolume.profile.Add<Vignette>();
+                _chromaticAberration = GlobalVolume.profile.TryGet(out ChromaticAberration ca) ? ca : GlobalVolume.profile.Add<ChromaticAberration>();
+                _depthOfField = GlobalVolume.profile.TryGet(out DepthOfField dof) ? dof : GlobalVolume.profile.Add<DepthOfField>();
+            }
+        }
+        
         private void Update()
         {
             float mouseX = _lookInput.x * Sensitivity * Time.deltaTime;
@@ -37,25 +86,35 @@ namespace Assets.Code.Scripts.Player
 
             Camera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
-            UpdateEnemyShakeEffect();
+            UpdateEnemyEffects();
         }
 
-        private void UpdateEnemyShakeEffect()
+        private void UpdateEnemyEffects()
         {
-            Vector3 position = transform.position;
-            Vector3 enemyPosition = EnemyController.Instance.transform.position;
+            bool enemyVisible = CanSeeObject(EnemyController.Instance.gameObject);
 
-            float distance = Vector3.Distance(position, enemyPosition);
+            float targetVignette = enemyVisible ? VignetteIntensity : 0f;
+            float targetChromaticAberration = enemyVisible ? ChromaticAberrationIntensity : 0f;
+            float targetAperture = enemyVisible ? 0.1f : 16f;
 
-            if (distance > EnemyShakeDistance)
+            Camera.localPosition = enemyVisible 
+                ? _localPosition + Random.insideUnitSphere * ShakeAmount 
+                : _localPosition;
+
+            if (_vignette != null)
             {
-                Camera.localPosition = _localPosition;
-                return;
+                _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, targetVignette, Time.deltaTime * 5f);
             }
-            
-            float shakeAmount = EnemyShakeDistance / distance;
-            shakeAmount *= ShakeAmount;
-            Camera.localPosition = _localPosition + Random.insideUnitSphere * Mathf.Min(shakeAmount, 1);
+
+            if (_chromaticAberration != null)
+            {
+                _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, targetChromaticAberration, Time.deltaTime * 5f);
+            }
+
+            if (_depthOfField != null)
+            {
+                _depthOfField.aperture.value = Mathf.Lerp(_depthOfField.aperture.value, targetAperture, Time.deltaTime * 5f);
+            }
         }
     }
 }
