@@ -6,7 +6,11 @@ TagManager:
   tags:
   - Door
   - Pickupable
+<<<<<<< Updated upstream
   - Chair
+=======
+  - Ladder
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
