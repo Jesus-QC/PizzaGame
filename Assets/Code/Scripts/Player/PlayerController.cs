@@ -14,6 +14,7 @@ namespace Assets.Code.Scripts.Player
         public ItemsController ItemsController;
         public InterfaceController InterfaceController;
         public LadderController LadderController;
+        public TaskController TaskController;
         
         private void Awake()
         {

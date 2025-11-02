@@ -51,6 +51,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableTV.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableDoor.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\TaskController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\ItemsController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\MovementController.cs" />
