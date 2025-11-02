@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door
   - Pickupable
+  - Chair
   layers:
   - Default
   - TransparentFX

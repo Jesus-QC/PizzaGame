@@ -30,7 +30,7 @@ namespace Code.Scripts.Level.Interactables
                 _lastInteractionTime = Time.time;
             }
         }
-        
+
         public void Interact()
         {
             if (Time.time - _lastInteractionTime < CooldownTime)
