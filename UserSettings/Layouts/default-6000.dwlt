@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -448,7 +448,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: eafaffff
+      m_ExpandedIDs: 9cb1fdffb8c2fdff48b1ffffdab5ffff92f9ffff96f9ffff9af9ffff9ef9ffffa2f9ffff7afaffff86faffffc6faffffeafaffff54b70000f4230100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -929,7 +929,7 @@ MonoBehaviour:
       sizeOverridden: 0
     - dockPosition: 1
       containerId: overlay-container--right
-      displayed: 1
+      displayed: 0
       id: SceneView/CamerasOverlay
       index: 8
       contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":-254.0,"y":-184.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
@@ -1010,9 +1010,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 3.8232255, y: 0.53843665, z: 132.04099}
+    m_Target: {x: 4.195569, y: -50.798515, z: -281.741}
     speed: 2
-    m_Value: {x: 3.8232255, y: 0.53843665, z: 132.04099}
+    m_Value: {x: 4.195569, y: -50.798515, z: -281.741}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1058,20 +1058,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.007986076, y: -0.011376684, z: 0.00079378684, w: -1.0004091}
+    m_Target: {x: -0.0009389582, y: 0.99556214, z: -0.09937632, w: -0.0010852916}
     speed: 2
-    m_Value: {x: -0.007986076, y: -0.011376683, z: 0.00079378684, w: -1.0004091}
+    m_Value: {x: -0.0009389582, y: 0.99556214, z: -0.09937632, w: -0.0010852916}
   m_Size:
-    m_Target: 77.949356
+    m_Target: 150.61671
     speed: 2
-    m_Value: 77.949356
+    m_Value: 150.61671
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1.1134435
-    m_SpeedNormalized: 0.5565
+    m_Speed: 1.0534736
+    m_SpeedNormalized: 0.52650005
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1145,7 +1145,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Code/Scripts/Level/Interactables
+    - Assets/Level/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1155,16 +1155,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Code/Scripts/Level/Interactables
+  - Assets/Level/Scenes
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\anwei\Documents\UPM\3CURSO\5sem\videojuegos\PizzaGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 94bf0000
-    m_LastClickedID: 49044
-    m_ExpandedIDs: 00000000eebd0000f0bd0000f2bd0000f4bd0000f6bd0000f8bd0000
+    m_SelectedIDs: 84bf0000
+    m_LastClickedID: 49028
+    m_ExpandedIDs: 00000000dcbd0000debd0000e0bd0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1193,7 +1193,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000eebd0000f0bd0000f2bd0000f4bd0000f6bd0000f8bd0000
+    m_ExpandedIDs: 00000000dcbd0000debd0000e0bd0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1222,7 +1222,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300000ab7000006b700000000000082b30000fcdf00002edc00001432010066ff0000
+    m_ExpandedInstanceIDs: c62300000ab7000006b700000000000082b30000fcdf00002edc00001432010066ff0000ac270100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
