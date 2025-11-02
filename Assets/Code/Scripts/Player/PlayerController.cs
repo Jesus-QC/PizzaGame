@@ -13,6 +13,7 @@ namespace Assets.Code.Scripts.Player
         public InteractableController InteractableController;
         public ItemsController ItemsController;
         public InterfaceController InterfaceController;
+        public LadderController LadderController;
         
         private void Awake()
         {

@@ -55,6 +55,7 @@
     <Compile Include="Assets\Code\Scripts\Player\ItemsController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\MovementController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableItem.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\LadderController.cs" />
     <Compile Include="Assets\Code\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSit.cs" />
     <Compile Include="Assets\Code\Scripts\UI\InteractableCursor.cs" />
