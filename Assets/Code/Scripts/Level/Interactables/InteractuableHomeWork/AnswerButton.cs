@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class AnswerButton : MonoBehaviour
 {
     [SerializeField] private Text answerText;
+    [SerializeField] private AudioClip correctSound;
+    [SerializeField] private AudioClip incorrectSound;
+    private AudioSource audioSource;
     private Button button;
     public bool isCorrect;
     private Action<bool> onSelected;
@@ -14,7 +17,8 @@ public class AnswerButton : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
-        image  = GetComponent<Image>();
+        image = GetComponent<Image>();
+        audioSource = GetComponent<AudioSource>();
     }
     public void Initialize(string value, bool correct, Action<bool> callback)
     {
@@ -34,5 +38,10 @@ public class AnswerButton : MonoBehaviour
         var img = GetComponent<Image>();
         if (img != null)
             img.color = isCorrect ? Color.green : Color.red;
+
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(isCorrect ? correctSound : incorrectSound);
+        }
     }
 }

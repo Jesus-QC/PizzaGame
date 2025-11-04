@@ -12,21 +12,31 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableHomework : MonoBehaviour, IInteractable
     {
         [Header("UI Elements")]
-        //Necesitamos el texto/imagen para los enunciados, x opciones para elegir, y vidas, tiempo, num de preguntas, etc.
         [SerializeField] private GameObject homeworkPanel;
-        [SerializeField] private Text livesText;
         [SerializeField] private Text timeText;
         [SerializeField] private Slider timeSlider;
+        [SerializeField] private Text questionCounterText;
+        [SerializeField] private Image homeworkPanelBackground;
 
         [Header("Managers")]
         [SerializeField] private QuestionsAndAnswers questionsAndAnswers;
         [SerializeField] private LivesUI livesUI;
+        [SerializeField] private MonoBehaviour cameraController;
 
         [Header("Level Data")]
         [SerializeField] private int totalQuestions;
         [SerializeField] private int timePerQuestionBeginning;
         //[SerializeField] private float timeLimit;
         [SerializeField] private int minTime;
+
+        [Header("Start and End panel")]
+
+        [SerializeField] private GameObject startPanel;
+        [SerializeField] private GameObject finishPanel;
+        [SerializeField] private Text resultText;
+        [SerializeField] private Button startHomeworkButton;
+        [SerializeField] private Button finishButton;
+
 
         private bool answered;
         private int currentQuestion;
@@ -37,17 +47,25 @@ namespace Code.Scripts.Level.Interactables
 
         public void Interact()
         {
-            if (homeworkPanel.activeSelf) return;
-            homeworkPanel.SetActive(true);
+            if (homeworkPanel.activeSelf || startPanel.activeSelf || finishPanel.activeSelf) return;
+            startPanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             GetComponent<Collider>().enabled = false;
+            cameraController.enabled = false;
+
+            startHomeworkButton.onClick.RemoveAllListeners();
+            startHomeworkButton.onClick.AddListener(StartHomework);
+        }
+
+        private void StartHomework()
+        {
+            startPanel.SetActive(false);
+            homeworkPanel.SetActive(true);
             currentQuestion = 0;
             lives = 3;
             livesUI.InitLives(lives);
-            livesText.text = "Lives: " + lives;
             StartCoroutine(HomeworkRoutine());
-
         }
 
 
@@ -62,6 +80,7 @@ namespace Code.Scripts.Level.Interactables
             {
                 answered = false;
                 questionsAndAnswers.GenerateQuestion(OnAnswerSelected);
+                questionCounterText.text = "Pregunta " + (currentQuestion + 1) + " / " + totalQuestions;
 
                 float timeRemaining = currentTimePerQuestion;
                 //Slider, no animar la primera vez (cuando empieza la primera pregunta)
@@ -81,6 +100,16 @@ namespace Code.Scripts.Level.Interactables
                         timeSlider.value = Mathf.Lerp(timeSlider.value, timeRemaining, Time.deltaTime * fillSmoothSpeed);
                     else
                         timeSlider.value = timeRemaining;
+
+                    float percentage = timeRemaining / maxInitialTime;
+
+                    if (percentage < 0.3f)
+                        timeSlider.fillRect.GetComponent<Image>().color = Color.red;
+                    else if (percentage < 0.6f)
+                        timeSlider.fillRect.GetComponent<Image>().color = Color.yellow;
+                    else
+                        timeSlider.fillRect.GetComponent<Image>().color = Color.green;
+
                     yield return null;
                     timeRemaining -= Time.deltaTime;
                 }
@@ -103,6 +132,7 @@ namespace Code.Scripts.Level.Interactables
             {
                 lives--;
                 livesUI.UpdateLivesUI(lives);
+                StartCoroutine(FlashPanelRed());
                 StartCoroutine(NextQuestionDelay());
             }
         }
@@ -110,15 +140,27 @@ namespace Code.Scripts.Level.Interactables
         private IEnumerator NextQuestionDelay()
         {
             yield return new WaitForSeconds(0.5f);
-            currentQuestion++;
+            //currentQuestion++;
         }
 
         private void finishHomework()
         {
             homeworkPanel.SetActive(false);
+            finishPanel.SetActive(true);
+            int correctAnswers = currentQuestion - (3 - lives);
+            resultText.text = "Nota: " + correctAnswers + " / " + totalQuestions;
+
+            finishButton.onClick.RemoveAllListeners();
+            finishButton.onClick.AddListener(CloseHomework);
+        }
+
+        private void CloseHomework()
+        {
+            finishPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             GetComponent<Collider>().enabled = true;
+            cameraController.enabled = true;
         }
 
         //Animar el cambio del slider de tiempo hacia arriba
@@ -137,21 +179,14 @@ namespace Code.Scripts.Level.Interactables
             }
             timeSlider.value = targetValue;
         }
-
-
-        /*
-                public void SetButtonColor(Button button, bool correct)
-                {
-                    /*ColorBlock colors = button.colors;
-                    colors.normalColor = correct ? Color.green : Color.red;  // color cuando no está presionado
-                    colors.highlightedColor = correct ? Color.green : Color.red; // color cuando el cursor pasa por encima
-                    button.colors = colors;
-        Image img = button.GetComponent<Image>();
-        img.sprite = correct? correctSprite : wrongSprite;
+        
+        private IEnumerator FlashPanelRed()
+        {
+            Color originalColor = homeworkPanelBackground.color;
+            homeworkPanelBackground.color = new Color(1f, 0f, 0f, 0.5f);
+            yield return new WaitForSeconds(0.2f);
+            homeworkPanelBackground.color = originalColor;
         }
-        */
 
     }
-
-
 }
