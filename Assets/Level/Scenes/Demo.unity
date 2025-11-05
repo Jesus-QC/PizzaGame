@@ -1921,10 +1921,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 382397905}
-    - target: {fileID: 2730392972192383561, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3253748906788334227, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1933,6 +1929,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1152891471}
+    - target: {fileID: 3396619791375828815, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3650
+      objectReference: {fileID: 0}
     - target: {fileID: 5589243309091396272, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1941,6 +1941,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1586352239}
+    - target: {fileID: 6498255614991844954, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2006
+      objectReference: {fileID: 0}
     - target: {fileID: 6678774582267019192, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1953,17 +1957,25 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 382397905}
+    - target: {fileID: 7995320044365058757, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2009
+      objectReference: {fileID: 0}
     - target: {fileID: 8003456604216301044, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 827948324}
+    - target: {fileID: 8003456604216301044, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2006
+      objectReference: {fileID: 0}
     - target: {fileID: 8622617234891858819, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 164600458}
-    - target: {fileID: 9163549527709728362, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
-      propertyPath: m_projectionMatrixMode
-      value: 1
+    - target: {fileID: 8622617234891858819, guid: 0cda70c13c471004fb0d1182ce713c93, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2009
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
