@@ -5,18 +5,19 @@ namespace Code.Scripts.Level.Interactables
 {
     public class InteractableTV : MonoBehaviour, IInteractable
     {
+        public static bool TvOn;
+
         public VideoPlayer VideoPlayer;
         public AudioSource AudioSource;
         public AudioClip TurnOnOffClip;
-        private bool _isOn;
 
         public bool IsOn
         {
-            get => _isOn;
+            get => TvOn;
             set
             {
-                _isOn = value;
-                if (_isOn) 
+                TvOn = value;
+                if (TvOn) 
                     On();
                 else 
                     Off();

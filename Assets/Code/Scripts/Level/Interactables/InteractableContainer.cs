@@ -14,6 +14,8 @@ namespace Code.Scripts.Level.Interactables
             {
                 AudioSource.PlayOneShot(Clip);
                 Destroy(PlayerController.Instance.ItemsController.HeldObject.gameObject);
+                
+                PlayerController.Instance.TaskController.OnFinishedTakingOutTrash();
             }
         }
     }
