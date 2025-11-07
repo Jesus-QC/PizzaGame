@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Assets.Code.Scripts.Player;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Code.Scripts.Level.Interactables
 {
     public class InteractableHomework : MonoBehaviour, IInteractable
     {
+        public static bool HasStartedHomework = false;
+
         [Header("UI Elements")]
         [SerializeField] private GameObject homeworkPanel;
         [SerializeField] private Text timeText;
@@ -47,11 +45,12 @@ namespace Code.Scripts.Level.Interactables
 
         public void Interact()
         {
-            if (homeworkPanel.activeSelf || startPanel.activeSelf || finishPanel.activeSelf) return;
+            if (homeworkPanel.activeSelf || startPanel.activeSelf || finishPanel.activeSelf || HasStartedHomework) return;
+            HasStartedHomework = true;
+
             startPanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            GetComponent<Collider>().enabled = false;
             cameraController.enabled = false;
 
             startHomeworkButton.onClick.RemoveAllListeners();
@@ -159,8 +158,8 @@ namespace Code.Scripts.Level.Interactables
             finishPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            GetComponent<Collider>().enabled = true;
             cameraController.enabled = true;
+            PlayerController.Instance.TaskController.OnFinishedHomework();
         }
 
         //Animar el cambio del slider de tiempo hacia arriba
@@ -187,6 +186,5 @@ namespace Code.Scripts.Level.Interactables
             yield return new WaitForSeconds(0.2f);
             homeworkPanelBackground.color = originalColor;
         }
-
     }
 }
