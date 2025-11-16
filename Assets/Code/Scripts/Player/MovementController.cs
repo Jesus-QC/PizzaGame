@@ -8,7 +8,9 @@ namespace Assets.Code.Scripts.Player
         public float Speed = 5f;
 
         private Vector2 _inputVector;
-        
+
+        public Vector2 InputVector => _inputVector;
+
         public void OnMove(InputValue value)
         {
             _inputVector = value.Get<Vector2>();

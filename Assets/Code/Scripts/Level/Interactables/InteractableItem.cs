@@ -6,15 +6,9 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableItem : MonoBehaviour, IInteractable
     {
         public const float ThrowForce = 5f;
-        
-        private Rigidbody _rigidbody;
-        private Collider _collider;
-        
-        private void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-            _collider = GetComponentInChildren<Collider>();
-        }
+
+        public GameObject WorldModel;
+        public GameObject ViewModel;
 
         public void Interact()
         {
@@ -23,27 +17,31 @@ namespace Code.Scripts.Level.Interactables
 
         public virtual void OnHeld()
         {
-            if (_rigidbody) _rigidbody.isKinematic = true;
-            if (_collider) _collider.enabled = false;
+            if (WorldModel) WorldModel.SetActive(false);
+            if (ViewModel) ViewModel.SetActive(true);
+
+            transform.SetParent(PlayerController.Instance.CameraController.Camera);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
 
         public virtual void OnDropped()
         {
-            Vector3 dropPosition = PlayerController.Instance.CameraController.Camera.position;
-            dropPosition.y -= 1f;
+            if (WorldModel) WorldModel.SetActive(true);
+            if (ViewModel) ViewModel.SetActive(false);
+
+            Vector3 dropPosition = PlayerController.Instance.CameraController.Camera.position + PlayerController.Instance.CameraController.Camera.forward * 1f;
             transform.position = dropPosition;
             transform.SetParent(null);
-            
-            if (_collider) _collider.enabled = true;
 
-            if (_rigidbody)
-            {
-                _rigidbody.isKinematic = false;
-                if (Camera.main != null)
-                {
-                    _rigidbody.AddForce(PlayerController.Instance.transform.forward * ThrowForce + PlayerController.Instance.PlayerRigidbody.linearVelocity, ForceMode.Impulse);
-                }
-            }
+            if (Camera.main == null)
+                return;
+            
+            Rigidbody rb = GetComponent<Rigidbody>();
+
+            if (!rb)
+                return;
+            
+            rb.AddForce(PlayerController.Instance.transform.forward * ThrowForce + PlayerController.Instance.PlayerRigidbody.linearVelocity, ForceMode.Impulse);
         }
     }
 }

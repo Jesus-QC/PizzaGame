@@ -4,61 +4,51 @@ using UnityEngine;
 
 public class LadderController : MonoBehaviour
 {
-    bool isClimbing = false;
-    Transform ladder;
-    public AudioSource audioSource;
-    public AudioClip clip;
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Ladder") && !isClimbing)
-        {
-            isClimbing = true;
-            ladder = other.transform;
-            GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<MovementController>().enabled = false;
-        }
-    }
+    private const string LadderTag = "Ladder";
+    private const float Speed = 2f;
     
-    void OnTriggerExit(Collider other)
+    private Transform _ladderTransform;
+    private bool _isClimbing;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ladder") && isClimbing)
-            ExitLadder();
+        if (_isClimbing || !other.CompareTag(LadderTag))
+            return;
         
+        _isClimbing = true;
+        _ladderTransform = other.transform;
+        PlayerController.Instance.PlayerRigidbody.useGravity = false;
+        PlayerController.Instance.PlayerRigidbody.linearVelocity = Vector3.zero;
+        PlayerController.Instance.MovementController.enabled = false;
     }
     
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        if (isClimbing && ladder != null)
-        {
-            float verticalInput = Keyboard.current.wKey.isPressed ? 1f : Keyboard.current.sKey.isPressed? -1f : 0f;
-            transform.position += verticalInput * Time.deltaTime * ladder.forward;
-            
-            if (verticalInput != 0f)
-            {
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.clip = clip;
-                    audioSource.loop = true;
-                    audioSource.Play();
-                }
-            }
-            else if (audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
-            
-            if (Keyboard.current.sKey.isPressed && Physics.Raycast(transform.position, Vector3.down, 0.2f))
-                ExitLadder();
-        }
+        if (!_isClimbing || !other.CompareTag(LadderTag))
+            return;
+        
+        ExitLadder();
+    }
+    
+    private void Update()
+    {
+        if (!_isClimbing)
+            return;
+
+        float verticalInput = PlayerController.Instance.MovementController.InputVector.y;
+        transform.position += Speed * Time.deltaTime * verticalInput * _ladderTransform.forward;
+
+        if (!Keyboard.current.sKey.isPressed || !Physics.Raycast(transform.position, Vector3.down, 0.2f)) 
+            return;
+        
+        ExitLadder();
     }
 
-    void ExitLadder()
+    private void ExitLadder()
     {
-        isClimbing = false;
-        ladder = null;
-        GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<MovementController>().enabled = true;
-        audioSource.Stop();
+         _isClimbing = false;
+        _ladderTransform = null;
+        PlayerController.Instance.PlayerRigidbody.useGravity = true;
+        PlayerController.Instance.MovementController.enabled = true;
     }
 }

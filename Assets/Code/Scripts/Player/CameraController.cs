@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Code.Scripts.Enemy;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -50,9 +51,13 @@ namespace Assets.Code.Scripts.Player
             Vector3 direction = (targetPosition - origin).normalized;
             float distance = Vector3.Distance(origin, targetPosition);
 
-            if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
-                return hit.transform == target.transform;
 
+            if (Physics.Raycast(origin, direction, out RaycastHit hit, distance) && hit.transform == target.transform)
+            {
+                UnityEngine.Debug.DrawLine(origin, targetPosition, Color.red);
+                return true;
+            }
+            
             return false;
         }
 
