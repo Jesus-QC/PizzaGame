@@ -56,9 +56,9 @@ namespace Code.Scripts.Level.Interactables
 
             if (_isLocked)
             {
-                if (held.gameObject != Key)
+                if (held == null || held.gameObject != Key)
                 {
-                    Debug.Log("Door is locked! You need the correct key in hand.");
+                    Debug.Log("Door is locked! You need the correct key.");
                     return;
                 }
                 _isLocked = false;
