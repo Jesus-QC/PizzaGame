@@ -9,6 +9,7 @@ TagManager:
   - Drawer
   - Chair
   - Safe
+  - BackDoor
   layers:
   - Default
   - TransparentFX
