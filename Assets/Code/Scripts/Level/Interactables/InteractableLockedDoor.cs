@@ -54,14 +54,14 @@ namespace Code.Scripts.Level.Interactables
 
             var held = PlayerController.Instance.ItemsController.HeldObject;
 
-            if (_isLocked)
+            if (IsLocked)
             {
                 if (held == null || held.gameObject != Key)
                 {
                     Debug.Log("Door is locked! You need the correct key.");
                     return;
                 }
-                _isLocked = false;
+                IsLocked = false;
             }
 
             IsOpen = !IsOpen;
