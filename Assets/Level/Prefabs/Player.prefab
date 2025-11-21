@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322ff17ace42ad54ba999ac2c95c8bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.KeypadController
-  passward: 1234
+  passward: 5927
   safe: {fileID: 0}
 --- !u!1 &404982995096248831
 GameObject:
