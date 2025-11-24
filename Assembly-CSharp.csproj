@@ -42,19 +42,20 @@
     <UnityVersion>6000.2.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Analyzer Include="C:\Users\jingy\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+=======
+    <Analyzer Include="C:\Users\wangl\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.3\Analyzers\Microsoft.Unity.Analyzers.dll" />
+>>>>>>> 9e476494e32d310b866670068ca03262b0acf987
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableTV.cs" />
-    <Compile Include="Assets\Code\Scripts\Dialogue\Data\Dialogue.cs" />
-    <Compile Include="Assets\Code\Scripts\Dialogue\Runtime\DialogueManager.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\AnswerButton.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableDoor.cs" />
-    <Compile Include="Assets\Settings\InputSystem_Actions.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSafe.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDrawer.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\QuestionsAndAnswers.cs" />
