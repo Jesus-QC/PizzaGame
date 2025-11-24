@@ -47,9 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableTV.cs" />
+    <Compile Include="Assets\Code\Scripts\Dialogue\Data\Dialogue.cs" />
+    <Compile Include="Assets\Code\Scripts\Dialogue\Runtime\DialogueManager.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\AnswerButton.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableDoor.cs" />
+    <Compile Include="Assets\Settings\InputSystem_Actions.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSafe.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDrawer.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\QuestionsAndAnswers.cs" />
