@@ -1,4 +1,5 @@
-﻿using Assets.Code.Scripts.Player;
+﻿using System.Collections;
+using Assets.Code.Scripts.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,12 +15,30 @@ namespace Code.Scripts.Level.Interactables
             
             if (image.texture == Image && image.enabled)
             {
-                PlayerController.Instance.InterfaceController.OverlayImage.enabled = false;
+                image.enabled = false;
+                PlayerController.Instance.MovementController.enabled = true;
+                PlayerController.Instance.CameraController.enabled = true;
                 return;
             }
+         
+            PlayerController.Instance.MovementController.enabled = false;
+            PlayerController.Instance.CameraController.enabled = false;
             
-            PlayerController.Instance.InterfaceController.OverlayImage.texture = Image;
-            PlayerController.Instance.InterfaceController.OverlayImage.enabled = true;
+            image.texture = Image;
+            image.enabled = true;
+            
+            RectTransform canvasRect = image.canvas.GetComponent<RectTransform>();
+
+            float imgWidth = Image.width;
+            float imgHeight = Image.height;
+
+            float maxWidth = canvasRect.rect.width * 0.8f;
+            float maxHeight = canvasRect.rect.height * 0.8f;
+
+            float scale = Mathf.Min(maxWidth / imgWidth, maxHeight / imgHeight);
+
+            image.rectTransform.sizeDelta = new Vector2(imgWidth * scale, imgHeight * scale);
+            
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Assets.Code.Scripts.Player
                 if (PlayerController.Instance.InterfaceController.OverlayImage.isActiveAndEnabled)
                 {
                     PlayerController.Instance.InterfaceController.OverlayImage.enabled = false;
+                    PlayerController.Instance.MovementController.enabled = true;
+                    PlayerController.Instance.CameraController.enabled = true;
                     return;
                 }
 

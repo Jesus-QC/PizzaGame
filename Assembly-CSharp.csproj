@@ -52,6 +52,7 @@
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\AnswerButton.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableDoor.cs" />
+    <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSafe.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDrawer.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\QuestionsAndAnswers.cs" />
     <Compile Include="Assets\Code\Scripts\Player\TaskController.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Assets\Code\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDoor_L.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSit.cs" />
+    <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableLockedDoor.cs" />
     <Compile Include="Assets\Code\Scripts\UI\InteractableCursor.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableImage.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobe_R.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableContainer.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\IInteractable.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InterfaceController.cs" />
+    <Compile Include="Assets\Code\Scripts\Player\KeypadController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
