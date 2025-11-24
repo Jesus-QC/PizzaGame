@@ -46,7 +46,7 @@ namespace Code.Scripts.Level.Interactables
             PlayerController.Instance.MovementController.enabled = false;
             PlayerController.Instance.CameraController.enabled = false;
             
-            keypadStudio.SetActive(true);
+            //keypadStudio.SetActive(true);
             keypadCamera.enabled = true;
             keypadPanel.SetActive(true);
             
@@ -59,7 +59,7 @@ namespace Code.Scripts.Level.Interactables
         {
             keypadPanel.SetActive(false);
             keypadCamera.enabled = false;
-            keypadStudio.SetActive(false);
+            //keypadStudio.SetActive(false);
             
             PlayerController.Instance.MovementController.enabled = true;
             PlayerController.Instance.CameraController.enabled = true;

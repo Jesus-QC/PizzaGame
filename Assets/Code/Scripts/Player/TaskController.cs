@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Code.Scripts.Level.Interactables;
 using TMPro;
 using UnityEngine;
@@ -14,9 +15,23 @@ namespace Assets.Code.Scripts.Player
         public TextMeshProUGUI ObjectiveDescription;
         public AudioClip NewTask;
 
-        IEnumerator Start()
+        private void Start()
         {
-            yield return new WaitForSeconds(3f);
+            DialogueManager dialogueManager = FindFirstObjectByType<DialogueManager>();
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded += StartTaskSequence;
+            }
+        }
+        
+        private void StartTaskSequence()
+        {
+            StartCoroutine(TaskSequenceCoroutine());
+        }
+        
+        IEnumerator TaskSequenceCoroutine()
+        {
+            yield return new WaitForSeconds(1f);
 
             if (InteractableHomework.HasStartedHomework)
                 yield break;
@@ -44,7 +59,7 @@ namespace Assets.Code.Scripts.Player
         public void Open()
         {
             TestAnimator.SetBool(OpenAnimation, true);
-            PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask);
+            PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.4f);
         }
 
         public void Close()

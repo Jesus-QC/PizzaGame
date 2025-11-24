@@ -16,6 +16,7 @@ namespace Code.Scripts.Level.Interactables
         private bool _isOpen;
         private bool _isLocked;
         private float _lastInteractionTime;
+        public Dialogue LockedDoor;
 
         public bool IsOpen
         {
@@ -58,6 +59,7 @@ namespace Code.Scripts.Level.Interactables
             {
                 if (held == null || held.gameObject != Key)
                 {
+                    PlayerController.Instance.DialogueManager.StartDialogue(LockedDoor);
                     Debug.Log("Door is locked! You need the correct key.");
                     return;
                 }
