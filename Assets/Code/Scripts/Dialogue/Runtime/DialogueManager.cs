@@ -2,24 +2,28 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using Assets.Code.Scripts.Player;
 
 public class DialogueManager : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TextMeshProUGUI bodyText;
-    public Dialogue openingDialogue;    
-    private PlayerInput playerInput;
+    public Dialogue openingDialogue;
+    public GameObject overlay;
     private Dialogue currentDialogue;
     private int index = 0;
     private bool isActive = false;
     private bool isTyping = false;
     private float typeSpeed = 0.04f;
     private Coroutine typingCoroutine;
+    private Image image;
+    private bool isFirstDialogue = true;
     public event System.Action OnDialogueEnded;
     
     private void Awake()
     {
-        playerInput = FindFirstObjectByType<PlayerInput>();
+        image = overlay.GetComponent<Image>();
     }
     
     void Start()
@@ -28,7 +32,6 @@ public class DialogueManager : MonoBehaviour
         {
             StartDialogue(openingDialogue);
         }
-            
     }
     
     public void OnClick(InputValue value)
@@ -46,6 +49,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        PlayerController.Instance.MovementController.enabled = false;
+        PlayerController.Instance.CameraController.enabled = false;
         currentDialogue = dialogue;
         index = 0;
         if (currentDialogue.lines.Count == 0 || currentDialogue == null)
@@ -54,12 +59,10 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         dialoguePanel.SetActive(true);
+        StartCoroutine(FadeImage(0.3f, 0.4f));
         isActive = true;
         ShowLine();
-        if (playerInput != null)
-        {
-            playerInput.SwitchCurrentActionMap("UI");
-        }
+
     }
     
     private void NextLine()
@@ -95,14 +98,18 @@ public class DialogueManager : MonoBehaviour
     
     private void EndDialogue()
     {
+        StartCoroutine(FadeImage(0f, 0.4f));
         dialoguePanel.SetActive(false);
         currentDialogue = null;
         isActive = false;
-        if (playerInput != null)
+        if (isFirstDialogue)
         {
-            playerInput.SwitchCurrentActionMap("Player");
+            isFirstDialogue = false;
+            OnDialogueEnded?.Invoke();
         }
-        OnDialogueEnded?.Invoke();
+        PlayerController.Instance.MovementController.enabled = true;
+        PlayerController.Instance.CameraController.enabled = true;
+        
     }
     
     public void SkipTyping()
@@ -114,5 +121,25 @@ public class DialogueManager : MonoBehaviour
             isTyping = false;
         }
     }
+    
+    
+    private IEnumerator FadeImage(float targetAlpha, float duration)
+    {
+        Color color = image.color;
+        float startAlpha = color.a;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
+            image.color = color;
+            yield return null;
+        }
+
+        color.a = targetAlpha;
+        image.color = color;
+    }
+
 
 }

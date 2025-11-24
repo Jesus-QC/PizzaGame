@@ -16,6 +16,7 @@ namespace Assets.Code.Scripts.Player
         public LadderController LadderController;
         public TaskController TaskController;
         public KeypadController KeypadController;
+        public DialogueManager DialogueManager;
         
         private void Awake()
         {

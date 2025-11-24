@@ -10,10 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebf4a1545b3b50b49a8d3bf91e1f3897, type: 3}
-  m_Name: OpeningDialogue
+  m_Name: LockedDoor
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - text: 
-  - text: Esto es dialogo1Esto es dialogo1Esto es dialogo1Esto es dialogo1
-  - text: Esto es dialogo2Esto es dialogo2Esto es dialogo2Esto es dialogo2
-  - text: Esto es dialogo3Esto es dialogo3Esto es dialogo3Esto es dialogo3
+  - text: The door is locked, i need the key.
