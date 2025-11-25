@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using Code.Scripts.Checkpoint;
+using UnityEngine;
 
 namespace Code.Scripts.Level.Interactables
 {
-    public class InteractableDoor : MonoBehaviour, IInteractable
+    public class InteractableDoor : MonoBehaviour, IInteractable, ISaveable
     {
+        [SerializeField] private string _id;
+        public string id => _id;
+        
         private const float CooldownTime = 0.5f;
         
         private static readonly int OpenAnimation = Animator.StringToHash("Open");
@@ -47,6 +51,20 @@ namespace Code.Scripts.Level.Interactables
         private void Close()
         {
             AudioSource.PlayOneShot(CloseClip);
+        }
+
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id] = _isOpen;
+        }
+        
+        public void Load(GameStateData data)
+        {
+            if (data.interactableStates.ContainsKey(id))
+            {
+                _isOpen = data.interactableStates[id];
+                DoorAnimator.SetBool(OpenAnimation, _isOpen);
+            }
         }
     }
 }

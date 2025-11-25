@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.Video;
+using Code.Scripts.Checkpoint;
 
 namespace Code.Scripts.Level.Interactables
 {
-    public class InteractableTV : MonoBehaviour, IInteractable
+    public class InteractableTV : MonoBehaviour, IInteractable, ISaveable
     {
+        [SerializeField] private string _id;
+        public string id => _id;
+        
         public static bool TvOn;
 
         public VideoPlayer VideoPlayer;
@@ -45,6 +49,31 @@ namespace Code.Scripts.Level.Interactables
             VideoPlayer.targetMaterialRenderer.enabled = false;
             
             AudioSource.PlayOneShot(TurnOnOffClip);
+        }
+        
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id] = TvOn;
+        }
+        
+        public void Load(GameStateData data)
+        {
+            if (data.interactableStates.ContainsKey(id))
+            {
+                TvOn = data.interactableStates[id];
+
+                if (TvOn)
+                {
+                    VideoPlayer.targetMaterialRenderer.enabled = true;
+                    VideoPlayer.isLooping = true;
+                    VideoPlayer.Play();
+                }
+                else
+                {
+                    VideoPlayer.Pause();
+                    VideoPlayer.targetMaterialRenderer.enabled = false;
+                }
+            }
         }
     }
 }

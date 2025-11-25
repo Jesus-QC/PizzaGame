@@ -54,19 +54,7 @@ namespace Assets.Code.Scripts.Player
             
             Close();
         }
-
-
-        public void Open()
-        {
-            TestAnimator.SetBool(OpenAnimation, true);
-            PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.4f);
-        }
-
-        public void Close()
-        {
-            TestAnimator.SetBool(OpenAnimation, false);
-        }
-
+        
         public void OnFinishedHomework()
         {
             StartCoroutine(FinishHomeworkCoroutine());
@@ -127,6 +115,17 @@ namespace Assets.Code.Scripts.Player
             ObjectiveTitle.text = "NEXT_TASK_TITLE";
             ObjectiveDescription.text = "NEXT_TASK_DESCRIPTION";
             Open();
+        }
+        
+        public void Open()
+        {
+            TestAnimator.SetBool(OpenAnimation, true);
+            PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.3f);
+        }
+
+        public void Close()
+        {
+            TestAnimator.SetBool(OpenAnimation, false);
         }
     }
 }

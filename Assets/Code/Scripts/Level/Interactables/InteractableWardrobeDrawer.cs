@@ -1,9 +1,13 @@
 using UnityEngine;
+using Code.Scripts.Checkpoint;
 
 namespace Code.Scripts.Level.Interactables
 {
-    public class InteractableWardrobeDrawer : MonoBehaviour, IInteractable
+    public class InteractableWardrobeDrawer : MonoBehaviour, IInteractable, ISaveable
     {
+        [SerializeField] private string _id;
+        public string id => _id;
+        
         private const float CooldownTime = 0.5f;
         
         private static readonly int OpenAnimation = Animator.StringToHash("OPEN_Drawer");
@@ -47,6 +51,19 @@ namespace Code.Scripts.Level.Interactables
         private void Close()
         {
             AudioSource.PlayOneShot(CloseClip);
+        }
+        
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id] = _isOpen;
+        }
+        
+        public void Load(GameStateData data)
+        {
+            if (data.interactableStates.ContainsKey(id))
+            {
+                IsOpen = (bool)data.interactableStates[id];
+            }
         }
     }
 }

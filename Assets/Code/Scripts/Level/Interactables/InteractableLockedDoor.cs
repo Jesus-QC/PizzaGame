@@ -1,10 +1,14 @@
 ﻿using Assets.Code.Scripts.Player;
 using UnityEngine;
+using Code.Scripts.Checkpoint;
 
 namespace Code.Scripts.Level.Interactables
 {
-    public class InteractableLockedDoor : MonoBehaviour, IInteractable
+    public class InteractableLockedDoor : MonoBehaviour, IInteractable, ISaveable
     {
+        [SerializeField] private string _id;
+        public string id => _id;
+        
         private const float CooldownTime = 0.5f;
         
         private static readonly int OpenAnimation = Animator.StringToHash("Open");
@@ -17,6 +21,7 @@ namespace Code.Scripts.Level.Interactables
         private bool _isLocked;
         private float _lastInteractionTime;
         public Dialogue LockedDoor;
+        private bool _initialized;
 
         public bool IsOpen
         {
@@ -45,7 +50,10 @@ namespace Code.Scripts.Level.Interactables
 
         public void Start ()
         {
-            IsLocked = true;
+            if (!_initialized)
+            {
+                IsLocked = true;
+            }
         }
 
         public void Interact()
@@ -77,6 +85,23 @@ namespace Code.Scripts.Level.Interactables
         private void Close()
         {
             AudioSource.PlayOneShot(CloseClip);
+        }
+        
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id+"_open"] = _isOpen;
+            data.interactableStates[id+"_locked"] = _isLocked;
+        }
+        
+        public void Load(GameStateData data)
+        {
+            _isOpen = data.interactableStates[id + "_open"];
+
+            _isLocked = data.interactableStates[id + "_locked"];
+
+            DoorAnimator.SetBool(OpenAnimation, _isOpen);
+            
+            _initialized = true;
         }
     }
 }
