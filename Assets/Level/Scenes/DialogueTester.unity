@@ -3885,6 +3885,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trash Bag
       objectReference: {fileID: 0}
+    - target: {fileID: 4939085952014375793, guid: 7bb3fc08236648444853c10d11a4c940, type: 3}
+      propertyPath: m_TagString
+      value: Trash
+      objectReference: {fileID: 0}
     - target: {fileID: 5746866000410706379, guid: 7bb3fc08236648444853c10d11a4c940, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25000003
@@ -4858,6 +4862,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505397360}
     m_Modifications:
+    - target: {fileID: 357558283434460131, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
+      propertyPath: _id
+      value: AS
+      objectReference: {fileID: 0}
+    - target: {fileID: 2319167507558051993, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
+      propertyPath: _id
+      value: DS
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477627013751549336, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
+      propertyPath: _id
+      value: GR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592366956624116255, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
+      propertyPath: _id
+      value: PUPI
+      objectReference: {fileID: 0}
     - target: {fileID: 7893671476369902782, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
       propertyPath: m_Name
       value: "\u0421ommode_B (1)"
@@ -4905,6 +4925,14 @@ PrefabInstance:
     - target: {fileID: 7893671476370264222, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8709605574379283216, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
+      propertyPath: _id
+      value: GFA
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005875247359782147, guid: 924b1c0abc91a33409e309dd08bc9600, type: 3}
+      propertyPath: _id
+      value: IT
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8553,13 +8581,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2733715901686775316, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1336488855}
     - target: {fileID: 4961156567991178947, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -4.458515
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8567,7 +8599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.68
+      value: 4.627913
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8762,7 +8794,7 @@ MonoBehaviour:
   homeworkPanelBackground: {fileID: 1717151494}
   questionsAndAnswers: {fileID: 837665746}
   livesUI: {fileID: 936177984}
-  cameraController: {fileID: 7959224048986760721}
+  cameraController: {fileID: 7052601155127632409}
   totalQuestions: 10
   timePerQuestionBeginning: 10
   minTime: 3
@@ -19511,17 +19543,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6943f2293940fa8b1be18a25f00610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.GameStateController
---- !u!114 &7959224048986760721 stripped
+--- !u!114 &7052601155127632409 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5535889601871755505, guid: adbbfd22569566b4fbd467542e8bfac5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8111019197058388658, guid: adbbfd22569566b4fbd467542e8bfac5, type: 3}
   m_PrefabInstance: {fileID: 2888769265094284550}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1336488855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
 --- !u!1 &8439599274203539524 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3515325744543057737, guid: adbbfd22569566b4fbd467542e8bfac5, type: 3}
