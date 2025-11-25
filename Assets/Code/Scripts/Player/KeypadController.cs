@@ -42,6 +42,7 @@ namespace Assets.Code.Scripts.Player
                 safe.GetComponent<AudioSource>().PlayOneShot(openSafe);
                 safe.GetComponent<InteractableSafe>().CloseKeypad();
                 SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
+                PlayerController.Instance.GameStateController.SaveGame();
             } 
             else
             {
@@ -67,14 +68,11 @@ namespace Assets.Code.Scripts.Player
 
         public void Load(GameStateData data)
         {
-            if (data.interactableStates.ContainsKey(id))
+            data.interactableStates.TryGetValue(id, out isSolved);
+            if (isSolved)
             {
-                isSolved = data.interactableStates[id];
-                if (isSolved)
-                {
-                    safe.GetComponent<Animator>().Play("OpenSafe");
-                    SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
-                }
+                safe.GetComponent<Animator>().Play("OpenSafe");
+                SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
             }
         }
     }

@@ -10,15 +10,27 @@ namespace Code.Scripts.Checkpoint
 
         public static void Save(GameStateData data)
         {
+            data.BeforeSave();
+            
             string json = JsonUtility.ToJson(data);
+            Debug.Log($"[SaveManager.Save] Path={FilePath}, json={json}");
             File.WriteAllText(FilePath, json, Encoding.UTF8);
         }
 
         public static GameStateData Load()
         {
-            if (!File.Exists(FilePath)) return null;
+            if (!File.Exists(FilePath))
+            {
+                Debug.Log($"[SaveManager.Load] No existe archivo en {FilePath}");
+                return null;
+            }
             string json = File.ReadAllText(FilePath, Encoding.UTF8);
-            return JsonUtility.FromJson<GameStateData>(json);
+            Debug.Log($"[SaveManager.Load] Leído json={json}");
+            
+            GameStateData data = JsonUtility.FromJson<GameStateData>(json);
+            data.AfterLoad();
+
+            return data;
         }
         
         public static bool SaveExists()

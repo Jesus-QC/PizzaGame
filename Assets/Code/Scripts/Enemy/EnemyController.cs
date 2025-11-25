@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Assets.Code.Scripts.Player;
 
 namespace Code.Scripts.Enemy
 {
@@ -10,8 +11,12 @@ namespace Code.Scripts.Enemy
 
         public AudioSource EffectsSource;
         public AudioClip StingerEffect;
-
+        public GameObject Player;
+        private float limitDistance = 1.5f;
+        
         private bool _seenByPlayer;
+        private bool _tooClose;
+        private bool _hasTriggeredLoad;
 
         public float TimeSinceLastSeen { get; private set; } = MinStingerInterval;
 
@@ -47,12 +52,21 @@ namespace Code.Scripts.Enemy
         void Update()
         {
             TimeSinceLastSeen += Time.deltaTime;
+            
+            float distance = Vector3.Distance(Player.transform.position, transform.position);
+            _tooClose = distance < limitDistance;
 
+            if (_tooClose && _seenByPlayer && !_hasTriggeredLoad)
+            {
+                _hasTriggeredLoad = true;
+                PlayerController.Instance.OnkilledByEnemy();
+                _hasTriggeredLoad = false;
+            }
+            
             if (_seenByPlayer || !EffectsSource.isPlaying)
                 return;
-            
-            EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
 
+            EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
             if (EffectsSource.volume <= 0)
                 EffectsSource.Stop();
         }

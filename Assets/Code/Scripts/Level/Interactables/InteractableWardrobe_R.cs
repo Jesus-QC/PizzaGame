@@ -6,18 +6,16 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableWardrobeDoor_R : MonoBehaviour, IInteractable, ISaveable
     {
         [SerializeField] private string _id;
-        public string id => _id;
-        
-        private const float CooldownTime = 0.5f;
-        
-        private static readonly int OpenAnimation = Animator.StringToHash("OPEN_R");
+        public string id => string.IsNullOrEmpty(_id) ? gameObject.name : _id;
         
         public AudioSource AudioSource;
         public AudioClip OpenClip, CloseClip;
         public Animator DoorAnimator;
+        private const float CooldownTime = 0.5f;
+        private static readonly int OpenAnimation = Animator.StringToHash("OPEN_R");
+        private float _lastInteractionTime;
 
         private bool _isOpen;
-        private float _lastInteractionTime;
 
         public bool IsOpen
         {
@@ -60,10 +58,9 @@ namespace Code.Scripts.Level.Interactables
         
         public void Load(GameStateData data)
         {
-            if (data.interactableStates.ContainsKey(id))
-            {
-                IsOpen = data.interactableStates[id];
-            }
+            data.interactableStates.TryGetValue(id, out _isOpen);
+            DoorAnimator.SetBool(OpenAnimation, _isOpen);
+            
         }
     }
 }

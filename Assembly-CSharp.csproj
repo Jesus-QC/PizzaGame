@@ -52,6 +52,7 @@
     <Compile Include="Assets\Code\Scripts\Dialogue\Dialogue.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\SaveManager.cs" />
+    <Compile Include="Assets\Code\Scripts\Checkpoint\SerializableBoolDictionary.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\GameStateData.cs" />
     <Compile Include="Assets\Settings\InputSystem_Actions.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSafe.cs" />

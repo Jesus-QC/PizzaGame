@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections;
+using Code.Scripts.Checkpoint;
 using Code.Scripts.Level.Interactables;
 using TMPro;
 using UnityEngine;
 
 namespace Assets.Code.Scripts.Player
 {
-    public class TaskController : MonoBehaviour
+    public class TaskController : MonoBehaviour, ISaveable
     {
+        [SerializeField] private string _id;
+        public string id => string.IsNullOrEmpty(_id) ? gameObject.name : _id;
+        
         private static readonly int OpenAnimation = Animator.StringToHash("Open");
-
         public Animator TestAnimator;
         public TextMeshProUGUI ObjectiveTitle;
         public TextMeshProUGUI ObjectiveDescription;
         public AudioClip NewTask;
+        private bool finishedHomework = false;
+        private bool finishedTakingOutTrash = false;
+        private bool finishedWatchTV = false;
 
         private void Start()
         {
@@ -31,7 +37,7 @@ namespace Assets.Code.Scripts.Player
         
         IEnumerator TaskSequenceCoroutine()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
 
             if (InteractableHomework.HasStartedHomework)
                 yield break;
@@ -57,6 +63,8 @@ namespace Assets.Code.Scripts.Player
         
         public void OnFinishedHomework()
         {
+            finishedHomework = true;
+            PlayerController.Instance.GameStateController.SaveGame();
             StartCoroutine(FinishHomeworkCoroutine());
         }
 
@@ -80,6 +88,8 @@ namespace Assets.Code.Scripts.Player
 
         public void OnFinishedTakingOutTrash()
         {
+            finishedTakingOutTrash = true;
+            PlayerController.Instance.GameStateController.SaveGame();
             StartCoroutine(FinishTakingOutTrashCoroutine());
         }
 
@@ -111,6 +121,7 @@ namespace Assets.Code.Scripts.Player
 
                 yield return null;
             }
+            finishedWatchTV = true;
 
             ObjectiveTitle.text = "NEXT_TASK_TITLE";
             ObjectiveDescription.text = "NEXT_TASK_DESCRIPTION";
@@ -126,6 +137,33 @@ namespace Assets.Code.Scripts.Player
         public void Close()
         {
             TestAnimator.SetBool(OpenAnimation, false);
+        }
+        
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id+"_homework"] = finishedHomework;
+            data.interactableStates[id+"_trash"] = finishedTakingOutTrash;
+            data.interactableStates[id+"_tv"] = finishedWatchTV;
+        }
+
+        public void Load(GameStateData data)
+        {
+            data.interactableStates.TryGetValue(id+"_homework", out finishedHomework);
+            data.interactableStates.TryGetValue(id+"_trash", out finishedTakingOutTrash);
+            data.interactableStates.TryGetValue(id+"_tv", out finishedWatchTV);
+           
+            if (!finishedHomework)
+            {
+                StartCoroutine(TaskSequenceCoroutine());
+            } 
+            else if (!finishedTakingOutTrash)
+            {
+                StartCoroutine(FinishHomeworkCoroutine());
+            }
+            else if (!finishedWatchTV)
+            {
+                StartCoroutine(FinishTakingOutTrashCoroutine());
+            }
         }
     }
 }

@@ -7,20 +7,19 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableLockedDoor : MonoBehaviour, IInteractable, ISaveable
     {
         [SerializeField] private string _id;
-        public string id => _id;
-        
-        private const float CooldownTime = 0.5f;
-        
-        private static readonly int OpenAnimation = Animator.StringToHash("Open");
+        public string id => string.IsNullOrEmpty(_id) ? gameObject.name : _id;
         
         public AudioSource AudioSource;
         public AudioClip OpenClip, CloseClip;
         public Animator DoorAnimator;
         public GameObject Key;
+        public Dialogue LockedDoor;
+        private const float CooldownTime = 0.5f;
+        private static readonly int OpenAnimation = Animator.StringToHash("Open");
+        private float _lastInteractionTime;
+        
         private bool _isOpen;
         private bool _isLocked;
-        private float _lastInteractionTime;
-        public Dialogue LockedDoor;
         private bool _initialized;
 
         public bool IsOpen
@@ -95,12 +94,9 @@ namespace Code.Scripts.Level.Interactables
         
         public void Load(GameStateData data)
         {
-            _isOpen = data.interactableStates[id + "_open"];
-
-            _isLocked = data.interactableStates[id + "_locked"];
-
+            data.interactableStates.TryGetValue(id+"_open", out _isOpen);
+            data.interactableStates.TryGetValue(id+"_locked", out _isLocked);
             DoorAnimator.SetBool(OpenAnimation, _isOpen);
-            
             _initialized = true;
         }
     }

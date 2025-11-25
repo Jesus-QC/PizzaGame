@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Assets.Code.Scripts.Player
 {
@@ -22,6 +23,11 @@ namespace Assets.Code.Scripts.Player
         private void Awake()
         {
             Instance = this;
+        }
+        
+        public void OnkilledByEnemy()
+        {
+            GameStateController.LoadIfExists();
         }
     }
 }

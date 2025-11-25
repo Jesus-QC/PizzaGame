@@ -6,9 +6,10 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableSafe : MonoBehaviour, IInteractable
     {
 
-        public static bool _isDecoding;
         public GameObject keypadPanel;
         public Camera keypadCamera;
+        
+        private bool _isDecoding;
         
         public bool IsDecoding
         {

@@ -11,7 +11,19 @@ namespace Code.Scripts.Checkpoint
         public Vector3 playerPosition;
         public Quaternion playerRotation;
         
+        public SerializableBoolDictionary interactableStatesSerialized = new SerializableBoolDictionary();
+        
+        [NonSerialized]
         public Dictionary<string, bool> interactableStates = new Dictionary<string, bool>();
         
+        public void BeforeSave()
+        {
+            interactableStatesSerialized.FromDictionary(interactableStates);
+        }
+        
+        public void AfterLoad()
+        {
+            interactableStates = interactableStatesSerialized.ToDictionary();
+        }
     }
 }

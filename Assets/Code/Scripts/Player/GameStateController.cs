@@ -11,11 +11,12 @@ namespace Assets.Code.Scripts.Player
     {
         private List<ISaveable> _saveables = new List<ISaveable>();
 
+        
         private void Start()
         {
-            RegisterSaveables();
-            LoadIfExists();
+            SaveGame();
         }
+         
 
         private void RegisterSaveables()
         {
@@ -27,6 +28,7 @@ namespace Assets.Code.Scripts.Player
 
         public void SaveGame()
         {
+            RegisterSaveables();
             GameStateData data = new GameStateData
             {
                 currentScene = SceneManager.GetActiveScene().name,
@@ -38,21 +40,33 @@ namespace Assets.Code.Scripts.Player
             {
                 saveable.Save(data);
             }
+            
+            
+            Debug.Log($"[SaveGame] Scene={data.currentScene}, pos={data.playerPosition}, rot={data.playerRotation}, keys={data.interactableStates.Count}");
+            foreach (var kvp in data.interactableStates)
+                Debug.Log($"[SaveGame] key={kvp.Key}, value={kvp.Value}");
 
             SaveManager.Save(data);
         }
 
-        private void LoadIfExists()
+        public void LoadIfExists()
         {
             GameStateData data = SaveManager.Load();
             if (data == null)
                 return;
+            
+            Debug.Log($"[LoadIfExists] Scene={data.currentScene}, pos={data.playerPosition}, rot={data.playerRotation}, keys={data.interactableStates.Count}");
+            foreach (var kvp in data.interactableStates)
+                Debug.Log($"[LoadIfExists] key={kvp.Key}, value={kvp.Value}");
 
+            RegisterSaveables();
+            
             PlayerController.Instance.transform.position = data.playerPosition;
             PlayerController.Instance.transform.rotation = data.playerRotation;
 
             foreach (ISaveable saveable in _saveables)
             {
+                Debug.Log($"[LoadIfExists] Llamando Load() en {saveable.id}");
                 saveable.Load(data);
             }
         }

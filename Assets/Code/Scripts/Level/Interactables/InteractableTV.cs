@@ -7,13 +7,13 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableTV : MonoBehaviour, IInteractable, ISaveable
     {
         [SerializeField] private string _id;
-        public string id => _id;
+        public string id => string.IsNullOrEmpty(_id) ? gameObject.name : _id;
         
-        public static bool TvOn;
-
         public VideoPlayer VideoPlayer;
         public AudioSource AudioSource;
         public AudioClip TurnOnOffClip;
+
+        public static bool TvOn;
 
         public bool IsOn
         {
@@ -58,22 +58,19 @@ namespace Code.Scripts.Level.Interactables
         
         public void Load(GameStateData data)
         {
-            if (data.interactableStates.ContainsKey(id))
+            data.interactableStates.TryGetValue(id, out TvOn);
+            if (TvOn)
             {
-                TvOn = data.interactableStates[id];
-
-                if (TvOn)
-                {
-                    VideoPlayer.targetMaterialRenderer.enabled = true;
-                    VideoPlayer.isLooping = true;
-                    VideoPlayer.Play();
-                }
-                else
-                {
-                    VideoPlayer.Pause();
-                    VideoPlayer.targetMaterialRenderer.enabled = false;
-                }
+                VideoPlayer.targetMaterialRenderer.enabled = true;
+                VideoPlayer.isLooping = true;
+                VideoPlayer.Play();
             }
+            else
+            {
+                VideoPlayer.Pause();
+                VideoPlayer.targetMaterialRenderer.enabled = false;
+            }
+            
         }
     }
 }
