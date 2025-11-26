@@ -4369,7 +4369,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3746
+  m_VersionIndex: 3755
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5077,7 +5077,7 @@ MonoBehaviour:
   bodyText: {fileID: 8340428700045611523}
   openingDialogue: {fileID: 11400000, guid: 478bacb31e026c644bd52c6ccb99eb65, type: 2}
   audioSource: {fileID: 2388493118888420345}
-  typeSound: {fileID: 8300000, guid: 1e62683da0bcb0d4c9b81b79ebe7104b, type: 3}
+  typeSound: {fileID: 8300000, guid: 146fd946f367b6a4bae9b217f5df85dd, type: 3}
 --- !u!114 &2516176656849075104
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,8 +43,6 @@ namespace Assets.Code.Scripts.Player
             
             
             Debug.Log($"[SaveGame] Scene={data.currentScene}, pos={data.playerPosition}, rot={data.playerRotation}, keys={data.interactableStates.Count}");
-            foreach (var kvp in data.interactableStates)
-                Debug.Log($"[SaveGame] key={kvp.Key}, value={kvp.Value}");
 
             SaveManager.Save(data);
         }
@@ -56,8 +54,6 @@ namespace Assets.Code.Scripts.Player
                 return;
             
             Debug.Log($"[LoadIfExists] Scene={data.currentScene}, pos={data.playerPosition}, rot={data.playerRotation}, keys={data.interactableStates.Count}");
-            foreach (var kvp in data.interactableStates)
-                Debug.Log($"[LoadIfExists] key={kvp.Key}, value={kvp.Value}");
 
             RegisterSaveables();
             
@@ -66,7 +62,6 @@ namespace Assets.Code.Scripts.Player
 
             foreach (ISaveable saveable in _saveables)
             {
-                Debug.Log($"[LoadIfExists] Llamando Load() en {saveable.id}");
                 saveable.Load(data);
             }
         }

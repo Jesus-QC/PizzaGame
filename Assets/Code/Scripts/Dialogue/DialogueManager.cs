@@ -90,7 +90,7 @@ public class DialogueManager : MonoBehaviour
         {
             bodyText.text += c;
             counter++;
-            if (counter % 3 == 0)
+            if (counter % 4 == 0)
             {
                 audioSource.PlayOneShot(typeSound);
             }

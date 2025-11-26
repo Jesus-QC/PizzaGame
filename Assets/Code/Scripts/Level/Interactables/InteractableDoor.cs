@@ -54,14 +54,12 @@ namespace Code.Scripts.Level.Interactables
         public void Save(GameStateData data)
         {
             data.interactableStates[id] = _isOpen;
-            Debug.Log("Saved door " + id + " state: " + _isOpen);
         }
         
         public void Load(GameStateData data)
         {
             data.interactableStates.TryGetValue(id, out _isOpen);
             DoorAnimator.SetBool(OpenAnimation, _isOpen);
-            Debug.Log("Loaded door " + id + " state: " + _isOpen);
             
         }
     }

@@ -12,10 +12,15 @@ namespace Code.Scripts.Enemy
         public AudioSource EffectsSource;
         public AudioClip StingerEffect;
         public GameObject Player;
-        private float limitDistance = 1.5f;
-        
+        public GameObject PlayerBody;
+        public Transform EnemyNeck;
+        private float viewDistance = 10f;
+        private float viewAngle = 22.5f;
+        private float headTurnSpeed = 10f;
+        private int _direction = 1;
+        private float _currentAngle = 0f;
+        private float radius = 0.2f;
         private bool _seenByPlayer;
-        private bool _tooClose;
         private bool _hasTriggeredLoad;
 
         public float TimeSinceLastSeen { get; private set; } = MinStingerInterval;
@@ -38,7 +43,7 @@ namespace Code.Scripts.Enemy
                         EffectsSource.PlayDelayed(5);
                         EffectsSource.PlayOneShot(StingerEffect);
                     }
-                }
+                } 
 
                 TimeSinceLastSeen = 0f;
             }
@@ -51,24 +56,73 @@ namespace Code.Scripts.Enemy
 
         void Update()
         {
-            TimeSinceLastSeen += Time.deltaTime;
-            
-            float distance = Vector3.Distance(Player.transform.position, transform.position);
-            _tooClose = distance < limitDistance;
+            RotateHead();
 
-            if (_tooClose && _seenByPlayer && !_hasTriggeredLoad)
+            HandleVision();
+            
+        }
+
+        private void RotateHead()
+        {
+            float angle = headTurnSpeed * Time.deltaTime * _direction;
+            _currentAngle += angle;
+            
+            EnemyNeck.Rotate(Vector3.up, angle);
+            
+            if (Mathf.Abs(_currentAngle) > viewAngle)
             {
-                _hasTriggeredLoad = true;
-                PlayerController.Instance.OnkilledByEnemy();
-                _hasTriggeredLoad = false;
+                _direction *= -1;
             }
-            
-            if (_seenByPlayer || !EffectsSource.isPlaying)
-                return;
+        }
 
-            EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
-            if (EffectsSource.volume <= 0)
-                EffectsSource.Stop();
+        private void HandleVision()
+        {
+            TimeSinceLastSeen += Time.deltaTime;
+
+            Vector3 distance = Player.transform.position - EnemyNeck.position;
+            float distanceToPlayer = distance.magnitude;
+
+            if (distanceToPlayer > viewDistance)
+            {
+                IsBeingSeen = false;
+                EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
+                if (EffectsSource.volume <= 0)
+                    EffectsSource.Stop();
+                return;
+            }
+
+            distance.Normalize();
+            float angleToPlayer = Vector3.Angle(EnemyNeck.forward, distance);
+            if (angleToPlayer > viewAngle)
+            {
+                IsBeingSeen = false;
+                EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
+                if (EffectsSource.volume <= 0)
+                    EffectsSource.Stop();
+                return;
+            }
+
+            Ray ray = new Ray(EnemyNeck.position, EnemyNeck.forward);
+            
+            if (Physics.SphereCast(ray, radius, out RaycastHit hit, viewDistance))
+            {
+                
+                if (hit.collider.gameObject == PlayerBody)
+                {
+                    IsBeingSeen = true;
+
+                    if (!_hasTriggeredLoad)
+                    {
+                        _hasTriggeredLoad = true;
+                        PlayerController.Instance.OnkilledByEnemy();
+                        _hasTriggeredLoad = false;
+                    }
+
+                    return;
+                }
+            }
+
+            IsBeingSeen = false;
         }
     }
 }

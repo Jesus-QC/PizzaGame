@@ -13,7 +13,6 @@ namespace Code.Scripts.Checkpoint
             data.BeforeSave();
             
             string json = JsonUtility.ToJson(data);
-            Debug.Log($"[SaveManager.Save] Path={FilePath}, json={json}");
             File.WriteAllText(FilePath, json, Encoding.UTF8);
         }
 
@@ -21,11 +20,9 @@ namespace Code.Scripts.Checkpoint
         {
             if (!File.Exists(FilePath))
             {
-                Debug.Log($"[SaveManager.Load] No existe archivo en {FilePath}");
                 return null;
             }
             string json = File.ReadAllText(FilePath, Encoding.UTF8);
-            Debug.Log($"[SaveManager.Load] Leído json={json}");
             
             GameStateData data = JsonUtility.FromJson<GameStateData>(json);
             data.AfterLoad();
