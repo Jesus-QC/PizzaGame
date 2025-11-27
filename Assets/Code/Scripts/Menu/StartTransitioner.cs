@@ -5,6 +5,8 @@ namespace Code.Scripts.Menu
 {
     public class StartTransitioner : MonoBehaviour
     {
+        private static int AnimatorStartHash = Animator.StringToHash("Start");
+
         public static StartTransitioner Instance;
 
         public Animator TransitionAnimator;
@@ -18,7 +20,7 @@ namespace Code.Scripts.Menu
 
         public void StartTransitionToScene(string sceneName)
         {
-            TransitionAnimator.SetTrigger("Start");
+            TransitionAnimator.SetTrigger(AnimatorStartHash);
             StartCoroutine(TransitionCoroutine(sceneName));
         }
 
