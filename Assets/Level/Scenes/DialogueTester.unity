@@ -4676,6 +4676,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42421d01c35b99c489b47a31161821c5, type: 3}
+--- !u!1 &602809369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7045467097509719004, guid: a5096e9ecfe0bf643b697437d36e8fb3, type: 3}
+  m_PrefabInstance: {fileID: 5521641227064603492}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &604849092
 Mesh:
   m_ObjectHideFlags: 0
@@ -8585,6 +8590,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 4939417093926136907}
+    - target: {fileID: 2733715901686775316, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
+      propertyPath: PlayerBody
+      value: 
+      objectReference: {fileID: 602809369}
     - target: {fileID: 4961156567991178947, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_Name
       value: Enemy
