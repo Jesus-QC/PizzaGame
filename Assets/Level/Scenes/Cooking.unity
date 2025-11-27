@@ -674,10 +674,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f1105377ce0304686c2f5ca706f20f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSource: {fileID: 533733217}
   DoughAnimator: {fileID: 308668211}
   KnifeAnimator: {fileID: 0}
   KeyPopUp: {fileID: 1656561120}
   BadPopUp: {fileID: 305319663}
+  SuccessClip: {fileID: 8300000, guid: 7333e66f5c4acfd4894d28ee130dd16e, type: 3}
 --- !u!114 &533733219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,7 +1064,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 536870912
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2183,7 +2185,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 536870912
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

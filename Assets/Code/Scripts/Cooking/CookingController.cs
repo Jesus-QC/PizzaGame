@@ -8,10 +8,12 @@ namespace Code.Scripts.Cooking
     {
         private static int AnimatorNextHash = Animator.StringToHash("Next");
 
+        public AudioSource SoundSource;
         public Animator DoughAnimator;
         public Animator KnifeAnimator;
         public KeyPopUp KeyPopUp;
         public BadPopUp BadPopUp;
+        public AudioClip SuccessClip;
 
         private CookingStep _currentStep = CookingStep.NotStarted;
         private bool _locked = true;
@@ -88,6 +90,7 @@ namespace Code.Scripts.Cooking
 
         private IEnumerator ShowNextInstructions(string nextKey)
         {
+            SoundSource.PlayOneShot(SuccessClip);
             yield return new WaitForSeconds(2f);
             _locked = false;
             KeyPopUp.ShowKey(nextKey);
