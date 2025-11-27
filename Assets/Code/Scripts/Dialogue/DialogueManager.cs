@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Assets.Code.Scripts.Player;
+using Code.Scripts.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     private Dialogue currentDialogue;
     public AudioSource audioSource;
     public AudioClip typeSound;
+    public InteractableCursor interactableCursor;
     private int index = 0;
     private bool isActive = false;
     private bool isTyping = false;
@@ -48,6 +50,7 @@ public class DialogueManager : MonoBehaviour
     {
         PlayerController.Instance.MovementController.enabled = false;
         PlayerController.Instance.CameraController.enabled = false;
+        interactableCursor.gameObject.SetActive(false);
         currentDialogue = dialogue;
         index = 0;
         if (currentDialogue.lines.Count == 0 || currentDialogue == null)
@@ -56,7 +59,6 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         dialoguePanel.SetActive(true);
-        //StartCoroutine(FadeImage(0.3f, 0.4f));
         isActive = true;
         ShowLine();
 
@@ -85,23 +87,25 @@ public class DialogueManager : MonoBehaviour
     {
         isTyping = true;
         bodyText.text = "";
-        int counter = 0;
+        
+        audioSource.clip = typeSound;
+        audioSource.loop = true;
+        audioSource.Play();
+        
+        
         foreach (char c in text)
         {
             bodyText.text += c;
-            counter++;
-            if (counter % 4 == 0)
-            {
-                audioSource.PlayOneShot(typeSound);
-            }
             yield return new WaitForSeconds(typeSpeed);
         }
+        
+        audioSource.Stop();
+        audioSource.loop = false;
         isTyping = false;
     }
     
     private void EndDialogue()
     {
-        //StartCoroutine(FadeImage(0f, 0.4f));
         dialoguePanel.SetActive(false);
         currentDialogue = null;
         isActive = false;
@@ -112,6 +116,7 @@ public class DialogueManager : MonoBehaviour
         }
         PlayerController.Instance.MovementController.enabled = true;
         PlayerController.Instance.CameraController.enabled = true;
+        interactableCursor.gameObject.SetActive(true);
         
     }
     
@@ -121,27 +126,9 @@ public class DialogueManager : MonoBehaviour
         {
             StopCoroutine(typingCoroutine);
             bodyText.text = currentDialogue.lines[index].text;
+            audioSource.Stop();
+            audioSource.loop = false;
             isTyping = false;
         }
     }
-    
-    /*
-    private IEnumerator FadeImage(float targetAlpha, float duration)
-    {
-        Color color = image.color;
-        float startAlpha = color.a;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            color.a = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
-            image.color = color;
-            yield return null;
-        }
-
-        color.a = targetAlpha;
-        image.color = color;
-    }
-    */
 }

@@ -4,7 +4,7 @@ namespace Code.Scripts.Menu
 {
     public class MenuController : MonoBehaviour
     {
-        public AnimationController AnimationController;
+        //public AnimationController AnimationController;
 
         public void StartGame()
         {
