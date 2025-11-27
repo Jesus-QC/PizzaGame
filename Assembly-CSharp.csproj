@@ -81,6 +81,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSit.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableLockedDoor.cs" />
     <Compile Include="Assets\Code\Scripts\UI\InteractableCursor.cs" />
+    <Compile Include="Assets\Code\Scripts\Cooking\GoodPopUp.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableImage.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobe_R.cs" />
     <Compile Include="Assets\Code\Scripts\Player\PlayerController.cs" />

@@ -9,11 +9,14 @@ namespace Code.Scripts.Cooking
         private static int AnimatorNextHash = Animator.StringToHash("Next");
 
         public AudioSource SoundSource;
+        public Animator CanvasAnimator;
         public Animator DoughAnimator;
         public Animator KnifeAnimator;
         public KeyPopUp KeyPopUp;
         public BadPopUp BadPopUp;
+        public GoodPopUp GoodPopUp;
         public AudioClip SuccessClip;
+        public AudioClip VictoryClip;
 
         private CookingStep _currentStep = CookingStep.NotStarted;
         private bool _locked = true;
@@ -24,7 +27,7 @@ namespace Code.Scripts.Cooking
             _locked = true;
             _currentStep++;
             DoughAnimator.SetTrigger(AnimatorNextHash);
-            //KnifeAnimator.SetTrigger(AnimatorNextHash);
+            KnifeAnimator.SetTrigger(AnimatorNextHash);
         }
 
         private IEnumerator Start()
@@ -51,7 +54,6 @@ namespace Code.Scripts.Cooking
                 case CookingStep.NotStarted when input.y > 0.5f:
                 case CookingStep.RollDoughX1 when input.y < -0.5f:
                 case CookingStep.RotateDough2 when input.y < -0.5f: 
-                case CookingStep.RollDoughY1 when input.y < -0.5f:
                     {
                         StartCoroutine(ShowNextInstructions("W"));
                         AdvanceToNextStep();
@@ -59,10 +61,16 @@ namespace Code.Scripts.Cooking
                     }   
                 
                 case CookingStep.SetupDough when input.y > 0.5f:
-                case CookingStep.RotateDough1 when input.x > 0.5f:
                 case CookingStep.RotateDough3 when input.y > 0.5f:
                     {
                         StartCoroutine(ShowNextInstructions("S"));
+                        AdvanceToNextStep();
+                        break;
+                    }
+
+                case CookingStep.RotateDough1 when input.x > 0.5f:
+                    {
+                        StartCoroutine(ShowGoodPopUp("S"));
                         AdvanceToNextStep();
                         break;
                     }
@@ -94,6 +102,27 @@ namespace Code.Scripts.Cooking
             yield return new WaitForSeconds(2f);
             _locked = false;
             KeyPopUp.ShowKey(nextKey);
+        }
+
+        private IEnumerator ShowGoodPopUp(string nextKey)
+        {
+            GoodPopUp.Enable();
+            // We speed up the music
+            SoundSource.pitch = 1.1f;
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(ShowNextInstructions(nextKey));
+        }
+
+        private IEnumerator FinishedDough()
+        {
+            
+            SoundSource.pitch = 1f;
+            SoundSource.PlayOneShot(VictoryClip);
+            yield return new WaitForSeconds(2f);
+            CanvasAnimator.SetTrigger(AnimatorNextHash);
+            yield return new WaitForSeconds(3f);
+            DoughAnimator.gameObject.SetActive(false);
+            KnifeAnimator.gameObject.SetActive(true);
         }
     }
 }
