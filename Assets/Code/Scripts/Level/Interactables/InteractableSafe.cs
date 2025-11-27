@@ -6,25 +6,19 @@ namespace Code.Scripts.Level.Interactables
     public class InteractableSafe : MonoBehaviour, IInteractable
     {
 
-        public static bool Decoding;
         public GameObject keypadPanel;
-        public GameObject keypadStudio;
         public Camera keypadCamera;
-        //public AudioSource audioSource;
-        public AudioClip openSafe;
-        public AudioClip wrongPassword;
-        public AudioClip correctPassword;
-        public AudioClip buttonPress;
-            
+        
+        private bool _isDecoding;
         
         public bool IsDecoding
         {
-            get => Decoding;
+            get => _isDecoding;
             set
             {
-                Decoding = value;
+                _isDecoding = value;
 
-                if (Decoding)
+                if (_isDecoding)
                     OpenKeypad();
                 else
                     CloseKeypad();
@@ -33,7 +27,7 @@ namespace Code.Scripts.Level.Interactables
 
         private void Start()
         {
-            Decoding = false;
+            _isDecoding = false;
         }
 
         public void Interact()
@@ -46,7 +40,6 @@ namespace Code.Scripts.Level.Interactables
             PlayerController.Instance.MovementController.enabled = false;
             PlayerController.Instance.CameraController.enabled = false;
             
-            //keypadStudio.SetActive(true);
             keypadCamera.enabled = true;
             keypadPanel.SetActive(true);
             
@@ -59,7 +52,6 @@ namespace Code.Scripts.Level.Interactables
         {
             keypadPanel.SetActive(false);
             keypadCamera.enabled = false;
-            //keypadStudio.SetActive(false);
             
             PlayerController.Instance.MovementController.enabled = true;
             PlayerController.Instance.CameraController.enabled = true;

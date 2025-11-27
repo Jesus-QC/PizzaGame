@@ -5,16 +5,15 @@ namespace Code.Scripts.Level.Interactables
 {
     public class InteractableSit : MonoBehaviour, IInteractable
     {
+        public AudioSource AudioSource;
+        public AudioClip SitStandUpClip;
         private const float SitScale = 0.66f;
-
-        public static bool Sitting;
-        
         private Vector3 _chairPosition;
         private Quaternion _chairRotation;
         private Vector3 _oldScale;
-        public AudioSource AudioSource;
-        public AudioClip SitStandUpClip;
 
+        public static bool Sitting;
+        
         public bool IsSitting
         {
             get => Sitting;

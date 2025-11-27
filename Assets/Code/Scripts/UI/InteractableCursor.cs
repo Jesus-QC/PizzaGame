@@ -7,6 +7,7 @@ namespace Code.Scripts.UI
     public class InteractableCursor : MonoBehaviour
     {
         public RawImage Cursor;
+        public Text CursorText;
 
         private void Update()
         {
@@ -28,7 +29,8 @@ namespace Code.Scripts.UI
             }
 
             Cursor.enabled = true;
-
+            CursorText.enabled = InteractableController.GetInteractable() != null;
+            
         }
     }
 }

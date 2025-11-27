@@ -1,19 +1,21 @@
 using UnityEngine;
+using Code.Scripts.Checkpoint;
 
 namespace Code.Scripts.Level.Interactables
 {
-    public class InteractableWardrobeDoor : MonoBehaviour, IInteractable
+    public class InteractableWardrobeDoor : MonoBehaviour, IInteractable, ISaveable
     {
-        private const float CooldownTime = 0.5f;
-        
-        private static readonly int OpenAnimation = Animator.StringToHash("OPEN_L");
+        [SerializeField] private string _id;
+        public string id => string.IsNullOrEmpty(_id) ? gameObject.name : _id;
         
         public AudioSource AudioSource;
         public AudioClip OpenClip, CloseClip;
         public Animator DoorAnimator;
+        private const float CooldownTime = 0.5f;
+        private static readonly int OpenAnimation = Animator.StringToHash("OPEN_L");
+        private float _lastInteractionTime;
 
         private bool _isOpen;
-        private float _lastInteractionTime;
 
         public bool IsOpen
         {
@@ -47,6 +49,17 @@ namespace Code.Scripts.Level.Interactables
         private void Close()
         {
             AudioSource.PlayOneShot(CloseClip);
+        }
+        
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id] = _isOpen;
+        }
+        
+        public void Load(GameStateData data)
+        {
+            data.interactableStates.TryGetValue(id, out _isOpen);
+            DoorAnimator.SetBool(OpenAnimation, _isOpen);
         }
     }
 }
