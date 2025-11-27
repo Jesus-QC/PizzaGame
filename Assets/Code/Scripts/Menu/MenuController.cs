@@ -6,7 +6,7 @@ namespace Code.Scripts.Menu
     {
         public void StartGame()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Cooking");
+            StartTransitioner.Instance.StartTransitionToScene("Cooking");
         }
     }
 }

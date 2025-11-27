@@ -86,6 +86,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\IInteractable.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InterfaceController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\KeypadController.cs" />
+    <Compile Include="Assets\Code\Scripts\Menu\StartTransitioner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
