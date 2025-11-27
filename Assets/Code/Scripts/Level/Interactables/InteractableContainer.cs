@@ -13,9 +13,9 @@ namespace Code.Scripts.Level.Interactables
             if (PlayerController.Instance.ItemsController.HeldObject != null)
             {
                 AudioSource.PlayOneShot(Clip);
+                if (PlayerController.Instance.ItemsController.HeldObject.gameObject.CompareTag("Trash"))
+                    PlayerController.Instance.TaskController.OnFinishedTakingOutTrash();
                 Destroy(PlayerController.Instance.ItemsController.HeldObject.gameObject);
-                
-                PlayerController.Instance.TaskController.OnFinishedTakingOutTrash();
             }
         }
     }

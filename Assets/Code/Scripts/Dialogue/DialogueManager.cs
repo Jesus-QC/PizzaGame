@@ -10,21 +10,18 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI bodyText;
     public Dialogue openingDialogue;
-    public GameObject overlay;
     private Dialogue currentDialogue;
+    public AudioSource audioSource;
+    public AudioClip typeSound;
     private int index = 0;
     private bool isActive = false;
     private bool isTyping = false;
-    private float typeSpeed = 0.04f;
+    private float typeSpeed = 0.03f;
     private Coroutine typingCoroutine;
-    private Image image;
     private bool isFirstDialogue = true;
+    
     public event System.Action OnDialogueEnded;
     
-    private void Awake()
-    {
-        image = overlay.GetComponent<Image>();
-    }
     
     void Start()
     {
@@ -59,7 +56,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         dialoguePanel.SetActive(true);
-        StartCoroutine(FadeImage(0.3f, 0.4f));
+        //StartCoroutine(FadeImage(0.3f, 0.4f));
         isActive = true;
         ShowLine();
 
@@ -88,9 +85,15 @@ public class DialogueManager : MonoBehaviour
     {
         isTyping = true;
         bodyText.text = "";
+        int counter = 0;
         foreach (char c in text)
         {
             bodyText.text += c;
+            counter++;
+            if (counter % 4 == 0)
+            {
+                audioSource.PlayOneShot(typeSound);
+            }
             yield return new WaitForSeconds(typeSpeed);
         }
         isTyping = false;
@@ -98,7 +101,7 @@ public class DialogueManager : MonoBehaviour
     
     private void EndDialogue()
     {
-        StartCoroutine(FadeImage(0f, 0.4f));
+        //StartCoroutine(FadeImage(0f, 0.4f));
         dialoguePanel.SetActive(false);
         currentDialogue = null;
         isActive = false;
@@ -122,7 +125,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
     
-    
+    /*
     private IEnumerator FadeImage(float targetAlpha, float duration)
     {
         Color color = image.color;
@@ -140,6 +143,5 @@ public class DialogueManager : MonoBehaviour
         color.a = targetAlpha;
         image.color = color;
     }
-
-
+    */
 }

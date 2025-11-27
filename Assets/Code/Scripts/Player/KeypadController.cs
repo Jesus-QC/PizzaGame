@@ -1,25 +1,34 @@
 using Code.Scripts.Level.Interactables;
 using UnityEngine;
+using Code.Scripts.Checkpoint;
 
 namespace Assets.Code.Scripts.Player
 {
-    public class KeypadController : MonoBehaviour
+    public class KeypadController : MonoBehaviour, ISaveable
     {
-        public string passward = "1234";
+        [SerializeField] private string _id;
+        public string id => _id;
+        
+        private string passward = "5927";
         public GameObject safe;
         private string currentInput = "";
+        public AudioClip buttonPress;
+        public AudioClip correctPassword;
+        public AudioClip wrongPassword;
+        public AudioClip openSafe;
+        public bool isSolved = false;
         
-        
+
         public void AddDigit(string digit)
         {
             currentInput += digit;
-            safe.GetComponent<AudioSource>().PlayOneShot(safe.GetComponent<InteractableSafe>().buttonPress);
+            safe.GetComponent<AudioSource>().PlayOneShot(buttonPress);
         }
 
         public void Clear()
         {
             currentInput = "";
-            safe.GetComponent<AudioSource>().PlayOneShot(safe.GetComponent<InteractableSafe>().buttonPress);
+            safe.GetComponent<AudioSource>().PlayOneShot(buttonPress);
         }
 
         public void Enter()
@@ -27,16 +36,18 @@ namespace Assets.Code.Scripts.Player
             if (currentInput == passward)
             {
                 Debug.Log("Enter");
-                safe.GetComponent<AudioSource>().PlayOneShot(safe.GetComponent<InteractableSafe>().correctPassword);
+                isSolved = true;
+                safe.GetComponent<AudioSource>().PlayOneShot(correctPassword);
                 safe.GetComponent<Animator>().Play("OpenSafe");
-                safe.GetComponent<AudioSource>().PlayOneShot(safe.GetComponent<InteractableSafe>().openSafe);
+                safe.GetComponent<AudioSource>().PlayOneShot(openSafe);
                 safe.GetComponent<InteractableSafe>().CloseKeypad();
                 SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
+                PlayerController.Instance.GameStateController.SaveGame();
             } 
             else
             {
                 Debug.Log("Wrong Password");
-                safe.GetComponent<AudioSource>().PlayOneShot(safe.GetComponent<InteractableSafe>().wrongPassword);
+                safe.GetComponent<AudioSource>().PlayOneShot(wrongPassword);
                 Clear();
             }
         }
@@ -50,5 +61,19 @@ namespace Assets.Code.Scripts.Player
             }
         }
         
+        public void Save(GameStateData data)
+        {
+            data.interactableStates[id] = isSolved;
+        }
+
+        public void Load(GameStateData data)
+        {
+            data.interactableStates.TryGetValue(id, out isSolved);
+            if (isSolved)
+            {
+                safe.GetComponent<Animator>().Play("OpenSafe");
+                SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
+            }
+        }
     }
 }
