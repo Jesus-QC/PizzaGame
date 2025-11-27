@@ -33,7 +33,7 @@ namespace Code.Scripts.Cooking
             // Play countdown
             yield return new WaitForSeconds(1f);
             // Play countdown
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
             _locked = false;
             KeyPopUp.ShowKey("W");
         }
@@ -43,7 +43,6 @@ namespace Code.Scripts.Cooking
             if (_locked) return;
 
             Vector2 input = value.Get<Vector2>();
-                Debug.Log(_currentStep);
             switch (_currentStep)
             {
 
