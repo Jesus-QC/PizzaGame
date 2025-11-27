@@ -10,6 +10,7 @@ TagManager:
   - Chair
   - Safe
   - BackDoor
+  - Trash
   layers:
   - Default
   - TransparentFX
