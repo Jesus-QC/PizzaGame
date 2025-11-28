@@ -16,6 +16,7 @@ namespace Code.Scripts.Enemy
         public Transform[] PatrolPoints;
         public Transform Player;
         public float StoppingDistance;
+        public float maxChaseDistance = 5f;
         
         private NavMeshAgent _agent;
         private int _currentPatrolIndex;
@@ -41,6 +42,12 @@ namespace Code.Scripts.Enemy
                     HandlePatroling();
                     break;
                 case EnemyState.Chasing:
+                    float distanceToPlayer = DistanceToPlayer();
+                    if (distanceToPlayer > maxChaseDistance)
+                    {
+                        StopChasingAndReturn();
+                        return;
+                    }
                     HandleChasing();
                     break;
                 case EnemyState.Returning:
@@ -51,7 +58,7 @@ namespace Code.Scripts.Enemy
         
         private void HandlePatroling()
         {
-            if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
+            if (!_agent.pathPending && _agent.remainingDistance < 0.1f)
             {
                 GoToNextPatrolPoint();
             }
@@ -65,7 +72,7 @@ namespace Code.Scripts.Enemy
         
         private void HandleReturning()
         {
-            if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
+            if (!_agent.pathPending && _agent.remainingDistance < 0.1f)
             {
                 _state = EnemyState.Patrolling;
                 GoToNextPatrolPoint();
@@ -74,7 +81,7 @@ namespace Code.Scripts.Enemy
         
         private void GoToNextPatrolPoint()
         {
-            _agent.stoppingDistance = 0f;
+            Debug.Log("GoToNextPatrolPoint");
             _agent.destination = PatrolPoints[_currentPatrolIndex].position;
             _currentPatrolIndex = (_currentPatrolIndex + 1) % PatrolPoints.Length;
         }
@@ -87,7 +94,6 @@ namespace Code.Scripts.Enemy
         public void StopChasingAndReturn()
         {
             _state = EnemyState.Returning;
-            _agent.stoppingDistance = 0f;
             _agent.SetDestination(_startPosition);
         }
         
