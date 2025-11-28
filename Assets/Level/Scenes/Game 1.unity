@@ -1098,33 +1098,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2acd751e1e00b904c951df86ca90993a, type: 3}
---- !u!1 &297466699 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -4379615773041148065, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
-  m_PrefabInstance: {fileID: 303792494}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &297466701
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297466699}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1779601754579333883, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
 --- !u!1 &303104367 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3666640239465056528, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
@@ -1240,6 +1213,22 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 3eb5315bba603c64e942d73558632791, type: 2}
+    - target: {fileID: -5192883948026594838, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 66.83472
+      objectReference: {fileID: 0}
+    - target: {fileID: -5192883948026594838, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.678
+      objectReference: {fileID: 0}
+    - target: {fileID: -5192883948026594838, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.2550244
+      objectReference: {fileID: 0}
+    - target: {fileID: -5192883948026594838, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.2164955
+      objectReference: {fileID: 0}
     - target: {fileID: -4981898536443211191, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
@@ -1347,6 +1336,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4861746426873502236, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
+    - {fileID: -4379615773041148065, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1332707603941828289, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
@@ -1568,9 +1558,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4244914468155332221, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 871224848}
-    - targetCorrespondingSourceObject: {fileID: -4379615773041148065, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 297466701}
     - targetCorrespondingSourceObject: {fileID: -6923453667333933797, guid: b847218317ee6584d8bed17e73accbf0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2056112734}
