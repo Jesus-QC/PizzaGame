@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Assets.Code.Scripts.Player;
+using Random = UnityEngine.Random;
 
 namespace Code.Scripts.Enemy
 {
@@ -11,15 +13,30 @@ namespace Code.Scripts.Enemy
 
         public AudioSource EffectsSource;
         public AudioClip StingerEffect;
+        public AudioSource HeartbeatSource;
+        public AudioClip Heartbeat;
         public GameObject Player;
         public GameObject PlayerBody;
         public Transform EnemyNeck;
-        private float viewDistance = 10f;
-        private float viewAngle = 22.5f;
-        private float headTurnSpeed = 10f;
+        public EnemyMovementAI MovementAI;
+
+        public float loseSightTime = 4f;
+        public float maxChaseDistance = 20f;
+        private float killDistance = 1.5f;
+        private float _timeSinceLastHit = Mathf.Infinity;
+        
+        private float _viewDistance = 10f;
+        private float _viewAngle = 22.5f;
+        private float _sideRayAngle = 10f;
+        private float _radius = 0.2f;
+        
+        private float _baseHeadTurnSpeed = 250f;
+        private float _headPauseDuration;
+        private float _smoothTime = 0.1f;
+        private float _headPauseTimer = 0f;
+        private float _currentAngularVelocity = 0f;
         private int _direction = 1;
         private float _currentAngle = 0f;
-        private float radius = 0.2f;
         private bool _seenByPlayer;
         private bool _hasTriggeredLoad;
 
@@ -37,13 +54,26 @@ namespace Code.Scripts.Enemy
 
                 if (value)
                 {
-                    EffectsSource.volume = 1;
+                    HeartbeatSource.volume = 1f;
+                    HeartbeatSource.clip = Heartbeat;
+                    HeartbeatSource.loop = true;
+                    if (!HeartbeatSource.isPlaying)
+                    {
+                        HeartbeatSource.Play();
+                    }
+                    EffectsSource.volume = 1f;
                     if (TimeSinceLastSeen > MinStingerInterval)
                     {
                         EffectsSource.PlayDelayed(5);
-                        EffectsSource.PlayOneShot(StingerEffect);
+                        EffectsSource.PlayOneShot(StingerEffect, 0.3f);
                     }
+                    
+                    MovementAI.StartChasing();
                 } 
+                else
+                {
+                    MovementAI.StopChasingAndReturn();
+                }
 
                 TimeSinceLastSeen = 0f;
             }
@@ -57,72 +87,151 @@ namespace Code.Scripts.Enemy
         void Update()
         {
             RotateHead();
-
             HandleVision();
+            HandleChaseStopConditions();
+            HandleKillPlayer();
             
         }
 
         private void RotateHead()
         {
-            float angle = headTurnSpeed * Time.deltaTime * _direction;
-            _currentAngle += angle;
+            if (_headPauseTimer > 0f)
+            {
+                _headPauseTimer -= Time.deltaTime;
+                return;
+            }
+            _headPauseDuration = Random.Range(0.2f, 3f);
+            float randomSpeed = Random.Range(0.4f, 2f);
+            float headTurnSpeed = _baseHeadTurnSpeed * randomSpeed;
+            float targetAngle = _direction > 0 ? _viewAngle : -_viewAngle;
             
-            EnemyNeck.Rotate(Vector3.up, angle);
+            _currentAngle = Mathf.SmoothDampAngle(
+                _currentAngle, 
+                targetAngle, 
+                ref _currentAngularVelocity, 
+                _smoothTime,
+                headTurnSpeed
+            );
             
-            if (Mathf.Abs(_currentAngle) > viewAngle)
+            Vector3 localEuler = EnemyNeck.localEulerAngles;
+            localEuler.y = _currentAngle;
+            EnemyNeck.localEulerAngles = localEuler;
+            
+            if (Mathf.Abs(Mathf.DeltaAngle(_currentAngle, targetAngle)) < 0.5f)
             {
                 _direction *= -1;
+                _headPauseTimer = _headPauseDuration;
             }
         }
 
         private void HandleVision()
         {
             TimeSinceLastSeen += Time.deltaTime;
+            _timeSinceLastHit += Time.deltaTime;
 
             Vector3 distance = Player.transform.position - EnemyNeck.position;
             float distanceToPlayer = distance.magnitude;
 
-            if (distanceToPlayer > viewDistance)
+            if (distanceToPlayer > _viewDistance)
             {
-                IsBeingSeen = false;
-                EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
-                if (EffectsSource.volume <= 0)
-                    EffectsSource.Stop();
+                TryLoseSight();
+                //IsBeingSeen = false;
+                //StopEffects();
                 return;
             }
 
             distance.Normalize();
             float angleToPlayer = Vector3.Angle(EnemyNeck.forward, distance);
-            if (angleToPlayer > viewAngle)
+            if (angleToPlayer > _viewAngle)
             {
-                IsBeingSeen = false;
-                EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
-                if (EffectsSource.volume <= 0)
-                    EffectsSource.Stop();
+                TryLoseSight();
+                //IsBeingSeen = false;
+                //StopEffects();
                 return;
             }
-
-            Ray ray = new Ray(EnemyNeck.position, EnemyNeck.forward);
             
-            if (Physics.SphereCast(ray, radius, out RaycastHit hit, viewDistance))
+            Vector3 centerDir = EnemyNeck.forward;
+            Vector3 leftDir = Quaternion.AngleAxis(-_sideRayAngle, Vector3.up) * centerDir;
+            Vector3 rightDir = Quaternion.AngleAxis(_sideRayAngle, Vector3.up) * centerDir;
+
+            if (HitsPlayer(centerDir) || HitsPlayer(leftDir) || HitsPlayer(rightDir))
             {
-                
-                if (hit.collider.gameObject == PlayerBody)
+                _timeSinceLastHit = 0f;
+                IsBeingSeen = true;
+
+                /*
+                if (!_hasTriggeredLoad)
                 {
-                    IsBeingSeen = true;
-
-                    if (!_hasTriggeredLoad)
-                    {
-                        _hasTriggeredLoad = true;
-                        PlayerController.Instance.OnkilledByEnemy();
-                        _hasTriggeredLoad = false;
-                    }
-
-                    return;
+                    _hasTriggeredLoad = true;
+                    PlayerController.Instance.OnkilledByEnemy();
+                    _hasTriggeredLoad = false;
                 }
+
+                return;
+                */
+            }
+            else
+            {
+                TryLoseSight();
             }
 
-            IsBeingSeen = false;
+            //IsBeingSeen = false;
+        }
+
+        private void TryLoseSight()
+        {
+            if (_timeSinceLastHit >= loseSightTime)
+            {
+                IsBeingSeen = false;
+                StopEffects();
+            }
+        }
+        
+        private void HandleChaseStopConditions()
+        {
+            float distanceToPlayer = MovementAI.DistanceToPlayer();
+            if (distanceToPlayer > maxChaseDistance && _seenByPlayer)
+            {
+                IsBeingSeen = false;
+            }
+        }
+        
+        private void HandleKillPlayer()
+        {
+            float distanceToPlayer = MovementAI.DistanceToPlayer();
+            if (distanceToPlayer <= killDistance)
+            {
+                if (!_hasTriggeredLoad)
+                {
+                    _hasTriggeredLoad = true;
+                    PlayerController.Instance.OnkilledByEnemy();
+                    _hasTriggeredLoad = false;
+                }
+            }
+        }
+        
+        private bool HitsPlayer(Vector3 direction)
+        {
+            Ray ray = new Ray(EnemyNeck.position, direction);
+            
+            if (Physics.SphereCast(ray, _radius, out RaycastHit hit, _viewDistance))
+            {
+                if (hit.collider.gameObject == PlayerBody)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void StopEffects()
+        {
+            EffectsSource.volume = Mathf.Max(0, EffectsSource.volume - Time.deltaTime * 0.1f);
+            if (EffectsSource.volume <= 0)
+                EffectsSource.Stop();
+            HeartbeatSource.volume = Mathf.Max(0, HeartbeatSource.volume - Time.deltaTime * 0.1f);
+            if (HeartbeatSource.volume <= 0)
+                HeartbeatSource.Stop();
         }
     }
 }

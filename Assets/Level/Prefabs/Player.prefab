@@ -1019,7 +1019,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 375
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1635,6 +1635,7 @@ GameObject:
   - component: {fileID: 5526006158309721850}
   - component: {fileID: 6505311267712393069}
   - component: {fileID: 8044327049255743500}
+  - component: {fileID: 3658056677254442015}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -1701,6 +1702,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3658056677254442015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097241529144997305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b721ffad624dc489aecd52cea1963e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.UI.InteractableCursor
+  Cursor: {fileID: 2844817044428594157}
+  CursorText: {fileID: 3792855227100858918}
 --- !u!1 &3296417300155558496
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,7 +2667,6 @@ GameObject:
   - component: {fileID: 3180691089674757161}
   - component: {fileID: 5526483034951369540}
   - component: {fileID: 2844817044428594157}
-  - component: {fileID: 6076046049206796189}
   m_Layer: 5
   m_Name: Interactable
   m_TagString: Untagged
@@ -2714,20 +2728,85 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &6076046049206796189
+--- !u!1 &5663383583035860944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4620141831431804429}
+  - component: {fileID: 8031406449261472900}
+  - component: {fileID: 3997099468629634582}
+  m_Layer: 5
+  m_Name: Space/Click
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4620141831431804429
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663383583035860944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3740814025037964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -238}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8031406449261472900
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663383583035860944}
+  m_CullTransparentMesh: 1
+--- !u!114 &3997099468629634582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027346329865010107}
+  m_GameObject: {fileID: 5663383583035860944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b721ffad624dc489aecd52cea1963e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.UI.InteractableCursor
-  Cursor: {fileID: 2844817044428594157}
-  CursorText: {fileID: 3792855227100858918}
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6509804}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '[ SPACE/CLICK ]'
 --- !u!1 &5715847121288022585
 GameObject:
   m_ObjectHideFlags: 0
@@ -4369,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3755
+  m_VersionIndex: 3773
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5077,7 +5156,8 @@ MonoBehaviour:
   bodyText: {fileID: 8340428700045611523}
   openingDialogue: {fileID: 11400000, guid: 478bacb31e026c644bd52c6ccb99eb65, type: 2}
   audioSource: {fileID: 2388493118888420345}
-  typeSound: {fileID: 8300000, guid: 146fd946f367b6a4bae9b217f5df85dd, type: 3}
+  typeSound: {fileID: 8300000, guid: aaf091f937fe5664d93f0996b006dd7b, type: 3}
+  interactableCursor: {fileID: 3658056677254442015}
 --- !u!114 &2516176656849075104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5090,6 +5170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6943f2293940fa8b1be18a25f00610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.GameStateController
+  Enemy: {fileID: 0}
 --- !u!1 &7494314574247598836
 GameObject:
   m_ObjectHideFlags: 0
@@ -5254,6 +5335,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4310907962118718080}
+  - {fileID: 4620141831431804429}
   m_Father: {fileID: 7242303426538335169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5645,7 +5727,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ( E )
+  m_Text: '[ E ]'
 --- !u!1 &8270011995446525351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5982,8 +6064,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: this is a test this is a test this is a test
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

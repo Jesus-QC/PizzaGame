@@ -11,9 +11,21 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Level/Scenes/DemoMovimiento.unity
     guid: 10e1d9c545d749a409f3d01466fc8e5b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/Scenes/Demo.unity
     guid: b4a090e5ef44bf845abd8da44eb02ba7
+  - enabled: 1
+    path: Assets/Level/Scenes/Menu.unity
+    guid: fe71ed0b3ac8f4a4c8e0dc900d46471b
+  - enabled: 1
+    path: Assets/Level/Scenes/Cooking.unity
+    guid: 46d5c3c1d7ba46b4e9049cd2d4d692c4
+  - enabled: 0
+    path: Assets/Level/Scenes/Demo 1.unity
+    guid: fe847ec61e6e0ad45a630eb7f92255a8
+  - enabled: 1
+    path: Assets/Level/Scenes/Game.unity
+    guid: 0e8fce3ee494c704d97d2642f3b84ed4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
