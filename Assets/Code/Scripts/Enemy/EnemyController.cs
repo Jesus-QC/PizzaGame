@@ -20,8 +20,7 @@ namespace Code.Scripts.Enemy
         public Transform EnemyNeck;
         public EnemyMovementAI MovementAI;
 
-        public float loseSightTime = 4f;
-        public float maxChaseDistance = 20f;
+        public float loseSightTime = 2f;
         private float killDistance = 1.5f;
         private float _timeSinceLastHit = Mathf.Infinity;
         
@@ -67,13 +66,12 @@ namespace Code.Scripts.Enemy
                         EffectsSource.PlayDelayed(5);
                         EffectsSource.PlayOneShot(StingerEffect, 0.3f);
                     }
-                    
-                    MovementAI.StartChasing();
+
+                    if (Vector3.Distance(Player.transform.position, EnemyController.Instance.transform.position) < 3)
+                    {
+                        MovementAI.StartChasing();
+                    }
                 } 
-                else
-                {
-                    MovementAI.StopChasingAndReturn();
-                }
 
                 TimeSinceLastSeen = 0f;
             }
@@ -88,7 +86,6 @@ namespace Code.Scripts.Enemy
         {
             RotateHead();
             HandleVision();
-            HandleChaseStopConditions();
             HandleKillPlayer();
             
         }
@@ -182,19 +179,12 @@ namespace Code.Scripts.Enemy
         {
             if (_timeSinceLastHit >= loseSightTime)
             {
+                MovementAI.StopChasingAndReturn();
                 IsBeingSeen = false;
                 StopEffects();
             }
         }
         
-        private void HandleChaseStopConditions()
-        {
-            float distanceToPlayer = MovementAI.DistanceToPlayer();
-            if (distanceToPlayer > maxChaseDistance && _seenByPlayer)
-            {
-                IsBeingSeen = false;
-            }
-        }
         
         private void HandleKillPlayer()
         {

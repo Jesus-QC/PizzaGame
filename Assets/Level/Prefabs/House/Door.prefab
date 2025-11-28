@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dbe60c86b34427a39065f47a393831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableDoor
+  _id: 
   AudioSource: {fileID: -2703461125041239882}
   OpenClip: {fileID: 8300000, guid: 6adcf565f8e3a2044b90fc593b3bae30, type: 3}
   CloseClip: {fileID: 8300000, guid: 641b4851efd9a3646a8825527ba7ebb7, type: 3}
