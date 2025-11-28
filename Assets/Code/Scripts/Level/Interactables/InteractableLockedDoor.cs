@@ -71,6 +71,14 @@ namespace Code.Scripts.Level.Interactables
                     return;
                 }
                 IsLocked = false;
+                if (gameObject.CompareTag("KitchenDoor"))
+                {
+                    PlayerController.Instance.TaskController.OnFinishedGettingOut();
+                } 
+                else if (gameObject.CompareTag("WarehouseDoor"))
+                {
+                    PlayerController.Instance.TaskController.OnFinishedGettingLadder();
+                }
             }
 
             IsOpen = !IsOpen;

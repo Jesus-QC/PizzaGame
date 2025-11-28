@@ -20,6 +20,8 @@ namespace Assets.Code.Scripts.Player
         private bool finishedHomework = false;
         private bool finishedTakingOutTrash = false;
         private bool finishedWatchTV = false;
+        private bool finishedGettingOut = false;
+        private bool finishedGettingLadder = false;
 
         private void Start()
         {
@@ -121,11 +123,82 @@ namespace Assets.Code.Scripts.Player
 
                 yield return null;
             }
+            OnFinishedWatchingTV();
+        }
+        
+        public void OnFinishedWatchingTV()
+        {
             finishedWatchTV = true;
+            PlayerController.Instance.GameStateController.SaveGame();
+            StartCoroutine(OnFinishedWatchingTVCoroutine());
+        }
+        
+        public IEnumerator OnFinishedWatchingTVCoroutine()
+        {
+            yield return new WaitForSeconds(3f);
 
-            ObjectiveTitle.text = "NEXT_TASK_TITLE";
-            ObjectiveDescription.text = "NEXT_TASK_DESCRIPTION";
+            ObjectiveTitle.text = "Salir por la puerta trasera";
+            ObjectiveDescription.text = "Buscar forma para salir por la puerta trasera de la cocina";
             Open();
+
+            float elapsedTime = 0f;
+            while (elapsedTime < 5f)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            Close();
+        }
+        
+        public void OnFinishedGettingOut()
+        {
+            finishedGettingOut = true;
+            PlayerController.Instance.GameStateController.SaveGame();
+            StartCoroutine(OnFinishedGettingOutCoroutine());
+        }
+
+        public IEnumerator OnFinishedGettingOutCoroutine()
+        {
+            yield return new WaitForSeconds(3f);
+
+            ObjectiveTitle.text = "Conseguir la escalera de la caseta";
+            ObjectiveDescription.text = "Buscar forma para cosneguir la llave de la caseta";
+            Open();
+
+            float elapsedTime = 0f;
+            while (elapsedTime < 5f)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            Close();
+        }
+        
+        public void OnFinishedGettingLadder()
+        {
+            finishedGettingLadder = true;
+            PlayerController.Instance.GameStateController.SaveGame();
+            StartCoroutine(OnFinishedGettingLadderCoroutine());
+        }
+
+        public IEnumerator OnFinishedGettingLadderCoroutine()
+        {
+            yield return new WaitForSeconds(3f);
+
+            ObjectiveTitle.text = "Colocar y subuir por la escalera";
+            ObjectiveDescription.text = "Coloca la escalera sobre la casa y subirpor ella";
+            Open();
+
+            float elapsedTime = 0f;
+            while (elapsedTime < 5f)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            Close();
         }
         
         public void Open()
