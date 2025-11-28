@@ -4,14 +4,11 @@ namespace Code.Scripts.Cooking
 {
     public class GoodPopUp : MonoBehaviour
     {
-        public AudioSource GoodSound;
-
         private float _timer;
 
         public void Enable()
         {
             _timer = 0f;
-            GoodSound.Play();
             gameObject.SetActive(true);
         }
 

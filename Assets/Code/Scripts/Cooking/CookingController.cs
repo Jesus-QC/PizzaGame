@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Cooking
 {
@@ -52,15 +53,18 @@ namespace Code.Scripts.Cooking
             {
 
                 case CookingStep.NotStarted when input.y > 0.5f:
+                case CookingStep.SetupKnife when input.y < -0.5f:
                 case CookingStep.RollDoughX1 when input.y < -0.5f:
-                case CookingStep.RotateDough2 when input.y < -0.5f: 
+                case CookingStep.RotateDough2 when input.y < -0.5f:
+                case CookingStep.Cut1 when input.y > 0.5f:
                     {
                         StartCoroutine(ShowNextInstructions("W"));
                         AdvanceToNextStep();
                         break;
-                    }   
-                
+                    }
+
                 case CookingStep.SetupDough when input.y > 0.5f:
+                case CookingStep.Cut1 when input.y > 0.5f:
                 case CookingStep.RotateDough3 when input.y > 0.5f:
                     {
                         StartCoroutine(ShowNextInstructions("S"));
@@ -84,10 +88,15 @@ namespace Code.Scripts.Cooking
                     }
                 case CookingStep.RollDoughY1 when input.y < -0.5f:
                     {
-                        AdvanceToNextStep();
+                        StartCoroutine(FinishedDough());
                         break;
                     }
-
+                case CookingStep.Cut2 when input.y > 0.5f:
+                    {
+                        AdvanceToNextStep();
+                        StartCoroutine(Error());
+                        break;
+                    }
                 default:
                     {
                         BadPopUp.Enable();
@@ -115,14 +124,33 @@ namespace Code.Scripts.Cooking
 
         private IEnumerator FinishedDough()
         {
-            
+            AdvanceToNextStep();
             SoundSource.pitch = 1f;
-            SoundSource.PlayOneShot(VictoryClip);
+            yield return null;
+            SoundSource.PlayOneShot(VictoryClip, 0.25f);
             yield return new WaitForSeconds(2f);
             CanvasAnimator.SetTrigger(AnimatorNextHash);
             yield return new WaitForSeconds(3f);
             DoughAnimator.gameObject.SetActive(false);
             KnifeAnimator.gameObject.SetActive(true);
+            yield return new WaitForSeconds(6f);
+            SoundSource.pitch = 1.2f;
+            yield return new WaitForSeconds(1f);
+            KeyPopUp.ShowKey("S");
+            _locked = false;
+        }
+
+        private IEnumerator Error()
+        {
+            yield return new WaitForSeconds(0.4f);
+            BadPopUp.Enable();
+            SoundSource.pitch = 0.5f;
+            yield return new WaitForSeconds(0.1f);
+            SoundSource.enabled = false;
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(BadPopUp.SpamError());
+            yield return new WaitForSeconds(2f);
+            SceneManager.LoadScene(2);
         }
     }
 }
