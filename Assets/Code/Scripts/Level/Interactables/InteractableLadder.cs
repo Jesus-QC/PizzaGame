@@ -53,8 +53,8 @@ namespace Code.Scripts.Level.Interactables
             }
 
             //transform.position = new Vector3(2.36f, 4.18f, 7.11f);
-            transform.position = new Vector3(stepPosition.x - 0.05f, stepPosition.y + 4.1565f, stepPosition.z - 0.5f);
-            transform.rotation = Quaternion.Euler(-102.68f, 0, 0);
+            transform.position = new Vector3(stepPosition.x - 0.05f, stepPosition.y + 4.071f, stepPosition.z + 0.364f);
+            transform.rotation = Quaternion.Euler(-102.68f, 180, 0);
 
             SetLayerRecursively(gameObject, LayerMask.NameToLayer("Ignore Raycast"));
 

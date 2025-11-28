@@ -11,6 +11,8 @@ TagManager:
   - Safe
   - BackDoor
   - Trash
+  - KitchenDoor
+  - WarehouseDoor
   layers:
   - Default
   - TransparentFX
