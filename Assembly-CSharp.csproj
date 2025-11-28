@@ -42,25 +42,22 @@
     <UnityVersion>6000.2.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\jingy\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\wangl\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\Scripts\Menu\MenuController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableTV.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\AnswerButton.cs" />
     <Compile Include="Assets\Code\Scripts\Dialogue\Dialogue.cs" />
-    <Compile Include="Assets\Code\Scripts\Cooking\BadPopUp.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\SaveManager.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\SerializableBoolDictionary.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\GameStateData.cs" />
     <Compile Include="Assets\Settings\InputSystem_Actions.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableLadder.cs" />
-    <Compile Include="Assets\Code\Scripts\Cooking\CookingController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableSafe.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableLadderStep.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDrawer.cs" />
@@ -70,7 +67,6 @@
     <Compile Include="Assets\Code\Scripts\Player\GameStateController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\ItemsController.cs" />
-    <Compile Include="Assets\Code\Scripts\Cooking\CookingStep.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\InteractuableHomework.cs" />
     <Compile Include="Assets\Code\Scripts\Player\MovementController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableItem.cs" />
@@ -87,10 +83,8 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableContainer.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\ISaveable.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\IInteractable.cs" />
-    <Compile Include="Assets\Code\Scripts\Cooking\KeyPopUp.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InterfaceController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\KeypadController.cs" />
-    <Compile Include="Assets\Code\Scripts\Menu\StartTransitioner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1125,10 +1119,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
@@ -1153,12 +1143,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Timeline">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.AI.Navigation.Updater">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
@@ -1347,10 +1337,6 @@
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.AIIntegration.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.AIIntegration.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor.Shared">

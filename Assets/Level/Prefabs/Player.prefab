@@ -1019,7 +1019,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 375
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4448,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3764
+  m_VersionIndex: 3773
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5170,6 +5170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6943f2293940fa8b1be18a25f00610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.GameStateController
+  Enemy: {fileID: 0}
 --- !u!1 &7494314574247598836
 GameObject:
   m_ObjectHideFlags: 0

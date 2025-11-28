@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Art/Animations/Menu/Idle.anim.meta
+guid: 1f3d88ea163507b4cb615b3ef865b32e
+========
+guid: f5d6849001af4c34fa10af036e12a1ac
+>>>>>>>> 747e09aaf7f3193edc04aaef44780e1771089bb7:Assets/Art/Animations/Menu/StartTransition.anim.meta
+=======
 guid: 2e13a1feec66ebc4cbc0bb85f241c5c2
+>>>>>>> 747e09aaf7f3193edc04aaef44780e1771089bb7
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0

@@ -10,7 +10,7 @@ namespace Assets.Code.Scripts.Player
     public class GameStateController : MonoBehaviour
     {
         private List<ISaveable> _saveables = new List<ISaveable>();
-
+        public Transform Enemy;
         
         private void Start()
         {
@@ -33,7 +33,9 @@ namespace Assets.Code.Scripts.Player
             {
                 currentScene = SceneManager.GetActiveScene().name,
                 playerPosition = PlayerController.Instance.transform.position,
-                playerRotation = PlayerController.Instance.transform.rotation
+                playerRotation = PlayerController.Instance.transform.rotation,
+                enemyPosition = Enemy.position,
+                enemyRotation = Enemy.rotation
             };
 
             foreach (ISaveable saveable in _saveables)
@@ -59,6 +61,8 @@ namespace Assets.Code.Scripts.Player
             
             PlayerController.Instance.transform.position = data.playerPosition;
             PlayerController.Instance.transform.rotation = data.playerRotation;
+            Enemy.position = data.enemyPosition;
+            Enemy.rotation = data.enemyRotation;
 
             foreach (ISaveable saveable in _saveables)
             {

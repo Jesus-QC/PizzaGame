@@ -11,6 +11,8 @@ namespace Code.Scripts.Cooking
         RotateDough3,
         RollDoughY1,
         SetupKnife,
+        Cut1,
+        Cut2
     }
 }
 

@@ -1,17 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Code.Scripts.Cooking
 {
     public class BadPopUp : MonoBehaviour
     {
-        public AudioSource BadSound;
-
         private float _timer;
 
         public void Enable()
         {
             _timer = 0f;
-            BadSound.Play();
             gameObject.SetActive(true);
         }
 
@@ -22,6 +20,16 @@ namespace Code.Scripts.Cooking
             if (_timer >= 2f)
             {
                 gameObject.SetActive(false);
+            }
+        }
+
+        public IEnumerator SpamError()
+        {
+            AudioSource audio = GetComponent<AudioSource>();
+            while (true)
+            {
+                audio.PlayOneShot(audio.clip);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
