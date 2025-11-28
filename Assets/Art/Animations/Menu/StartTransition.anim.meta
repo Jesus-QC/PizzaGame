@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 <<<<<<<< HEAD:Assets/Art/Animations/Menu/Idle.anim.meta
 <<<<<<< HEAD
+guid: e9f364400df008b4eab7c5d73914fd38
+=======
+<<<<<<< HEAD
 guid: 789fb105c57c96c47bde888a83b16471
 =======
 guid: cdff3771d9233cb4cbc3bf1c8c190c10
 >>>>>>> c6738f2f85b8c9a9f2a36fa59ab4c00385ca61e7
+>>>>>>> 7d7179c7ba84a3c3dce9a51cdfd303090bbafb41
 ========
 guid: f5d6849001af4c34fa10af036e12a1ac
 >>>>>>>> 747e09aaf7f3193edc04aaef44780e1771089bb7:Assets/Art/Animations/Menu/StartTransition.anim.meta
