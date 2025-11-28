@@ -8099,11 +8099,11 @@ PrefabInstance:
       objectReference: {fileID: 602809369}
     - target: {fileID: 2733715901686775316, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: loseSightTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2733715901686775316, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: maxChaseDistance
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4961156567991178947, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_Name
@@ -8111,7 +8111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.037
+      value: 0.804
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8119,7 +8119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.179
+      value: -2.186
       objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8153,6 +8153,14 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 602809370}
+    - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
+      propertyPath: StoppingDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
+      propertyPath: maxChaseDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: 'PatrolPoints.Array.data[0]'
       value: 

@@ -66,8 +66,11 @@ namespace Code.Scripts.Enemy
                         EffectsSource.PlayDelayed(5);
                         EffectsSource.PlayOneShot(StingerEffect, 0.3f);
                     }
-                    
-                    MovementAI.StartChasing();
+
+                    if (Vector3.Distance(Player.transform.position, EnemyController.Instance.transform.position) < 3)
+                    {
+                        MovementAI.StartChasing();
+                    }
                 } 
 
                 TimeSinceLastSeen = 0f;
