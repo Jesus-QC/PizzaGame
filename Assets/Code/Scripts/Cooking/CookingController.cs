@@ -143,13 +143,10 @@ namespace Code.Scripts.Cooking
         private IEnumerator Error()
         {
             yield return new WaitForSeconds(0.4f);
-            BadPopUp.Enable();
             SoundSource.pitch = 0.5f;
             yield return new WaitForSeconds(0.1f);
             SoundSource.enabled = false;
-            yield return new WaitForSeconds(1f);
-            StartCoroutine(BadPopUp.SpamError());
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
             SceneManager.LoadScene(2);
         }
     }
