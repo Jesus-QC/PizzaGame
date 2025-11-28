@@ -20,8 +20,8 @@ namespace Code.Scripts.Enemy
         public Transform EnemyNeck;
         public EnemyMovementAI MovementAI;
 
-        private float loseSightTime = 2f;
-        private float maxChaseDistance = 15f;
+        public float loseSightTime = 4f;
+        public float maxChaseDistance = 20f;
         private float killDistance = 1.5f;
         private float _timeSinceLastHit = Mathf.Infinity;
         

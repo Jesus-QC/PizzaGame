@@ -10,6 +10,8 @@ namespace Code.Scripts.Checkpoint
         public string currentScene;
         public Vector3 playerPosition;
         public Quaternion playerRotation;
+        public Vector3 enemyPosition;
+        public Quaternion enemyRotation;
         
         public SerializableBoolDictionary interactableStatesSerialized = new SerializableBoolDictionary();
         
