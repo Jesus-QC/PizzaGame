@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Video;
 using Code.Scripts.Checkpoint;
@@ -14,6 +15,18 @@ namespace Code.Scripts.Level.Interactables
         public AudioClip TurnOnOffClip;
 
         public static bool TvOn;
+        
+        private string _videoName = "NoSignalVideo.mp4";
+
+        private void Awake()
+        {
+            if (VideoPlayer != null && !string.IsNullOrEmpty(_videoName))
+            {
+                var path = System.IO.Path.Combine(Application.streamingAssetsPath, _videoName);
+                VideoPlayer.source = VideoSource.Url;
+                VideoPlayer.url = path;
+            }
+        }
 
         public bool IsOn
         {
