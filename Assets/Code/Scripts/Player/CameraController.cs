@@ -91,7 +91,8 @@ namespace Assets.Code.Scripts.Player
 
             Camera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
-            UpdateEnemyEffects();
+            if (EnemyController.Instance !=null && EnemyController.Instance.isActiveAndEnabled)
+                UpdateEnemyEffects();
         }
 
         private void UpdateEnemyEffects()

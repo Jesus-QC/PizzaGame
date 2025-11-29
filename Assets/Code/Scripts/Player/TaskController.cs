@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Code.Scripts.Checkpoint;
+using Code.Scripts.Enemy;
 using Code.Scripts.Level.Interactables;
 using TMPro;
 using UnityEngine;
@@ -155,6 +156,8 @@ namespace Assets.Code.Scripts.Player
         {
             finishedWatchTV = true;
             PlayerController.Instance.GameStateController.SaveGame();
+            EnemyController.Instance.enabled = true;
+            EnemyController.Instance.gameObject.SetActive(true);
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedWatchingTV);
             if (dialogueManager != null)
             {

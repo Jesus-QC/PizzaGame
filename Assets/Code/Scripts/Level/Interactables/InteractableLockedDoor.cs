@@ -87,6 +87,7 @@ namespace Code.Scripts.Level.Interactables
                 {
                     PlayerController.Instance.TaskController.OnFinishedGettingLadder();
                 }
+                Destroy(held.gameObject);
             }
 
             IsOpen = !IsOpen;

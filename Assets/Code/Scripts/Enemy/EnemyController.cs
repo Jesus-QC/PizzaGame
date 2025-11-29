@@ -21,7 +21,7 @@ namespace Code.Scripts.Enemy
         public EnemyMovementAI MovementAI;
 
         public float loseSightTime = 2f;
-        private float killDistance = 1.5f;
+        private float killDistance = 0.5f;
         private float _timeSinceLastHit = Mathf.Infinity;
         
         private float _viewDistance = 10f;
@@ -66,11 +66,6 @@ namespace Code.Scripts.Enemy
                         EffectsSource.PlayDelayed(5);
                         EffectsSource.PlayOneShot(StingerEffect, 0.3f);
                     }
-
-                    if (Vector3.Distance(Player.transform.position, EnemyController.Instance.transform.position) < 3)
-                    {
-                        MovementAI.StartChasing();
-                    }
                 } 
 
                 TimeSinceLastSeen = 0f;
@@ -80,6 +75,8 @@ namespace Code.Scripts.Enemy
         private void Awake()
         {
             Instance = this;
+            enabled = false;
+            gameObject.SetActive(false);
         }
 
         void Update()
@@ -151,10 +148,11 @@ namespace Code.Scripts.Enemy
             Vector3 leftDir = Quaternion.AngleAxis(-_sideRayAngle, Vector3.up) * centerDir;
             Vector3 rightDir = Quaternion.AngleAxis(_sideRayAngle, Vector3.up) * centerDir;
 
-            if (HitsPlayer(centerDir) || HitsPlayer(leftDir) || HitsPlayer(rightDir))
+            if (HitsPlayer(centerDir) || HitsPlayer(leftDir) || HitsPlayer(rightDir) || MovementAI.DistanceToPlayer()<5f)
             {
                 _timeSinceLastHit = 0f;
                 IsBeingSeen = true;
+                MovementAI.StartChasing();
 
                 /*
                 if (!_hasTriggeredLoad)
