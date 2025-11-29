@@ -17,15 +17,22 @@ namespace Assets.Code.Scripts.Player
         public TextMeshProUGUI ObjectiveTitle;
         public TextMeshProUGUI ObjectiveDescription;
         public AudioClip NewTask;
+        public Dialogue FinishedHomework;
+        public Dialogue FinishedTakingOutTrash;
+        public Dialogue FinishedWatchingTV;
+        public Dialogue FinishedGettingOut;
+        public Dialogue FinishedGettingLadder;
+        private DialogueManager dialogueManager;
         private bool finishedHomework = false;
         private bool finishedTakingOutTrash = false;
         private bool finishedWatchTV = false;
         private bool finishedGettingOut = false;
         private bool finishedGettingLadder = false;
+        private bool finishedClambingLadder = false;
 
         private void Start()
         {
-            DialogueManager dialogueManager = FindFirstObjectByType<DialogueManager>();
+            dialogueManager = FindFirstObjectByType<DialogueManager>();
             if (dialogueManager != null)
             {
                 dialogueManager.OnDialogueEnded += StartTaskSequence;
@@ -39,7 +46,7 @@ namespace Assets.Code.Scripts.Player
         
         IEnumerator TaskSequenceCoroutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             if (InteractableHomework.HasStartedHomework)
                 yield break;
@@ -67,12 +74,21 @@ namespace Assets.Code.Scripts.Player
         {
             finishedHomework = true;
             PlayerController.Instance.GameStateController.SaveGame();
+            PlayerController.Instance.DialogueManager.StartDialogue(FinishedHomework);
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded += StartTakingOutTrash;
+            }
+        }
+        
+        private void StartTakingOutTrash()
+        {
             StartCoroutine(FinishHomeworkCoroutine());
         }
 
         private IEnumerator FinishHomeworkCoroutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             ObjectiveTitle.text = "Saca la basura";
             ObjectiveDescription.text = "Lleva la bolsa de basura de la cocina al contenedor fuera de casa";
@@ -92,12 +108,21 @@ namespace Assets.Code.Scripts.Player
         {
             finishedTakingOutTrash = true;
             PlayerController.Instance.GameStateController.SaveGame();
+            PlayerController.Instance.DialogueManager.StartDialogue(FinishedTakingOutTrash);
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded += StartWatchingTV;
+            }
+        }
+        
+        private void StartWatchingTV()
+        {
             StartCoroutine(FinishTakingOutTrashCoroutine());
         }
 
         private IEnumerator FinishTakingOutTrashCoroutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             ObjectiveTitle.text = "Mira la television";
             ObjectiveDescription.text = "Sientate en el sillon y entretente un rato viendo la television";
@@ -130,12 +155,21 @@ namespace Assets.Code.Scripts.Player
         {
             finishedWatchTV = true;
             PlayerController.Instance.GameStateController.SaveGame();
+            PlayerController.Instance.DialogueManager.StartDialogue(FinishedWatchingTV);
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded += StartGettingOut;
+            }
+        }
+        
+        private void StartGettingOut()
+        {
             StartCoroutine(OnFinishedWatchingTVCoroutine());
         }
         
         public IEnumerator OnFinishedWatchingTVCoroutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             ObjectiveTitle.text = "Salir por la puerta trasera";
             ObjectiveDescription.text = "Buscar forma para salir por la puerta trasera de la cocina";
@@ -155,12 +189,21 @@ namespace Assets.Code.Scripts.Player
         {
             finishedGettingOut = true;
             PlayerController.Instance.GameStateController.SaveGame();
+            PlayerController.Instance.DialogueManager.StartDialogue(FinishedGettingOut);
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded += StartGettingLadder;
+            }
+        }
+        
+        private void StartGettingLadder()
+        {
             StartCoroutine(OnFinishedGettingOutCoroutine());
         }
 
         public IEnumerator OnFinishedGettingOutCoroutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             ObjectiveTitle.text = "Conseguir la escalera de la caseta";
             ObjectiveDescription.text = "Buscar forma para cosneguir la llave de la caseta";
@@ -180,12 +223,21 @@ namespace Assets.Code.Scripts.Player
         {
             finishedGettingLadder = true;
             PlayerController.Instance.GameStateController.SaveGame();
+            PlayerController.Instance.DialogueManager.StartDialogue(FinishedGettingLadder);
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded += StartClambingLadder;
+            }
+        }
+        
+        private void StartClambingLadder()
+        {
             StartCoroutine(OnFinishedGettingLadderCoroutine());
         }
 
         public IEnumerator OnFinishedGettingLadderCoroutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             ObjectiveTitle.text = "Colocar y subuir por la escalera";
             ObjectiveDescription.text = "Coloca la escalera sobre la casa y subirpor ella";
@@ -204,7 +256,7 @@ namespace Assets.Code.Scripts.Player
         public void Open()
         {
             TestAnimator.SetBool(OpenAnimation, true);
-            PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.3f);
+            PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.1f);
         }
 
         public void Close()
@@ -236,6 +288,18 @@ namespace Assets.Code.Scripts.Player
             else if (!finishedWatchTV)
             {
                 StartCoroutine(FinishTakingOutTrashCoroutine());
+            }
+            else if (!finishedGettingOut)
+            {
+                StartCoroutine(OnFinishedWatchingTVCoroutine());
+            }
+            else if (!finishedGettingLadder)
+            {
+                StartCoroutine(OnFinishedGettingOutCoroutine());
+            }
+            else if (!finishedClambingLadder)
+            {
+                StartCoroutine(OnFinishedGettingLadderCoroutine());
             }
         }
     }

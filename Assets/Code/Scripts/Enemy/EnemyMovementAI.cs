@@ -81,7 +81,6 @@ namespace Code.Scripts.Enemy
         
         private void GoToNextPatrolPoint()
         {
-            Debug.Log("GoToNextPatrolPoint");
             _agent.destination = PatrolPoints[_currentPatrolIndex].position;
             _currentPatrolIndex = (_currentPatrolIndex + 1) % PatrolPoints.Length;
         }

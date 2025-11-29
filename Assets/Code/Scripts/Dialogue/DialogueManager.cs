@@ -112,8 +112,8 @@ public class DialogueManager : MonoBehaviour
         if (isFirstDialogue)
         {
             isFirstDialogue = false;
-            OnDialogueEnded?.Invoke();
         }
+        OnDialogueEnded?.Invoke();
         PlayerController.Instance.MovementController.enabled = true;
         PlayerController.Instance.CameraController.enabled = true;
         interactableCursor.gameObject.SetActive(true);

@@ -4448,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3773
+  m_VersionIndex: 3785
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5121,6 +5121,11 @@ MonoBehaviour:
   ObjectiveTitle: {fileID: 4332894101196137595}
   ObjectiveDescription: {fileID: 3855411478236480466}
   NewTask: {fileID: 8300000, guid: b232eaacb9d0c3645869d79b8c394c21, type: 3}
+  FinishedHomework: {fileID: 11400000, guid: 421051b3e0ca35d4dbf71fb6f6c087d5, type: 2}
+  FinishedTakingOutTrash: {fileID: 11400000, guid: de7122e14efbdee4b9eb3d0406e38cbb, type: 2}
+  FinishedWatchingTV: {fileID: 11400000, guid: 6d555328755104d4cb7890ed2832e802, type: 2}
+  FinishedGettingOut: {fileID: 11400000, guid: 892b7681ca5ca5b439a904fee9ccde97, type: 2}
+  FinishedGettingLadder: {fileID: 11400000, guid: b681b382c35fbe449b54b2d6b1da9c3a, type: 2}
 --- !u!114 &1505290693162733133
 MonoBehaviour:
   m_ObjectHideFlags: 0
