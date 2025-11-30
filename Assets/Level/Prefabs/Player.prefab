@@ -4448,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3803
+  m_VersionIndex: 3812
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5049,7 +5049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a1a900f22497c9bb79b2eba1b0c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.CameraController
-  Sensitivity: 35
+  Sensitivity: 0.18
   ShakeAmount: 0.008
   VignetteIntensity: 0.27
   ChromaticAberrationIntensity: 1
@@ -5126,6 +5126,7 @@ MonoBehaviour:
   FinishedWatchingTV: {fileID: 11400000, guid: 6d555328755104d4cb7890ed2832e802, type: 2}
   FinishedGettingOut: {fileID: 11400000, guid: 892b7681ca5ca5b439a904fee9ccde97, type: 2}
   FinishedGettingLadder: {fileID: 11400000, guid: b681b382c35fbe449b54b2d6b1da9c3a, type: 2}
+  FinalDialogue: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
 --- !u!114 &1505290693162733133
 MonoBehaviour:
   m_ObjectHideFlags: 0

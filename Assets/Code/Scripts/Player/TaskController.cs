@@ -23,6 +23,7 @@ namespace Assets.Code.Scripts.Player
         public Dialogue FinishedWatchingTV;
         public Dialogue FinishedGettingOut;
         public Dialogue FinishedGettingLadder;
+        public Dialogue FinalDialogue;
         private DialogueManager dialogueManager;
         private bool finishedHomework = false;
         private bool finishedTakingOutTrash = false;
@@ -36,16 +37,16 @@ namespace Assets.Code.Scripts.Player
             dialogueManager = FindFirstObjectByType<DialogueManager>();
             if (dialogueManager != null)
             {
-                dialogueManager.OnDialogueEnded += StartTaskSequence;
+                dialogueManager.OnDialogueEnded += StartHomework;
             }
         }
         
-        private void StartTaskSequence()
+        private void StartHomework()
         {
-            StartCoroutine(TaskSequenceCoroutine());
+            StartCoroutine(TaskHomework());
         }
         
-        IEnumerator TaskSequenceCoroutine()
+        IEnumerator TaskHomework()
         {
             yield return new WaitForSeconds(1f);
 
@@ -76,7 +77,7 @@ namespace Assets.Code.Scripts.Player
             finishedHomework = true;
             PlayerController.Instance.GameStateController.SaveGame();
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedHomework);
-            if (dialogueManager != null)
+            if (dialogueManager != null && !finishedTakingOutTrash)
             {
                 dialogueManager.OnDialogueEnded += StartTakingOutTrash;
             }
@@ -84,10 +85,10 @@ namespace Assets.Code.Scripts.Player
         
         private void StartTakingOutTrash()
         {
-            StartCoroutine(FinishHomeworkCoroutine());
+            StartCoroutine(TaskTakingOutTrash());
         }
 
-        private IEnumerator FinishHomeworkCoroutine()
+        private IEnumerator TaskTakingOutTrash()
         {
             yield return new WaitForSeconds(1f);
 
@@ -110,7 +111,7 @@ namespace Assets.Code.Scripts.Player
             finishedTakingOutTrash = true;
             PlayerController.Instance.GameStateController.SaveGame();
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedTakingOutTrash);
-            if (dialogueManager != null)
+            if (dialogueManager != null && !finishedWatchTV)
             {
                 dialogueManager.OnDialogueEnded += StartWatchingTV;
             }
@@ -118,10 +119,10 @@ namespace Assets.Code.Scripts.Player
         
         private void StartWatchingTV()
         {
-            StartCoroutine(FinishTakingOutTrashCoroutine());
+            StartCoroutine(TaskWatchingTV());
         }
 
-        private IEnumerator FinishTakingOutTrashCoroutine()
+        private IEnumerator TaskWatchingTV()
         {
             yield return new WaitForSeconds(1f);
 
@@ -159,7 +160,7 @@ namespace Assets.Code.Scripts.Player
             EnemyController.Instance.enabled = true;
             EnemyController.Instance.gameObject.SetActive(true);
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedWatchingTV);
-            if (dialogueManager != null)
+            if (dialogueManager != null && !finishedGettingOut)
             {
                 dialogueManager.OnDialogueEnded += StartGettingOut;
             }
@@ -167,10 +168,10 @@ namespace Assets.Code.Scripts.Player
         
         private void StartGettingOut()
         {
-            StartCoroutine(OnFinishedWatchingTVCoroutine());
+            StartCoroutine(TaskGettingOut());
         }
         
-        public IEnumerator OnFinishedWatchingTVCoroutine()
+        public IEnumerator TaskGettingOut()
         {
             yield return new WaitForSeconds(1f);
 
@@ -193,7 +194,7 @@ namespace Assets.Code.Scripts.Player
             finishedGettingOut = true;
             PlayerController.Instance.GameStateController.SaveGame();
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedGettingOut);
-            if (dialogueManager != null)
+            if (dialogueManager != null && !finishedGettingLadder)
             {
                 dialogueManager.OnDialogueEnded += StartGettingLadder;
             }
@@ -201,10 +202,10 @@ namespace Assets.Code.Scripts.Player
         
         private void StartGettingLadder()
         {
-            StartCoroutine(OnFinishedGettingOutCoroutine());
+            StartCoroutine(TaskGettingLadder());
         }
 
-        public IEnumerator OnFinishedGettingOutCoroutine()
+        public IEnumerator TaskGettingLadder()
         {
             yield return new WaitForSeconds(1f);
 
@@ -227,7 +228,7 @@ namespace Assets.Code.Scripts.Player
             finishedGettingLadder = true;
             PlayerController.Instance.GameStateController.SaveGame();
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedGettingLadder);
-            if (dialogueManager != null)
+            if (dialogueManager != null && !finishedClambingLadder)
             {
                 dialogueManager.OnDialogueEnded += StartClambingLadder;
             }
@@ -235,10 +236,10 @@ namespace Assets.Code.Scripts.Player
         
         private void StartClambingLadder()
         {
-            StartCoroutine(OnFinishedGettingLadderCoroutine());
+            StartCoroutine(TaskClambingLadder());
         }
 
-        public IEnumerator OnFinishedGettingLadderCoroutine()
+        public IEnumerator TaskClambingLadder()
         {
             yield return new WaitForSeconds(1f);
 
@@ -254,6 +255,27 @@ namespace Assets.Code.Scripts.Player
             }
 
             Close();
+        }
+
+        public void OnFinishedClambingLadder()
+        {
+            finishedClambingLadder = true;
+            PlayerController.Instance.GameStateController.SaveGame();
+            ClearOnDialogueEnded();
+            PlayerController.Instance.DialogueManager.StartDialogue(FinalDialogue);
+        }
+
+        private void ClearOnDialogueEnded()
+        {
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded -= StartHomework;
+                dialogueManager.OnDialogueEnded -= StartTakingOutTrash;
+                dialogueManager.OnDialogueEnded -= StartWatchingTV;
+                dialogueManager.OnDialogueEnded -= StartGettingOut;
+                dialogueManager.OnDialogueEnded -= StartGettingLadder;
+                dialogueManager.OnDialogueEnded -= StartClambingLadder;
+            }
         }
         
         public void Open()
@@ -272,6 +294,9 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates[id+"_homework"] = finishedHomework;
             data.interactableStates[id+"_trash"] = finishedTakingOutTrash;
             data.interactableStates[id+"_tv"] = finishedWatchTV;
+            data.interactableStates[id+"_gettingout"] = finishedGettingOut;
+            data.interactableStates[id+"_gettingladder"] = finishedGettingLadder;
+            data.interactableStates[id+"_clambingladder"] = finishedClambingLadder;
         }
 
         public void Load(GameStateData data)
@@ -279,30 +304,33 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates.TryGetValue(id+"_homework", out finishedHomework);
             data.interactableStates.TryGetValue(id+"_trash", out finishedTakingOutTrash);
             data.interactableStates.TryGetValue(id+"_tv", out finishedWatchTV);
+            data.interactableStates.TryGetValue(id+"_gettingout", out finishedGettingOut);
+            data.interactableStates.TryGetValue(id + "_gettingladder", out finishedGettingLadder);
+            data.interactableStates.TryGetValue(id + "_clambingladder", out finishedClambingLadder);
            
             if (!finishedHomework)
             {
-                StartCoroutine(TaskSequenceCoroutine());
+                StartCoroutine(TaskHomework());
             } 
             else if (!finishedTakingOutTrash)
             {
-                StartCoroutine(FinishHomeworkCoroutine());
+                StartCoroutine(TaskTakingOutTrash());
             }
             else if (!finishedWatchTV)
             {
-                StartCoroutine(FinishTakingOutTrashCoroutine());
+                StartCoroutine(TaskWatchingTV());
             }
             else if (!finishedGettingOut)
             {
-                StartCoroutine(OnFinishedWatchingTVCoroutine());
+                StartCoroutine(TaskGettingOut());
             }
             else if (!finishedGettingLadder)
             {
-                StartCoroutine(OnFinishedGettingOutCoroutine());
+                StartCoroutine(TaskGettingLadder());
             }
             else if (!finishedClambingLadder)
             {
-                StartCoroutine(OnFinishedGettingLadderCoroutine());
+                StartCoroutine(TaskClambingLadder());
             }
         }
     }

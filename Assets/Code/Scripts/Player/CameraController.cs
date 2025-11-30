@@ -9,7 +9,7 @@ namespace Assets.Code.Scripts.Player
 {
     public class CameraController : MonoBehaviour
     {
-        public float Sensitivity = 100f;
+        public float Sensitivity = 0.15f;
         public float ShakeAmount = 0.008f;
         public float VignetteIntensity = 0.27f;
         public float ChromaticAberrationIntensity = 1f;
@@ -83,8 +83,10 @@ namespace Assets.Code.Scripts.Player
         
         private void Update()
         {
-            float mouseX = _lookInput.x * Sensitivity * Time.deltaTime;
-            float mouseY = _lookInput.y * Sensitivity * Time.deltaTime;
+            //float mouseX = _lookInput.x * Sensitivity * Time.deltaTime;
+            //float mouseY = _lookInput.y * Sensitivity * Time.deltaTime;
+            float mouseX = _lookInput.x * Sensitivity;
+            float mouseY = _lookInput.y * Sensitivity;
 
             _xRotation -= mouseY;
             _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);

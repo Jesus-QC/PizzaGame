@@ -6402,10 +6402,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 4961156567991178947, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5733716951696772217, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.92
@@ -6451,18 +6447,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1770960187}
     - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
-      propertyPath: maxChaseDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
-      propertyPath: PatrolPoints.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240917416138659654, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
       propertyPath: 'PatrolPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 959908478}
@@ -6474,14 +6458,6 @@ PrefabInstance:
       propertyPath: 'PatrolPoints.Array.data[2]'
       value: 
       objectReference: {fileID: 1499013727}
-    - target: {fileID: 8716950383340386832, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
-      propertyPath: m_Speed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8716950383340386832, guid: 4c1dd4e54a582c44a8df978c6d3429ed, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6735,7 +6711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc185d6798d34c699d7e7584299c4789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalDialogueTrigger
-  finalDialogue: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
 --- !u!65 &1026267701
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10771,7 +10746,7 @@ PrefabInstance:
       objectReference: {fileID: 1425717130}
     - target: {fileID: 8558606612902500433, guid: a5096e9ecfe0bf643b697437d36e8fb3, type: 3}
       propertyPath: m_VersionIndex
-      value: 3806
+      value: 3815
       objectReference: {fileID: 0}
     - target: {fileID: 8760926142011510509, guid: a5096e9ecfe0bf643b697437d36e8fb3, type: 3}
       propertyPath: m_LocalPosition.x

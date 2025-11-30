@@ -1,8 +1,8 @@
 using UnityEngine;
+using Assets.Code.Scripts.Player;
 
 public class FinalDialogueTrigger : MonoBehaviour
 {
-    public Dialogue finalDialogue;
     private bool dialogueTriggered = false;
 
     private void OnTriggerEnter(Collider other)
@@ -10,7 +10,7 @@ public class FinalDialogueTrigger : MonoBehaviour
         if (!dialogueTriggered && other.gameObject.name == "Body")
         {
             dialogueTriggered = true;
-            DialogueManager.Instance.StartDialogue(finalDialogue);
+            PlayerController.Instance.TaskController.OnFinishedClambingLadder();
         }
     }
 }
