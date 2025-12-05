@@ -20,3 +20,7 @@ Simple Keys by 3Digitalis -- https://assetstore.unity.com/packages/3d/props/tool
 Kitchen Set - Interior by Geniuscrate Games -- https://assetstore.unity.com/packages/3d/props/furniture/kitchen-set-interior-263284 -- License: Extension Asset
 Bedroom Set - Interior by Geniuscrate Games -- https://assetstore.unity.com/packages/3d/props/furniture/bedroom-set-interior-264498 -- License: Extension Asset
 Bathroom Set- Interior by Geniuscrate Games -- https://assetstore.unity.com/packages/3d/props/furniture/bathroom-set-interior-263462 -- License: Extension Asset
+sliding door wardrobe by gamedog74 -- https://freesound.org/s/432633/ -- License: Creative Commons 0
+Drawer_sliding_open_close.wav by Jamitch2 -- https://freesound.org/s/344706/ -- License: Creative Commons 0
+cupboard_open_closing.wav by j1987 -- https://freesound.org/s/72619/ -- License: Creative Commons 0
+Furniture used set by Maximalist --https://assetstore.unity.com/packages/3d/props/furniture/furniture-used-set-185990 – License: Extension Asset
