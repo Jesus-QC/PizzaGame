@@ -36,7 +36,7 @@ namespace Code.Scripts.Level.Interactables
             GameObject ladder = held.gameObject;
             InteractableLadder ladderScript = held.GetComponent<InteractableLadder>();
             
-            ladderScript.StepSignal(transform.position);
+            ladderScript.StepSignal();
             IsInteractable = false;
         }
 

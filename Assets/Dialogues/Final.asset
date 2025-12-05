@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebf4a1545b3b50b49a8d3bf91e1f3897, type: 3}
-  m_Name: OpeningDialogue
+  m_Name: Final
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - text: "Qu\xE9 susto me ha dado, pero qui\xE9n ha dise\xF1ado ese juego."
-  - text: Uy tengo que hacer el cuestionario ya que sino no da tiempo.
+  - text: "Si has podido llegar hasta aqu\xED, significa que has conseguido llegar
+      hasta el final de esta iteraci\xF3n."
+  - text: Ahora si quieres puedes explorar un poco la mapa.

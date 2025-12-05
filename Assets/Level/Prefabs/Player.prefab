@@ -1019,7 +1019,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 375
+    m_Bits: 887
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1463,10 +1463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2760,10 +2760,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3740814025037964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -238}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 250}
+  m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8031406449261472900
 CanvasRenderer:
@@ -2800,13 +2800,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[ SPACE/CLICK ]'
+  m_Text: '[ Presiona E para avanzar ]'
 --- !u!1 &5715847121288022585
 GameObject:
   m_ObjectHideFlags: 0
@@ -4448,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3773
+  m_VersionIndex: 3812
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4768,10 +4768,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -5049,7 +5049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a1a900f22497c9bb79b2eba1b0c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.CameraController
-  Sensitivity: 60
+  Sensitivity: 0.18
   ShakeAmount: 0.008
   VignetteIntensity: 0.27
   ChromaticAberrationIntensity: 1
@@ -5121,6 +5121,12 @@ MonoBehaviour:
   ObjectiveTitle: {fileID: 4332894101196137595}
   ObjectiveDescription: {fileID: 3855411478236480466}
   NewTask: {fileID: 8300000, guid: b232eaacb9d0c3645869d79b8c394c21, type: 3}
+  FinishedHomework: {fileID: 11400000, guid: 421051b3e0ca35d4dbf71fb6f6c087d5, type: 2}
+  FinishedTakingOutTrash: {fileID: 11400000, guid: de7122e14efbdee4b9eb3d0406e38cbb, type: 2}
+  FinishedWatchingTV: {fileID: 11400000, guid: 6d555328755104d4cb7890ed2832e802, type: 2}
+  FinishedGettingOut: {fileID: 11400000, guid: 892b7681ca5ca5b439a904fee9ccde97, type: 2}
+  FinishedGettingLadder: {fileID: 11400000, guid: b681b382c35fbe449b54b2d6b1da9c3a, type: 2}
+  FinalDialogue: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
 --- !u!114 &1505290693162733133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6029,9 +6035,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3740814025037964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -350}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 130}
   m_SizeDelta: {x: 900, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1756085414316430020
@@ -6071,8 +6077,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282173393
+  m_fontColor: {r: 0.8207547, g: 0.7823314, b: 0.23616053, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6209,10 +6215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

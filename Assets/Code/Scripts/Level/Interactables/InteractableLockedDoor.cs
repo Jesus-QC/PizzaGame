@@ -13,7 +13,8 @@ namespace Code.Scripts.Level.Interactables
         public AudioClip OpenClip, CloseClip;
         public Animator DoorAnimator;
         public GameObject Key;
-        public Dialogue LockedDoor;
+        public Dialogue LockedKitchenDoor;
+        public Dialogue LockedWarehouseDoor;
         private const float CooldownTime = 0.5f;
         private static readonly int OpenAnimation = Animator.StringToHash("Open");
         private float _lastInteractionTime;
@@ -66,9 +67,16 @@ namespace Code.Scripts.Level.Interactables
             {
                 if (held == null || held.gameObject != Key)
                 {
-                    PlayerController.Instance.DialogueManager.StartDialogue(LockedDoor);
-                    Debug.Log("Door is locked! You need the correct key.");
-                    return;
+                    if (gameObject.CompareTag("KitchenDoor"))
+                    {
+                        PlayerController.Instance.DialogueManager.StartDialogue(LockedKitchenDoor);
+                        return;
+                    }
+                    else if (gameObject.CompareTag("WarehouseDoor"))
+                    {
+                        PlayerController.Instance.DialogueManager.StartDialogue(LockedWarehouseDoor);
+                        return;
+                    }
                 }
                 IsLocked = false;
                 if (gameObject.CompareTag("KitchenDoor"))
@@ -79,6 +87,7 @@ namespace Code.Scripts.Level.Interactables
                 {
                     PlayerController.Instance.TaskController.OnFinishedGettingLadder();
                 }
+                Destroy(held.gameObject);
             }
 
             IsOpen = !IsOpen;

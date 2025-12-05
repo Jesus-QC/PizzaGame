@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebf4a1545b3b50b49a8d3bf91e1f3897, type: 3}
-  m_Name: OpeningDialogue
+  m_Name: FinishedWatchingTV
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - text: "Qu\xE9 susto me ha dado, pero qui\xE9n ha dise\xF1ado ese juego."
-  - text: Uy tengo que hacer el cuestionario ya que sino no da tiempo.
+  - text: '! ! ! HA ENTRADO ALGUIEN EN LA CASA ! ! !'
+  - text: "! ! ! MI M\xD3VIL EST\xC1 EN LA HABITACI\xD3N ! ! !"
+  - text: '! ! ! PERO NO PUEDO SUBIR POR LA ESCALERA ! ! !'
+  - text: '! ! ! TENGO QUE SALIR POR LA PUERTA TRASERA DE LA COCINA ! ! !'
