@@ -11,6 +11,8 @@ TagManager:
   - Safe
   - BackDoor
   - Trash
+  - KitchenDoor
+  - WarehouseDoor
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - ViewModel
   - KeypadUI
   - Surface
-  - 
+  - IgnoreAI
   - 
   - 
   - 

@@ -8,6 +8,8 @@ using Code.Scripts.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance;
+
     public GameObject dialoguePanel;
     public TextMeshProUGUI bodyText;
     public Dialogue openingDialogue;
@@ -15,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip typeSound;
     public InteractableCursor interactableCursor;
+
     private int index = 0;
     private bool isActive = false;
     private bool isTyping = false;
@@ -23,7 +26,13 @@ public class DialogueManager : MonoBehaviour
     private bool isFirstDialogue = true;
     
     public event System.Action OnDialogueEnded;
-    
+
+    public bool IsActive => isActive;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     
     void Start()
     {
@@ -32,10 +41,8 @@ public class DialogueManager : MonoBehaviour
             StartDialogue(openingDialogue);
         }
     }
-    
-    public void OnClick(InputValue value)
+    public void Interact()
     {
-        if (!isActive || !value.isPressed) return;
         if (isTyping)
         {
             SkipTyping();
@@ -45,7 +52,7 @@ public class DialogueManager : MonoBehaviour
             NextLine();
         }
     }
-
+  
     public void StartDialogue(Dialogue dialogue)
     {
         PlayerController.Instance.MovementController.enabled = false;
@@ -112,8 +119,8 @@ public class DialogueManager : MonoBehaviour
         if (isFirstDialogue)
         {
             isFirstDialogue = false;
-            OnDialogueEnded?.Invoke();
         }
+        OnDialogueEnded?.Invoke();
         PlayerController.Instance.MovementController.enabled = true;
         PlayerController.Instance.CameraController.enabled = true;
         interactableCursor.gameObject.SetActive(true);

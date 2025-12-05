@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2846578170499042676}
   - component: {fileID: -2703461125041239882}
   - component: {fileID: 3056719357162635839}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 2589297301336332614}
   - component: {fileID: 7438063940370633599}
   - component: {fileID: 2089967825168512007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Frame
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 4443736035709304}
   - component: {fileID: 33028172231677078}
   - component: {fileID: 23128268761226906}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Knob
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -428,7 +428,8 @@ GameObject:
   - component: {fileID: 33754721271890846}
   - component: {fileID: 23250973509016350}
   - component: {fileID: 4896061234389615410}
-  m_Layer: 0
+  - component: {fileID: 5141107991426469976}
+  m_Layer: 9
   m_Name: Door
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -529,3 +530,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: 670e9ab602834f049b0dac77d6a298d8, type: 3}
+--- !u!208 &5141107991426469976
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988184177506868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1.0500001, z: 0.018000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: -0.5, y: 1.0500001, z: 0.018000001}
+  m_TimeToStationary: 0.5

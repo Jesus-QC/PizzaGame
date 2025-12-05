@@ -13,6 +13,12 @@ namespace Assets.Code.Scripts.Player
             if (!value.isPressed)
                 return;
 
+            if (DialogueManager.Instance.IsActive)
+            {
+                DialogueManager.Instance.Interact();
+                return;
+            }
+
             IInteractable interactable = GetInteractable();
 
             if (interactable == null)
