@@ -13,3 +13,16 @@ Success Jingle by JustInvoke -- https://freesound.org/s/446111/ -- License: Attr
 OKAY! by Scrampunk -- https://freesound.org/s/345299/ -- License: Attribution 4.0
 interface sounds by kenney -- https://kenney.nl/assets/interface-sounds -- License: Creative Commons CC0
 Window Asset Pack by hnanw -- https://sketchfab.com/3d-models/window-asset-pack-e8a3914fb654483790abc0cd72fb7099 --License: CC Attribution
+Turning off a futuristic TV by pfranzen -- https://freesound.org/s/393745/ -- License: Attribution 4.0
+08-Sofa-consolidated.wav by sofial1224 -- https://freesound.org/s/446151/ -- License: Creative Commons 0
+Free Wood Door Pack by Biostart -- https://assetstore.unity.com/packages/3d/props/interior/free-wood-door-pack-280509 -- License: Extension Asset
+Modular Sofa FREE by Vertex Studio -- https://assetstore.unity.com/packages/3d/props/furniture/modular-sofa-free-189368 -- License: Extension Asset
+Next-gen Electronics Pack by Vertex Studio -- https://assetstore.unity.com/packages/3d/props/electronics/next-gen-electronics-pack-35718 -- License: Extension Asset
+Simple Keys by 3Digitalis -- https://assetstore.unity.com/packages/3d/props/tools/simple-keys-231162 -- License: Extension Asset
+Kitchen Set - Interior by Geniuscrate Games -- https://assetstore.unity.com/packages/3d/props/furniture/kitchen-set-interior-263284 -- License: Extension Asset
+Bedroom Set - Interior by Geniuscrate Games -- https://assetstore.unity.com/packages/3d/props/furniture/bedroom-set-interior-264498 -- License: Extension Asset
+Bathroom Set- Interior by Geniuscrate Games -- https://assetstore.unity.com/packages/3d/props/furniture/bathroom-set-interior-263462 -- License: Extension Asset
+sliding door wardrobe by gamedog74 -- https://freesound.org/s/432633/ -- License: Creative Commons 0
+Drawer_sliding_open_close.wav by Jamitch2 -- https://freesound.org/s/344706/ -- License: Creative Commons 0
+cupboard_open_closing.wav by j1987 -- https://freesound.org/s/72619/ -- License: Creative Commons 0
+Furniture used set by Maximalist --https://assetstore.unity.com/packages/3d/props/furniture/furniture-used-set-185990 – License: Extension Asset
