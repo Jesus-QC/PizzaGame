@@ -34,4 +34,6 @@ Bathroom Set- Interior by Geniuscrate Games -- https://assetstore.unity.com/pack
 sliding door wardrobe by gamedog74 -- https://freesound.org/s/432633/ -- License: Creative Commons 0
 Drawer_sliding_open_close.wav by Jamitch2 -- https://freesound.org/s/344706/ -- License: Creative Commons 0
 cupboard_open_closing.wav by j1987 -- https://freesound.org/s/72619/ -- License: Creative Commons 0
-Furniture used set by Maximalist --https://assetstore.unity.com/packages/3d/props/furniture/furniture-used-set-185990 – License: Extension Asset
+Furniture used set by Maximalist -- https://assetstore.unity.com/packages/3d/props/furniture/furniture-used-set-185990 –- License: Extension Asset
+Desk Set by Ren Viro Store -- https://sketchfab.com/3d-models/desk-set-f26030d09d73422f8ff270425c7c63e0 -- License: CC BY 4.0
+Bookshelf by Billy Jackman -- https://sketchfab.com/3d-models/bookshelf-b8f46cf7daca419a87ac8d131bad056f -- License: CC BY 4.0
