@@ -447,9 +447,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7893671476369902782}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.99998844, z: -0, w: 0.0048120054}
+  m_LocalRotation: {x: 0, y: 0.99998844, z: 0, w: 0.0048084646}
   m_LocalPosition: {x: 4.947, y: 0.0142, z: -15.283}
-  m_LocalScale: {x: 1.433518, y: 1.455134, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 61938220784763199}
@@ -639,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc74d07d7a52a54e987174c55328d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableWardrobeDoor
+  _id: 
   AudioSource: {fileID: 7721986373183722569}
   OpenClip: {fileID: 8300000, guid: 5878efac57a4923499c87262e91303d6, type: 3}
   CloseClip: {fileID: 8300000, guid: 3c6cfd5f163d32143bb09ac44557a18e, type: 3}
@@ -1113,6 +1114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813b20a2f86664c4e8c057b968bbc72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableWardrobeDoor_R
+  _id: 
   AudioSource: {fileID: 2785615418507198521}
   OpenClip: {fileID: 8300000, guid: 5878efac57a4923499c87262e91303d6, type: 3}
   CloseClip: {fileID: 8300000, guid: 3c6cfd5f163d32143bb09ac44557a18e, type: 3}
@@ -1384,6 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87a9c3d39f5c14bb89be0c1f987b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableWardrobeDrawer
+  _id: 
   AudioSource: {fileID: 7810980500678913037}
   OpenClip: {fileID: 8300000, guid: 475ca1a124186554cbea490faec30b4b, type: 3}
   CloseClip: {fileID: 8300000, guid: 9822c63c4b42d2d4a8c9d0e51f947d04, type: 3}
@@ -1613,6 +1616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813b20a2f86664c4e8c057b968bbc72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableWardrobeDoor_R
+  _id: 
   AudioSource: {fileID: 7874530135693165374}
   OpenClip: {fileID: 8300000, guid: 5878efac57a4923499c87262e91303d6, type: 3}
   CloseClip: {fileID: 8300000, guid: 3c6cfd5f163d32143bb09ac44557a18e, type: 3}
@@ -1884,6 +1888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87a9c3d39f5c14bb89be0c1f987b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableWardrobeDrawer
+  _id: 
   AudioSource: {fileID: 8969817230959670723}
   OpenClip: {fileID: 8300000, guid: 475ca1a124186554cbea490faec30b4b, type: 3}
   CloseClip: {fileID: 8300000, guid: 9822c63c4b42d2d4a8c9d0e51f947d04, type: 3}
@@ -2246,6 +2251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87a9c3d39f5c14bb89be0c1f987b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableWardrobeDrawer
+  _id: 
   AudioSource: {fileID: 7223861765860915733}
   OpenClip: {fileID: 8300000, guid: 475ca1a124186554cbea490faec30b4b, type: 3}
   CloseClip: {fileID: 8300000, guid: 9822c63c4b42d2d4a8c9d0e51f947d04, type: 3}

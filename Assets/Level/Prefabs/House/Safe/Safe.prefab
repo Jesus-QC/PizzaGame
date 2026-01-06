@@ -713,9 +713,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3717847101785814823}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.00000023841855, z: -0, w: -1}
+  m_LocalRotation: {x: 0, y: 0, z: -0, w: -1}
   m_LocalPosition: {x: 6.0000043, y: 2, z: -8.999997}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.14788233, y: 0.15374942, z: 0.14754322}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 144885776663488915}
@@ -757,12 +757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteraactableSafe
   keypadPanel: {fileID: 0}
-  keypadStudio: {fileID: 0}
   keypadCamera: {fileID: 0}
-  openSafe: {fileID: 8300000, guid: ac52e256b76467d4aae3ea24127e687f, type: 3}
-  wrongPassword: {fileID: 8300000, guid: b882e3d84413ed54a9a65e6a83cdb3b0, type: 3}
-  correctPassword: {fileID: 8300000, guid: 90fb9a96b643646409bdc4d56d26b04b, type: 3}
-  buttonPress: {fileID: 8300000, guid: bd56432400b31a64cbcffb1bb51abe13, type: 3}
 --- !u!82 &842877665229543093
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1197,7 +1192,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2552
+  m_VersionIndex: 2570
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1552,7 +1547,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2552
+  m_VersionIndex: 2570
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2201,7 +2196,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2552
+  m_VersionIndex: 2570
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2556,7 +2551,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2552
+  m_VersionIndex: 2570
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

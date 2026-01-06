@@ -4448,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3812
+  m_VersionIndex: 3839
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4819,6 +4819,7 @@ GameObject:
   - component: {fileID: 1505290693162733133}
   - component: {fileID: 7053176834408437054}
   - component: {fileID: 2516176656849075104}
+  - component: {fileID: 1366680200050979129}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5126,7 +5127,7 @@ MonoBehaviour:
   FinishedWatchingTV: {fileID: 11400000, guid: 6d555328755104d4cb7890ed2832e802, type: 2}
   FinishedGettingOut: {fileID: 11400000, guid: 892b7681ca5ca5b439a904fee9ccde97, type: 2}
   FinishedGettingLadder: {fileID: 11400000, guid: b681b382c35fbe449b54b2d6b1da9c3a, type: 2}
-  FinalDialogue: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
+  FinishedClambingLadder: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
 --- !u!114 &1505290693162733133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5177,6 +5178,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Player.GameStateController
   Enemy: {fileID: 0}
+--- !u!95 &1366680200050979129
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481831757030133175}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb2b77b53cc6db24fa385d67a13c6704, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7494314574247598836
 GameObject:
   m_ObjectHideFlags: 0
