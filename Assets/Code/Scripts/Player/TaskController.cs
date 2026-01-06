@@ -23,7 +23,7 @@ namespace Assets.Code.Scripts.Player
         public Dialogue FinishedWatchingTV;
         public Dialogue FinishedGettingOut;
         public Dialogue FinishedGettingLadder;
-        public Dialogue FinalDialogue;
+        public Dialogue FinishedClambingLadder;
         private DialogueManager dialogueManager;
         private bool finishedHomework = false;
         private bool finishedTakingOutTrash = false;
@@ -262,7 +262,18 @@ namespace Assets.Code.Scripts.Player
             finishedClambingLadder = true;
             PlayerController.Instance.GameStateController.SaveGame();
             ClearOnDialogueEnded();
-            PlayerController.Instance.DialogueManager.StartDialogue(FinalDialogue);
+            PlayerController.Instance.DialogueManager.StartDialogue(FinishedClambingLadder);
+            dialogueManager.OnDialogueEnded += CallDialogueEndedTrigger;
+        }
+        
+        public void CallDialogueEndedTrigger()
+        {
+            FinalDialogueTrigger trigger = FindFirstObjectByType<FinalDialogueTrigger>();
+            if (trigger != null)
+            {
+                trigger.OnDialogueFinished();
+            }
+            dialogueManager.OnDialogueEnded -= CallDialogueEndedTrigger;
         }
 
         private void ClearOnDialogueEnded()
@@ -275,6 +286,7 @@ namespace Assets.Code.Scripts.Player
                 dialogueManager.OnDialogueEnded -= StartGettingOut;
                 dialogueManager.OnDialogueEnded -= StartGettingLadder;
                 dialogueManager.OnDialogueEnded -= StartClambingLadder;
+                dialogueManager.OnDialogueEnded -= CallDialogueEndedTrigger;
             }
         }
         
