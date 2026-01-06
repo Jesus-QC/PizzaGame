@@ -4448,7 +4448,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3824
+  m_VersionIndex: 3833
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5127,7 +5127,7 @@ MonoBehaviour:
   FinishedWatchingTV: {fileID: 11400000, guid: 6d555328755104d4cb7890ed2832e802, type: 2}
   FinishedGettingOut: {fileID: 11400000, guid: 892b7681ca5ca5b439a904fee9ccde97, type: 2}
   FinishedGettingLadder: {fileID: 11400000, guid: b681b382c35fbe449b54b2d6b1da9c3a, type: 2}
-  FinalDialogue: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
+  FinishedClambingLadder: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
 --- !u!114 &1505290693162733133
 MonoBehaviour:
   m_ObjectHideFlags: 0

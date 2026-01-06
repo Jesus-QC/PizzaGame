@@ -75,6 +75,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\QuestionsAndAnswers.cs" />
     <Compile Include="Assets\Code\Scripts\Player\TaskController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\LivesUI.cs" />
+    <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDoor_.cs" />
     <Compile Include="Assets\Code\Scripts\Player\GameStateController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\ItemsController.cs" />
