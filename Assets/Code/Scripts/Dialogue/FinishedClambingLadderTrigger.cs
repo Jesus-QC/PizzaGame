@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Assets.Code.Scripts.Player;
 
-public class FinalDialogueTrigger : MonoBehaviour
+public class FinishedClambingLadderTrigger : MonoBehaviour
 {
     public Animator playerAnimator;
     public Animator windowAnimator;
