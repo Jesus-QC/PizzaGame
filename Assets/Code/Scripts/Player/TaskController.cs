@@ -197,7 +197,18 @@ namespace Assets.Code.Scripts.Player
             if (dialogueManager != null && !finishedGettingLadder)
             {
                 dialogueManager.OnDialogueEnded += StartGettingLadder;
+                dialogueManager.OnDialogueEnded += CallFinishedGettingOutTrigger;
             }
+        }
+        
+        public void CallFinishedGettingOutTrigger()
+        {
+            var trigger = FindFirstObjectByType<RevealWindowTrigger>();
+            if (trigger != null)
+            {
+                trigger.OnDialogueFinished();
+            }
+            dialogueManager.OnDialogueEnded -= CallFinishedGettingOutTrigger;
         }
         
         private void StartGettingLadder()
@@ -263,17 +274,17 @@ namespace Assets.Code.Scripts.Player
             PlayerController.Instance.GameStateController.SaveGame();
             ClearOnDialogueEnded();
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedClambingLadder);
-            dialogueManager.OnDialogueEnded += CallDialogueEndedTrigger;
+            dialogueManager.OnDialogueEnded += CallFinishedClambingLadderTrigger;
         }
         
-        public void CallDialogueEndedTrigger()
+        public void CallFinishedClambingLadderTrigger()
         {
-            FinalDialogueTrigger trigger = FindFirstObjectByType<FinalDialogueTrigger>();
+            var trigger = FindFirstObjectByType<FinishedClambingLadderTrigger>();
             if (trigger != null)
             {
                 trigger.OnDialogueFinished();
             }
-            dialogueManager.OnDialogueEnded -= CallDialogueEndedTrigger;
+            dialogueManager.OnDialogueEnded -= CallFinishedClambingLadderTrigger;
         }
 
         private void ClearOnDialogueEnded()
@@ -286,7 +297,8 @@ namespace Assets.Code.Scripts.Player
                 dialogueManager.OnDialogueEnded -= StartGettingOut;
                 dialogueManager.OnDialogueEnded -= StartGettingLadder;
                 dialogueManager.OnDialogueEnded -= StartClambingLadder;
-                dialogueManager.OnDialogueEnded -= CallDialogueEndedTrigger;
+                dialogueManager.OnDialogueEnded -= CallFinishedClambingLadderTrigger;
+                dialogueManager.OnDialogueEnded -= CallFinishedGettingOutTrigger;
             }
         }
         
