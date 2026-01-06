@@ -6189,7 +6189,7 @@ GameObject:
   - component: {fileID: 1026267701}
   - component: {fileID: 1026267700}
   m_Layer: 0
-  m_Name: FinalDialogueTrigger
+  m_Name: FinishedClambingLadderTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6210,6 +6210,8 @@ MonoBehaviour:
   playerAnimator: {fileID: 1794498882}
   windowAnimator: {fileID: 7257779600507148463}
   windowCenter: {fileID: 1105681452}
+  openWindowSound: {fileID: 8300000, guid: c54acd669edab784fb8a005df76fc0e8, type: 3}
+  jumpSound: {fileID: 8300000, guid: c3646cdac0416204dbe98ccbc40329f4, type: 3}
 --- !u!65 &1026267701
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10241,7 +10243,7 @@ PrefabInstance:
       objectReference: {fileID: 269388948}
     - target: {fileID: 8558606612902500433, guid: a5096e9ecfe0bf643b697437d36e8fb3, type: 3}
       propertyPath: m_VersionIndex
-      value: 3836
+      value: 3842
       objectReference: {fileID: 0}
     - target: {fileID: 8760926142011510509, guid: a5096e9ecfe0bf643b697437d36e8fb3, type: 3}
       propertyPath: m_LocalPosition.x

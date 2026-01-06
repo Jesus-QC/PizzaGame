@@ -9,14 +9,28 @@ public class FinalDialogueTrigger : MonoBehaviour
 
     public Transform windowCenter;
     
+    public AudioClip openWindowSound;
+    public AudioClip jumpSound;
+    private AudioSource windowAudioSource;
+    private AudioSource playerAudioSource;
+    
+    private float extraDelayBetweenSounds = 0.8f;
+    
     private bool dialogueTriggered = false;
     private bool dialogueFinished = false;
 
     private void Start()
     {
-        if (playerAnimator == null)
+        if (playerAnimator != null)
         {
             playerAnimator.enabled = false;
+        }
+        
+        playerAudioSource = PlayerController.Instance.GetComponent<AudioSource>();
+        
+        if (windowAnimator != null)
+        {
+            windowAudioSource = windowAnimator.GetComponent<AudioSource>();
         }
     }
     
@@ -96,6 +110,23 @@ public class FinalDialogueTrigger : MonoBehaviour
         playerAnimator.Play("EnteringWindow");
         playerAnimator.Update(0f);
         windowAnimator.SetTrigger("OpenWindow");
+        if (openWindowSound != null && windowAudioSource != null)
+        {
+            windowAudioSource.PlayOneShot(openWindowSound);
+            
+            float waitTime = openWindowSound.length / Mathf.Max(Mathf.Abs(windowAudioSource.pitch), 0.0001f);
+            yield return new WaitForSeconds(waitTime);
+            
+            if (extraDelayBetweenSounds > 0f)
+            {
+                yield return new WaitForSeconds(extraDelayBetweenSounds);
+            }
+
+            if (jumpSound != null && playerAudioSource != null)
+            {
+                playerAudioSource.PlayOneShot(jumpSound);
+            }
+        }
         yield return WaitForAnimation(windowAnimator, "OpenWindow");
         yield return WaitForAnimation(playerAnimator, "EnteringWindow");
         playerAnimator.enabled = false;
