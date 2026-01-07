@@ -374,7 +374,9 @@ namespace Assets.Code.Scripts.Player
             if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(HasKitchenKey);
             if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(HasWarehouseKey);
             
-           
+            if (finishedWatchTV && EnemyController.Instance != null)
+                EnemyController.Instance.gameObject.SetActive(true);
+            
             if (!finishedHomework)
                 StartCoroutine(TransitionToNextTask(TaskState.Homework));
             else if (!finishedTakingOutTrash)

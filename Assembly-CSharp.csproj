@@ -79,6 +79,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\LivesUI.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDoor_.cs" />
     <Compile Include="Assets\Code\Scripts\Player\GameStateController.cs" />
+    <Compile Include="Assets\Code\Scripts\UI\BloodScreen.cs" />
     <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\ItemsController.cs" />
     <Compile Include="Assets\Code\Scripts\Cooking\CookingStep.cs" />
