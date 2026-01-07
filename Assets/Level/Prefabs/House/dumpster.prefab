@@ -138,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304169994176020630}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -11.906903, y: -0.00000047683716, z: -15.59}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableContainer
   AudioSource: {fileID: 6856807911997962863}
   Clip: {fileID: 8300000, guid: 0617c8b816e55344a84a98353caf8bb7, type: 3}
+  NotNow: {fileID: 11400000, guid: e09cd96fc3b9d6742855814b249dac38, type: 2}
 --- !u!82 &6856807911997962863
 AudioSource:
   m_ObjectHideFlags: 0

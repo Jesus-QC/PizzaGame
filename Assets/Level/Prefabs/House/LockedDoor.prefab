@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 971054275875098244}
   m_Layer: 0
   m_Name: LockedDoor
-  m_TagString: Door
+  m_TagString: KitchenDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,12 +405,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6659d00c95e7e49f4bfcca05af605e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Scripts.Level.Interactables.InteractableLockedDoor
+  _id: 
   AudioSource: {fileID: 1862259397676562137}
   OpenClip: {fileID: 8300000, guid: 6adcf565f8e3a2044b90fc593b3bae30, type: 3}
   CloseClip: {fileID: 8300000, guid: 641b4851efd9a3646a8825527ba7ebb7, type: 3}
   DoorAnimator: {fileID: 971054275875098244}
   Key: {fileID: 0}
-  LockedDoor: {fileID: 11400000, guid: 7370d33a2d76ac2488bf80b9d2e987aa, type: 2}
+  LockedKitchenDoor: {fileID: 11400000, guid: 7370d33a2d76ac2488bf80b9d2e987aa, type: 2}
+  LockedWarehouseDoor: {fileID: 11400000, guid: 309f3dba189218b4aa31033dfe8b4eed, type: 2}
+  NotNow: {fileID: 11400000, guid: e09cd96fc3b9d6742855814b249dac38, type: 2}
 --- !u!82 &1862259397676562137
 AudioSource:
   m_ObjectHideFlags: 0
@@ -432,7 +435,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.0011917
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

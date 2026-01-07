@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf4a1545b3b50b49a8d3bf91e1f3897, type: 3}
   m_Name: NotNow
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
-  lines: []
+  lines:
+  - text: No es el momento de hacer eso...
