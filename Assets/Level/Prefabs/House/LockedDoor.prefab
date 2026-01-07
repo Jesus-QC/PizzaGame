@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 971054275875098244}
   m_Layer: 0
   m_Name: LockedDoor
-  m_TagString: KitchenDoor
+  m_TagString: WarehouseDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,7 +410,8 @@ MonoBehaviour:
   OpenClip: {fileID: 8300000, guid: 6adcf565f8e3a2044b90fc593b3bae30, type: 3}
   CloseClip: {fileID: 8300000, guid: 641b4851efd9a3646a8825527ba7ebb7, type: 3}
   DoorAnimator: {fileID: 971054275875098244}
-  Key: {fileID: 0}
+  RequiresKitchenKey: 1
+  RequiresWarehouseKey: 1
   LockedKitchenDoor: {fileID: 11400000, guid: 7370d33a2d76ac2488bf80b9d2e987aa, type: 2}
   LockedWarehouseDoor: {fileID: 11400000, guid: 309f3dba189218b4aa31033dfe8b4eed, type: 2}
   NotNow: {fileID: 11400000, guid: e09cd96fc3b9d6742855814b249dac38, type: 2}

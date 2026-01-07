@@ -34,6 +34,11 @@ namespace Assets.Code.Scripts.Player
         public GameObject RevealWindowTriggerCube; 
         public GameObject FinishedClimbingLadderTriggerCube;
         
+        public GameObject KitchenKeyViewModel;
+        public GameObject WarehouseKeyViewModel;
+        public bool HasKitchenKey = false;
+        public bool HasWarehouseKey = false;
+        
         public Dialogue FinishedHomework;
         public Dialogue FinishedTakingOutTrash;
         public Dialogue FinishedWatchingTV;
@@ -62,6 +67,9 @@ namespace Assets.Code.Scripts.Player
             
             if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(false);
             if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(false);
+            
+            if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
+            if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
         }
         
         private void OnDestroy()
@@ -237,6 +245,8 @@ namespace Assets.Code.Scripts.Player
             SaveGameAndPlayDialogue(FinishedWatchingTV);
         }
         
+        public bool IsGettingOutTaskActive() => currentTask == TaskState.GettingOut;
+        
         public bool OnFinishedGettingOut()
         {
             if (currentTask != TaskState.GettingOut) return false;
@@ -287,6 +297,36 @@ namespace Assets.Code.Scripts.Player
         }
         
         
+        // --------------------------------------------------------------
+        // ----------------------------LLAVES----------------------------
+        // --------------------------------------------------------------
+        public void PickupKey(string keyType)
+        {
+            if (keyType == "Kitchen")
+            {
+                HasKitchenKey = true;
+                if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(true);
+            }
+            else if (keyType == "Warehouse")
+            {
+                HasWarehouseKey = true;
+                if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(true);
+            }
+        }
+        
+        public void HideKeyViewModel(string keyType)
+        {
+            if (keyType == "Kitchen")
+            {
+                if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
+            }
+            else if (keyType == "Warehouse")
+            {
+                if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
+            }
+        }
+        
+        
         // -------------------------------------------------------------
         // ----------------------------OTROS----------------------------
         // -------------------------------------------------------------
@@ -316,6 +356,8 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates[id+"_gettingout"] = finishedGettingOut;
             data.interactableStates[id+"_gettingladder"] = finishedGettingLadder;
             data.interactableStates[id+"_clambingladder"] = finishedClambingLadder;
+            data.interactableStates[id+"_hasKitchenKey"] = HasKitchenKey;
+            data.interactableStates[id+"_hasWarehouseKey"] = HasWarehouseKey;
         }
 
         public void Load(GameStateData data)
@@ -324,8 +366,14 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates.TryGetValue(id+"_trash", out finishedTakingOutTrash);
             data.interactableStates.TryGetValue(id+"_tv", out finishedWatchTV);
             data.interactableStates.TryGetValue(id+"_gettingout", out finishedGettingOut);
-            data.interactableStates.TryGetValue(id + "_gettingladder", out finishedGettingLadder);
-            data.interactableStates.TryGetValue(id + "_clambingladder", out finishedClambingLadder);
+            data.interactableStates.TryGetValue(id+"_gettingladder", out finishedGettingLadder);
+            data.interactableStates.TryGetValue(id+"_clambingladder", out finishedClambingLadder);
+            data.interactableStates.TryGetValue(id+"_hasKitchenKey", out HasKitchenKey);
+            data.interactableStates.TryGetValue(id+"_hasWarehouseKey", out HasWarehouseKey);
+            
+            if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(HasKitchenKey);
+            if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(HasWarehouseKey);
+            
            
             if (!finishedHomework)
                 StartCoroutine(TransitionToNextTask(TaskState.Homework));

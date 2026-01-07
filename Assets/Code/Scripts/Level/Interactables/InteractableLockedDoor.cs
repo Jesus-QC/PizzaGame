@@ -12,10 +12,14 @@ namespace Code.Scripts.Level.Interactables
         public AudioSource AudioSource;
         public AudioClip OpenClip, CloseClip;
         public Animator DoorAnimator;
-        public GameObject Key;
+        
+        public bool RequiresKitchenKey;
+        public bool RequiresWarehouseKey;
+        
         public Dialogue LockedKitchenDoor;
         public Dialogue LockedWarehouseDoor;
         public Dialogue NotNow;
+        
         private const float CooldownTime = 0.5f;
         private static readonly int OpenAnimation = Animator.StringToHash("Open");
         private float _lastInteractionTime;
@@ -66,25 +70,22 @@ namespace Code.Scripts.Level.Interactables
 
             if (IsLocked)
             {
-                if (held == null || held.gameObject != Key)
+                bool hasKey = false;
+                if (RequiresKitchenKey) hasKey = PlayerController.Instance.TaskController.HasKitchenKey;
+                else if (RequiresWarehouseKey) hasKey = PlayerController.Instance.TaskController.HasWarehouseKey;
+
+                if (!hasKey)
                 {
-                    if (gameObject.CompareTag("KitchenDoor"))
-                    {
-                        PlayerController.Instance.DialogueManager.StartDialogue(LockedKitchenDoor);
-                        return;
-                    }
-                    
-                    if (gameObject.CompareTag("WarehouseDoor"))
-                    {
-                        PlayerController.Instance.DialogueManager.StartDialogue(LockedWarehouseDoor);
-                        return;
-                    }
+                    if (RequiresKitchenKey) PlayerController.Instance.DialogueManager.StartDialogue(LockedKitchenDoor);
+                    else if (RequiresWarehouseKey) PlayerController.Instance.DialogueManager.StartDialogue(LockedWarehouseDoor);
+                    return;
                 }
+                
                 bool canUnlock = false;
 
                 if (gameObject.CompareTag("KitchenDoor"))
                 {
-                    canUnlock = PlayerController.Instance.TaskController.OnFinishedGettingOut();
+                    canUnlock = PlayerController.Instance.TaskController.IsGettingOutTaskActive();
                 } 
                 else if (gameObject.CompareTag("WarehouseDoor"))
                 {
@@ -94,8 +95,9 @@ namespace Code.Scripts.Level.Interactables
                 if (canUnlock)
                 {
                     IsLocked = false;
-                    Destroy(held.gameObject);
                     IsOpen = !IsOpen;
+                    
+                    PlayerController.Instance.TaskController.HideKeyViewModel(RequiresKitchenKey ? "Kitchen" : "Warehouse");
                 }
                 else
                 {

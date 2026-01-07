@@ -3641,10 +3641,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 959575384}
     m_Modifications:
-    - target: {fileID: 4328221833410705651, guid: efc0aed04735b684bb557e4440c4865b, type: 3}
-      propertyPath: Key
-      value: 
-      objectReference: {fileID: 1198009863}
     - target: {fileID: 5228978495463226841, guid: efc0aed04735b684bb557e4440c4865b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5537338
@@ -3895,10 +3891,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1868640953}
     m_Modifications:
-    - target: {fileID: 4328221833410705651, guid: efc0aed04735b684bb557e4440c4865b, type: 3}
-      propertyPath: Key
-      value: 
-      objectReference: {fileID: 854320192}
     - target: {fileID: 5228978495463226841, guid: efc0aed04735b684bb557e4440c4865b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.90769
@@ -4842,11 +4834,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1 &854320192 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6202248377633566000, guid: 609cad5eb478dd849beaf2705286bdf7, type: 3}
-  m_PrefabInstance: {fileID: 282690004}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &854320194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4071069836747969314, guid: 609cad5eb478dd849beaf2705286bdf7, type: 3}
@@ -6762,11 +6749,6 @@ MeshCollider:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8298337257293616073, guid: 140bcc103b85f684f832e0852d41f94e, type: 3}
   m_PrefabInstance: {fileID: 259429344055458768}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1198009863 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6202248377633566000, guid: 609cad5eb478dd849beaf2705286bdf7, type: 3}
-  m_PrefabInstance: {fileID: 257566139}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1198009865 stripped
 Transform:
@@ -9168,10 +9150,6 @@ PrefabInstance:
     - target: {fileID: 4939085952014375793, guid: 7bb3fc08236648444853c10d11a4c940, type: 3}
       propertyPath: m_Name
       value: Trash Bag (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939085952014375793, guid: 7bb3fc08236648444853c10d11a4c940, type: 3}
-      propertyPath: m_TagString
-      value: Trash
       objectReference: {fileID: 0}
     - target: {fileID: 5746866000410706379, guid: 7bb3fc08236648444853c10d11a4c940, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16582,7 +16560,7 @@ PrefabInstance:
       objectReference: {fileID: 103894486}
     - target: {fileID: 7262254505894450856, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_VersionIndex
-      value: 3884
+      value: 3896
       objectReference: {fileID: 0}
     - target: {fileID: 7763541786723728707, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_LocalPosition.x
