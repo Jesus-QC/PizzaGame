@@ -157,7 +157,7 @@ namespace Assets.Code.Scripts.Player
         {
             finishedWatchTV = true;
             PlayerController.Instance.GameStateController.SaveGame();
-            EnemyController.Instance.enabled = true;
+            //EnemyController.Instance.enabled = true;
             EnemyController.Instance.gameObject.SetActive(true);
             PlayerController.Instance.DialogueManager.StartDialogue(FinishedWatchingTV);
             if (dialogueManager != null && !finishedGettingOut)

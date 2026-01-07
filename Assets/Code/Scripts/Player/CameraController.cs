@@ -32,6 +32,8 @@ namespace Assets.Code.Scripts.Player
 
             Collider targetCollider = target.GetComponent<Collider>();
             if (targetCollider == null)
+                targetCollider = target.GetComponentInChildren<Collider>();
+            if (targetCollider == null) 
                 return false;
 
             Vector3 targetPosition = targetCollider.bounds.center;
@@ -52,10 +54,13 @@ namespace Assets.Code.Scripts.Player
             float distance = Vector3.Distance(origin, targetPosition);
 
 
-            if (Physics.Raycast(origin, direction, out RaycastHit hit, distance) && hit.transform == target.transform)
+            if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
             {
-                UnityEngine.Debug.DrawLine(origin, targetPosition, Color.red);
-                return true;
+                if (hit.transform == target.transform || hit.transform.IsChildOf(target.transform))
+                {
+                    UnityEngine.Debug.DrawLine(origin, targetPosition, Color.red);
+                    return true;
+                }
             }
             
             return false;
@@ -100,18 +105,22 @@ namespace Assets.Code.Scripts.Player
         private void UpdateEnemyEffects()
         {
             EnemyController enemyController = EnemyController.Instance;
-            enemyController.IsBeingSeen = CanSeeObject(enemyController.gameObject);
-            bool enemyVisible = enemyController.TimeSinceLastSeen < 5f || enemyController.IsBeingSeen;
             
-            float targetVignette = enemyVisible ? VignetteIntensity : 0f;
-            float targetChromaticAberration = enemyVisible ? ChromaticAberrationIntensity : 0f;
-            float targetAperture = enemyVisible ? 0.1f : 16f;
+            bool playerSeesEnemy = CanSeeObject(enemyController.gameObject);
+            
+            enemyController.IsObservedByPlayer = playerSeesEnemy; 
+            
+            bool shouldShowEffects = playerSeesEnemy || enemyController.TimeSinceLastSeen < 5f;
+            
+            float targetVignette = shouldShowEffects ? VignetteIntensity : 0f;
+            float targetChromaticAberration = shouldShowEffects ? ChromaticAberrationIntensity : 0f;
+            float targetAperture = shouldShowEffects ? 0.1f : 16f;
 
-            Camera.localPosition = enemyVisible 
+            Camera.localPosition = shouldShowEffects 
                 ? _localPosition + Random.insideUnitSphere * ShakeAmount 
                 : _localPosition;
 
-            float speed = Time.deltaTime * (enemyVisible ? 5f : 0.5f);
+            float speed = Time.deltaTime * (shouldShowEffects ? 5f : 0.5f);
 
             if (_vignette != null)
             {

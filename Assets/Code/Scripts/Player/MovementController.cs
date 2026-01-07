@@ -18,6 +18,9 @@ namespace Assets.Code.Scripts.Player
 
         private void FixedUpdate()
         {
+            if (PlayerController.Instance.PlayerRigidbody.isKinematic)
+                return;
+            
             Vector3 moveDirection = transform.forward * _inputVector.y + transform.right * _inputVector.x;
             Vector3 velocity = moveDirection.normalized * Speed;
             velocity.y = PlayerController.Instance.PlayerRigidbody.linearVelocity.y;

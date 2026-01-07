@@ -8,7 +8,6 @@ namespace Code.Scripts.Enemy
     public class EnemyController : MonoBehaviour
     {
         private const float MinStingerInterval = 10f;
-
         public static EnemyController Instance { get; private set; }
 
         public AudioSource EffectsSource;
@@ -21,7 +20,7 @@ namespace Code.Scripts.Enemy
         public EnemyMovementAI MovementAI;
 
         public float loseSightTime = 2f;
-        private float killDistance = 0.5f;
+        private float killDistance = 1f;
         private float _timeSinceLastHit = Mathf.Infinity;
         
         private float _viewDistance = 10f;
@@ -36,38 +35,39 @@ namespace Code.Scripts.Enemy
         private float _currentAngularVelocity = 0f;
         private int _direction = 1;
         private float _currentAngle = 0f;
-        private bool _seenByPlayer;
+        private bool _enemySeesPlayer;
         private bool _hasTriggeredLoad;
 
         public float TimeSinceLastSeen { get; private set; } = MinStingerInterval;
+        
+        public bool IsObservedByPlayer { get; set; }
 
-        public bool IsBeingSeen
+        public bool IsHunting
         {
-            get => _seenByPlayer;
-            set
+            get => _enemySeesPlayer;
+            private set
             {
-                if (value == _seenByPlayer)
+                if (value == _enemySeesPlayer)
                     return;
 
-                _seenByPlayer = value;
+                _enemySeesPlayer = value;
 
                 if (value)
                 {
                     HeartbeatSource.volume = 1f;
                     HeartbeatSource.clip = Heartbeat;
                     HeartbeatSource.loop = true;
+                    
                     if (!HeartbeatSource.isPlaying)
-                    {
                         HeartbeatSource.Play();
-                    }
+                    
                     EffectsSource.volume = 1f;
                     if (TimeSinceLastSeen > MinStingerInterval)
                     {
-                        EffectsSource.PlayDelayed(5);
+                        //EffectsSource.PlayDelayed(5);
                         EffectsSource.PlayOneShot(StingerEffect, 0.3f);
                     }
                 } 
-
                 TimeSinceLastSeen = 0f;
             }
         }
@@ -75,7 +75,7 @@ namespace Code.Scripts.Enemy
         private void Awake()
         {
             Instance = this;
-            enabled = false;
+            //enabled = false;
             gameObject.SetActive(false);
         }
 
@@ -89,29 +89,44 @@ namespace Code.Scripts.Enemy
 
         private void RotateHead()
         {
+            if (MovementAI.CurrentState == EnemyState.Chasing || IsHunting || IsObservedByPlayer)
+            {
+                Vector3 directionToPlayer = Player.transform.position - EnemyNeck.position;
+                
+                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                
+                EnemyNeck.rotation = Quaternion.Slerp(EnemyNeck.rotation, targetRotation, Time.deltaTime * 10f);
+                
+                _currentAngle = EnemyNeck.localEulerAngles.y; 
+                return;
+            }
+            
             if (_headPauseTimer > 0f)
             {
                 _headPauseTimer -= Time.deltaTime;
                 return;
             }
-            _headPauseDuration = Random.Range(0.2f, 3f);
-            float randomSpeed = Random.Range(0.4f, 2f);
+            _headPauseDuration = Random.Range(1f, 4f);
+            float randomSpeed = Random.Range(0.4f, 1.5f);
             float headTurnSpeed = _baseHeadTurnSpeed * randomSpeed;
+            
             float targetAngle = _direction > 0 ? _viewAngle : -_viewAngle;
             
             _currentAngle = Mathf.SmoothDampAngle(
                 _currentAngle, 
                 targetAngle, 
                 ref _currentAngularVelocity, 
-                _smoothTime,
+                _smoothTime * 2f,
                 headTurnSpeed
             );
             
             Vector3 localEuler = EnemyNeck.localEulerAngles;
             localEuler.y = _currentAngle;
+            localEuler.x = 0; 
+            localEuler.z = 0;
             EnemyNeck.localEulerAngles = localEuler;
             
-            if (Mathf.Abs(Mathf.DeltaAngle(_currentAngle, targetAngle)) < 0.5f)
+            if (Mathf.Abs(Mathf.DeltaAngle(_currentAngle, targetAngle)) < 1f)
             {
                 _direction *= -1;
                 _headPauseTimer = _headPauseDuration;
@@ -126,75 +141,48 @@ namespace Code.Scripts.Enemy
             Vector3 distance = Player.transform.position - EnemyNeck.position;
             float distanceToPlayer = distance.magnitude;
 
-            if (distanceToPlayer > _viewDistance)
-            {
-                TryLoseSight();
-                //IsBeingSeen = false;
-                //StopEffects();
-                return;
-            }
-
-            distance.Normalize();
-            float angleToPlayer = Vector3.Angle(EnemyNeck.forward, distance);
-            if (angleToPlayer > _viewAngle)
-            {
-                TryLoseSight();
-                //IsBeingSeen = false;
-                //StopEffects();
-                return;
-            }
+            bool canSeePlayerNow = false;
             
-            Vector3 centerDir = EnemyNeck.forward;
-            Vector3 leftDir = Quaternion.AngleAxis(-_sideRayAngle, Vector3.up) * centerDir;
-            Vector3 rightDir = Quaternion.AngleAxis(_sideRayAngle, Vector3.up) * centerDir;
+            if (distanceToPlayer <= _viewDistance)
+            {
+                distance.Normalize();
+                if (Vector3.Angle(EnemyNeck.forward, distance) <= _viewAngle)
+                {
+                    Vector3 centerDir = EnemyNeck.forward;
+                    Vector3 leftDir = Quaternion.AngleAxis(-_sideRayAngle, Vector3.up) * centerDir;
+                    Vector3 rightDir = Quaternion.AngleAxis(_sideRayAngle, Vector3.up) * centerDir;
 
-            if (HitsPlayer(centerDir) || HitsPlayer(leftDir) || HitsPlayer(rightDir) || MovementAI.DistanceToPlayer()<5f)
+                    if (HitsPlayer(centerDir) || HitsPlayer(leftDir) || HitsPlayer(rightDir) || MovementAI.DistanceToPlayer() < 5f)
+                    {
+                        canSeePlayerNow = true;
+                    }
+                }
+            }
+           
+            if (canSeePlayerNow)
             {
                 _timeSinceLastHit = 0f;
-                IsBeingSeen = true;
+                IsHunting = true;
                 MovementAI.StartChasing();
-
-                /*
-                if (!_hasTriggeredLoad)
-                {
-                    _hasTriggeredLoad = true;
-                    PlayerController.Instance.OnkilledByEnemy();
-                    _hasTriggeredLoad = false;
-                }
-
-                return;
-                */
             }
             else
             {
-                TryLoseSight();
-            }
-
-            //IsBeingSeen = false;
-        }
-
-        private void TryLoseSight()
-        {
-            if (_timeSinceLastHit >= loseSightTime)
-            {
-                MovementAI.StopChasingAndReturn();
-                IsBeingSeen = false;
-                StopEffects();
+                if (_timeSinceLastHit >= loseSightTime && IsHunting)
+                {
+                    MovementAI.StopChasingAndReturn();
+                    IsHunting = false;
+                    StopEffects();
+                }
             }
         }
-        
         
         private void HandleKillPlayer()
         {
-            float distanceToPlayer = MovementAI.DistanceToPlayer();
-            if (distanceToPlayer <= killDistance)
+            if (MovementAI.DistanceToPlayer() <= killDistance && !_hasTriggeredLoad)
             {
-                if (!_hasTriggeredLoad)
-                {
-                    _hasTriggeredLoad = true;
-                    PlayerController.Instance.OnkilledByEnemy();
-                    _hasTriggeredLoad = false;
-                }
+                _hasTriggeredLoad = true;
+                PlayerController.Instance.OnkilledByEnemy();
+                _hasTriggeredLoad = false;
             }
         }
         
