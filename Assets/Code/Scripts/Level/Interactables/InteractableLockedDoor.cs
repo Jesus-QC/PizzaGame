@@ -15,6 +15,7 @@ namespace Code.Scripts.Level.Interactables
         public GameObject Key;
         public Dialogue LockedKitchenDoor;
         public Dialogue LockedWarehouseDoor;
+        public Dialogue NotNow;
         private const float CooldownTime = 0.5f;
         private static readonly int OpenAnimation = Animator.StringToHash("Open");
         private float _lastInteractionTime;
@@ -72,28 +73,40 @@ namespace Code.Scripts.Level.Interactables
                         PlayerController.Instance.DialogueManager.StartDialogue(LockedKitchenDoor);
                         return;
                     }
-                    else if (gameObject.CompareTag("WarehouseDoor"))
+                    
+                    if (gameObject.CompareTag("WarehouseDoor"))
                     {
                         PlayerController.Instance.DialogueManager.StartDialogue(LockedWarehouseDoor);
                         return;
                     }
                 }
-                IsLocked = false;
-                /*
+                bool canUnlock = false;
+
                 if (gameObject.CompareTag("KitchenDoor"))
                 {
-                    PlayerController.Instance.TaskController.OnFinishedGettingOut();
+                    canUnlock = PlayerController.Instance.TaskController.OnFinishedGettingOut();
                 } 
-                else
-                */ 
-                if (gameObject.CompareTag("WarehouseDoor"))
+                else if (gameObject.CompareTag("WarehouseDoor"))
                 {
-                    PlayerController.Instance.TaskController.OnFinishedGettingLadder();
+                    canUnlock = PlayerController.Instance.TaskController.OnFinishedGettingLadder();
                 }
-                Destroy(held.gameObject);
+
+                if (canUnlock)
+                {
+                    IsLocked = false;
+                    Destroy(held.gameObject);
+                    IsOpen = !IsOpen;
+                }
+                else
+                {
+                    PlayerController.Instance.DialogueManager.StartDialogue(NotNow);
+                }
+            }
+            else
+            {
+                IsOpen = !IsOpen;
             }
 
-            IsOpen = !IsOpen;
         }
 
         private void Open()

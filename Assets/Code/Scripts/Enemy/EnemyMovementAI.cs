@@ -18,7 +18,7 @@ namespace Code.Scripts.Enemy
         public Transform Player;
         public float StoppingDistance;
         public float maxChaseDistance = 15f;
-        public float DetectionRadius = 5.0f; 
+        public float DetectionRadius = 3.0f; 
         public float DetectionHeightThreshold = 2.5f;
         
         public float PatrolSpeed = 2.0f;

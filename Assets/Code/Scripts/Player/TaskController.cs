@@ -8,6 +8,18 @@ using UnityEngine;
 
 namespace Assets.Code.Scripts.Player
 {
+    public enum TaskState
+    {
+        None,
+        Homework,
+        TakingOutTrash,
+        WatchingTV,
+        GettingOut,
+        GettingLadder,
+        ClimbingLadder,
+        Completed
+    }
+    
     public class TaskController : MonoBehaviour, ISaveable
     {
         [SerializeField] private string _id;
@@ -18,13 +30,21 @@ namespace Assets.Code.Scripts.Player
         public TextMeshProUGUI ObjectiveTitle;
         public TextMeshProUGUI ObjectiveDescription;
         public AudioClip NewTask;
+        
+        public GameObject RevealWindowTriggerCube; 
+        public GameObject FinishedClimbingLadderTriggerCube;
+        
         public Dialogue FinishedHomework;
         public Dialogue FinishedTakingOutTrash;
         public Dialogue FinishedWatchingTV;
         public Dialogue FinishedGettingOut;
         public Dialogue FinishedGettingLadder;
         public Dialogue FinishedClambingLadder;
+        
         private DialogueManager dialogueManager;
+        
+        private TaskState currentTask = TaskState.None;
+        
         private bool finishedHomework = false;
         private bool finishedTakingOutTrash = false;
         private bool finishedWatchTV = false;
@@ -37,278 +57,253 @@ namespace Assets.Code.Scripts.Player
             dialogueManager = FindFirstObjectByType<DialogueManager>();
             if (dialogueManager != null)
             {
-                dialogueManager.OnDialogueEnded += StartHomework;
+                dialogueManager.OnDialogueEnded += HandleDialogueEnded;
+            }
+            
+            if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(false);
+            if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(false);
+        }
+        
+        private void OnDestroy()
+        {
+            if (dialogueManager != null)
+            {
+                dialogueManager.OnDialogueEnded -= HandleDialogueEnded;
             }
         }
         
-        private void StartHomework()
+        private void HandleDialogueEnded()
         {
-            StartCoroutine(TaskHomework());
+            switch (currentTask)
+            {
+                case TaskState.None:
+                    if (!finishedHomework)
+                    {
+                        StartCoroutine(TransitionToNextTask(TaskState.Homework));
+                    }
+                    break;
+                
+                case TaskState.Homework:
+                    if (finishedHomework) 
+                        StartCoroutine(TransitionToNextTask(TaskState.TakingOutTrash));
+                    break;
+
+                case TaskState.TakingOutTrash:
+                    if (finishedTakingOutTrash) 
+                        StartCoroutine(TransitionToNextTask(TaskState.WatchingTV));
+                    break;
+
+                case TaskState.WatchingTV:
+                    if (finishedWatchTV) 
+                        StartCoroutine(TransitionToNextTask(TaskState.GettingOut));
+                    break;
+
+                case TaskState.GettingOut:
+                    if (finishedGettingOut)
+                    {
+                        CallFinishedGettingOutTrigger();
+                        StartCoroutine(TransitionToNextTask(TaskState.GettingLadder));
+                    }
+                    break;
+
+                case TaskState.GettingLadder:
+                    if (finishedGettingLadder)
+                        StartCoroutine(TransitionToNextTask(TaskState.ClimbingLadder));
+                    break;
+
+                case TaskState.ClimbingLadder:
+                    if (finishedClambingLadder)
+                    {
+                        CallFinishedClambingLadderTrigger();
+                        currentTask = TaskState.Completed;
+                    }
+                    break;
+            }
         }
         
-        IEnumerator TaskHomework()
+        private IEnumerator TransitionToNextTask(TaskState newTask)
+        {
+            currentTask = newTask;
+            
+            switch (newTask)
+            {
+                case TaskState.Homework:
+                    StartCoroutine(RunTaskLogic("Haz los deberes", "Abre moodle en el ordenador del escritorio", 
+                        () => InteractableHomework.HasStartedHomework));
+                    break;
+                    
+                case TaskState.TakingOutTrash:
+                    StartCoroutine(RunTaskLogic("Saca la basura", "Lleva la bolsa de basura de la cocina al contenedor fuera de casa", 
+                        null));
+                    break;
+
+                case TaskState.WatchingTV:
+                    StartCoroutine(RunTaskLogic("Mira la television", "Sientate en el sillon y entretente un rato viendo la television", 
+                        null));
+                    StartCoroutine(WatchTVRoutine());
+                    break;
+
+                case TaskState.GettingOut:
+                    if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(true);
+                    StartCoroutine(RunTaskLogic("Salir por la puerta trasera", "Buscar forma para salir por la puerta trasera de la cocina", 
+                        null));
+                    break;
+
+                case TaskState.GettingLadder:
+                    StartCoroutine(RunTaskLogic("Conseguir la escalera de la caseta", "Buscar forma para conseguir la llave de la caseta", 
+                        null));
+                    break;
+
+                case TaskState.ClimbingLadder:
+                    if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(true);
+                    StartCoroutine(RunTaskLogic("Colocar y subir por la escalera", "Coloca la escalera sobre la casa y subir por ella", 
+                        null));
+                    break;
+            }
+            yield return null;
+        }
+        
+        private IEnumerator RunTaskLogic(string title, string desc, Func<bool> earlyExitCondition)
         {
             yield return new WaitForSeconds(1f);
 
-            if (InteractableHomework.HasStartedHomework)
-                yield break;
+            if (earlyExitCondition != null && earlyExitCondition.Invoke()) yield break;
 
-            ObjectiveTitle.text = "Haz los deberes";
-            ObjectiveDescription.text = "Abre moodle en el ordenador del escritorio";
-            Open();
+            ObjectiveTitle.text = title;
+            ObjectiveDescription.text = desc;
+            OpenUI();
 
             float elapsedTime = 0f;
             while (elapsedTime < 5f)
             {
-                if (InteractableHomework.HasStartedHomework)
+                if (earlyExitCondition != null && earlyExitCondition.Invoke())
                 {
-                    Close();
+                    CloseUI();
                     yield break;
                 }
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            
-            Close();
+
+            CloseUI();
         }
         
-        public void OnFinishedHomework()
+        private IEnumerator WatchTVRoutine()
         {
-            finishedHomework = true;
-            PlayerController.Instance.GameStateController.SaveGame();
-            PlayerController.Instance.DialogueManager.StartDialogue(FinishedHomework);
-            if (dialogueManager != null && !finishedTakingOutTrash)
-            {
-                dialogueManager.OnDialogueEnded += StartTakingOutTrash;
-            }
-        }
-        
-        private void StartTakingOutTrash()
-        {
-            StartCoroutine(TaskTakingOutTrash());
-        }
-
-        private IEnumerator TaskTakingOutTrash()
-        {
-            yield return new WaitForSeconds(1f);
-
-            ObjectiveTitle.text = "Saca la basura";
-            ObjectiveDescription.text = "Lleva la bolsa de basura de la cocina al contenedor fuera de casa";
-            Open();
-
-            float elapsedTime = 0f;
-            while (elapsedTime < 5f)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            Close();
-        }
-
-        public void OnFinishedTakingOutTrash()
-        {
-            finishedTakingOutTrash = true;
-            PlayerController.Instance.GameStateController.SaveGame();
-            PlayerController.Instance.DialogueManager.StartDialogue(FinishedTakingOutTrash);
-            if (dialogueManager != null && !finishedWatchTV)
-            {
-                dialogueManager.OnDialogueEnded += StartWatchingTV;
-            }
-        }
-        
-        private void StartWatchingTV()
-        {
-            StartCoroutine(TaskWatchingTV());
-        }
-
-        private IEnumerator TaskWatchingTV()
-        {
-            yield return new WaitForSeconds(1f);
-
-            ObjectiveTitle.text = "Mira la television";
-            ObjectiveDescription.text = "Sientate en el sillon y entretente un rato viendo la television";
-            Open();
-
-            float elapsedTime = 0f;
-            while (elapsedTime < 5f)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            Close();
-
             float counter = 0f;
-
-            while (counter < 5f)
+            while (counter < 5f && currentTask == TaskState.WatchingTV)
             {
                 if (InteractableSit.Sitting && InteractableTV.TvOn)
                 {
                     counter += Time.deltaTime;
                 }
-
                 yield return null;
             }
-            OnFinishedWatchingTV();
+            
+            if (currentTask == TaskState.WatchingTV)
+            {
+                OnFinishedWatchingTV();
+            }
+        }
+        
+        
+        // --------------------------------------------------------------------
+        // ----------------------------ON FINISHEDs----------------------------
+        // --------------------------------------------------------------------
+        
+        public void OnFinishedHomework()
+        {
+            if (currentTask != TaskState.Homework) return;
+
+            finishedHomework = true;
+            SaveGameAndPlayDialogue(FinishedHomework);
+        }
+
+        public bool OnFinishedTakingOutTrash()
+        {
+            if (currentTask != TaskState.TakingOutTrash) return false;
+
+            finishedTakingOutTrash = true;
+            SaveGameAndPlayDialogue(FinishedTakingOutTrash);
+            return true;
         }
         
         public void OnFinishedWatchingTV()
         {
+            if (currentTask != TaskState.WatchingTV) return;
+
             finishedWatchTV = true;
-            PlayerController.Instance.GameStateController.SaveGame();
-            //EnemyController.Instance.enabled = true;
-            EnemyController.Instance.gameObject.SetActive(true);
-            PlayerController.Instance.DialogueManager.StartDialogue(FinishedWatchingTV);
-            if (dialogueManager != null && !finishedGettingOut)
-            {
-                dialogueManager.OnDialogueEnded += StartGettingOut;
-            }
+            if (EnemyController.Instance != null) EnemyController.Instance.gameObject.SetActive(true);
+            SaveGameAndPlayDialogue(FinishedWatchingTV);
         }
         
-        private void StartGettingOut()
+        public bool OnFinishedGettingOut()
         {
-            StartCoroutine(TaskGettingOut());
-        }
-        
-        public IEnumerator TaskGettingOut()
-        {
-            yield return new WaitForSeconds(1f);
+            if (currentTask != TaskState.GettingOut) return false;
 
-            ObjectiveTitle.text = "Salir por la puerta trasera";
-            ObjectiveDescription.text = "Buscar forma para salir por la puerta trasera de la cocina";
-            Open();
-
-            float elapsedTime = 0f;
-            while (elapsedTime < 5f)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            Close();
-        }
-        
-        public void OnFinishedGettingOut()
-        {
             finishedGettingOut = true;
-            PlayerController.Instance.GameStateController.SaveGame();
-            PlayerController.Instance.DialogueManager.StartDialogue(FinishedGettingOut);
-            if (dialogueManager != null && !finishedGettingLadder)
-            {
-                dialogueManager.OnDialogueEnded += StartGettingLadder;
-                dialogueManager.OnDialogueEnded += CallFinishedGettingOutTrigger;
-            }
+            SaveGameAndPlayDialogue(FinishedGettingOut);
+            return true;
         }
+        
+        public bool OnFinishedGettingLadder()
+        {
+            if (currentTask != TaskState.GettingLadder) return false;
+
+            finishedGettingLadder = true;
+            SaveGameAndPlayDialogue(FinishedGettingLadder);
+            return true;
+        }
+        
+        public void OnFinishedClambingLadder()
+        {
+            if (currentTask != TaskState.ClimbingLadder) return; // CONTROL DE ORDEN
+
+            finishedClambingLadder = true;
+            SaveGameAndPlayDialogue(FinishedClambingLadder);
+        }
+        
+        
+        // ----------------------------------------------------------------
+        // ----------------------------TRIGGERS----------------------------
+        // ----------------------------------------------------------------
         
         public void CallFinishedGettingOutTrigger()
         {
-            var trigger = FindFirstObjectByType<RevealWindowTrigger>();
-            if (trigger != null)
+            if (RevealWindowTriggerCube != null)
             {
-                trigger.OnDialogueFinished();
+                var trigger = RevealWindowTriggerCube.GetComponent<RevealWindowTrigger>();
+                if (trigger != null) trigger.OnDialogueFinished();
             }
-            dialogueManager.OnDialogueEnded -= CallFinishedGettingOutTrigger;
-        }
-        
-        private void StartGettingLadder()
-        {
-            StartCoroutine(TaskGettingLadder());
-        }
-
-        public IEnumerator TaskGettingLadder()
-        {
-            yield return new WaitForSeconds(1f);
-
-            ObjectiveTitle.text = "Conseguir la escalera de la caseta";
-            ObjectiveDescription.text = "Buscar forma para cosneguir la llave de la caseta";
-            Open();
-
-            float elapsedTime = 0f;
-            while (elapsedTime < 5f)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            Close();
-        }
-        
-        public void OnFinishedGettingLadder()
-        {
-            finishedGettingLadder = true;
-            PlayerController.Instance.GameStateController.SaveGame();
-            PlayerController.Instance.DialogueManager.StartDialogue(FinishedGettingLadder);
-            if (dialogueManager != null && !finishedClambingLadder)
-            {
-                dialogueManager.OnDialogueEnded += StartClambingLadder;
-            }
-        }
-        
-        private void StartClambingLadder()
-        {
-            StartCoroutine(TaskClambingLadder());
-        }
-
-        public IEnumerator TaskClambingLadder()
-        {
-            yield return new WaitForSeconds(1f);
-
-            ObjectiveTitle.text = "Colocar y subuir por la escalera";
-            ObjectiveDescription.text = "Coloca la escalera sobre la casa y subirpor ella";
-            Open();
-
-            float elapsedTime = 0f;
-            while (elapsedTime < 5f)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            Close();
-        }
-
-        public void OnFinishedClambingLadder()
-        {
-            finishedClambingLadder = true;
-            PlayerController.Instance.GameStateController.SaveGame();
-            ClearOnDialogueEnded();
-            PlayerController.Instance.DialogueManager.StartDialogue(FinishedClambingLadder);
-            dialogueManager.OnDialogueEnded += CallFinishedClambingLadderTrigger;
         }
         
         public void CallFinishedClambingLadderTrigger()
         {
-            var trigger = FindFirstObjectByType<FinishedClambingLadderTrigger>();
-            if (trigger != null)
+            if (FinishedClimbingLadderTriggerCube != null)
             {
-                trigger.OnDialogueFinished();
-            }
-            dialogueManager.OnDialogueEnded -= CallFinishedClambingLadderTrigger;
-        }
-
-        private void ClearOnDialogueEnded()
-        {
-            if (dialogueManager != null)
-            {
-                dialogueManager.OnDialogueEnded -= StartHomework;
-                dialogueManager.OnDialogueEnded -= StartTakingOutTrash;
-                dialogueManager.OnDialogueEnded -= StartWatchingTV;
-                dialogueManager.OnDialogueEnded -= StartGettingOut;
-                dialogueManager.OnDialogueEnded -= StartGettingLadder;
-                dialogueManager.OnDialogueEnded -= StartClambingLadder;
-                dialogueManager.OnDialogueEnded -= CallFinishedClambingLadderTrigger;
-                dialogueManager.OnDialogueEnded -= CallFinishedGettingOutTrigger;
+                var trigger = FinishedClimbingLadderTriggerCube.GetComponent<FinishedClambingLadderTrigger>();
+                if (trigger != null) trigger.OnDialogueFinished();
             }
         }
         
-        public void Open()
+        
+        // -------------------------------------------------------------
+        // ----------------------------OTROS----------------------------
+        // -------------------------------------------------------------
+        
+        private void SaveGameAndPlayDialogue(Dialogue dialogue)
+        {
+            PlayerController.Instance.GameStateController.SaveGame();
+            PlayerController.Instance.DialogueManager.StartDialogue(dialogue);
+        }
+
+        private void OpenUI()
         {
             TestAnimator.SetBool(OpenAnimation, true);
             PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.1f);
         }
 
-        public void Close()
+        private void CloseUI()
         {
             TestAnimator.SetBool(OpenAnimation, false);
         }
@@ -333,29 +328,19 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates.TryGetValue(id + "_clambingladder", out finishedClambingLadder);
            
             if (!finishedHomework)
-            {
-                StartCoroutine(TaskHomework());
-            } 
+                StartCoroutine(TransitionToNextTask(TaskState.Homework));
             else if (!finishedTakingOutTrash)
-            {
-                StartCoroutine(TaskTakingOutTrash());
-            }
+                StartCoroutine(TransitionToNextTask(TaskState.TakingOutTrash));
             else if (!finishedWatchTV)
-            {
-                StartCoroutine(TaskWatchingTV());
-            }
+                StartCoroutine(TransitionToNextTask(TaskState.WatchingTV));
             else if (!finishedGettingOut)
-            {
-                StartCoroutine(TaskGettingOut());
-            }
+                StartCoroutine(TransitionToNextTask(TaskState.GettingOut));
             else if (!finishedGettingLadder)
-            {
-                StartCoroutine(TaskGettingLadder());
-            }
+                StartCoroutine(TransitionToNextTask(TaskState.GettingLadder));
             else if (!finishedClambingLadder)
-            {
-                StartCoroutine(TaskClambingLadder());
-            }
+                StartCoroutine(TransitionToNextTask(TaskState.ClimbingLadder));
+            else
+                currentTask = TaskState.Completed;
         }
     }
 }

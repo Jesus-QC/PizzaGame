@@ -8,14 +8,32 @@ namespace Code.Scripts.Level.Interactables
         
         public AudioSource AudioSource;
         public AudioClip Clip;
+        public Dialogue NotNow;
         public void Interact()
         {
-            if (PlayerController.Instance.ItemsController.HeldObject != null)
+            var heldObject = PlayerController.Instance.ItemsController.HeldObject;
+
+            if (heldObject != null)
             {
-                AudioSource.PlayOneShot(Clip);
-                if (PlayerController.Instance.ItemsController.HeldObject.gameObject.CompareTag("Trash"))
-                    PlayerController.Instance.TaskController.OnFinishedTakingOutTrash();
-                Destroy(PlayerController.Instance.ItemsController.HeldObject.gameObject);
+                if (heldObject.gameObject.CompareTag("Trash"))
+                {
+                    bool canCompleteTask = PlayerController.Instance.TaskController.OnFinishedTakingOutTrash();
+
+                    if (canCompleteTask)
+                    {
+                        AudioSource.PlayOneShot(Clip);
+                        Destroy(heldObject.gameObject);
+                    }
+                    else
+                    {
+                        PlayerController.Instance.DialogueManager.StartDialogue(NotNow);
+                    }
+                }
+                else
+                {
+                    AudioSource.PlayOneShot(Clip);
+                    Destroy(heldObject.gameObject);
+                }
             }
         }
     }
