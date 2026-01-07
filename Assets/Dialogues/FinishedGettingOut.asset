@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: FinishedGettingOut
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
+  - text: Emmm.. puedo entrar por esa ventana
   - text: Si no me acuerdo mal hay una escalera en la caseta
   - text: Lo puedo utilizar para subir arriba

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FinishedClambingLadder
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - text: "Vale, ahora solo tengo que entrar por esa ventana y volver a mi habitaci\xF3n"
+  - text: "Por fin... ahora solo tengo que entrar y volver a mi habitaci\xF3n"
