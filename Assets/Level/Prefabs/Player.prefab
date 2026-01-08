@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3935
+  m_VersionIndex: 3947
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2500,6 +2500,7 @@ MonoBehaviour:
   RevealWindowTriggerCube: {fileID: 0}
   FinishedClimbingLadderTriggerCube: {fileID: 0}
   KnockDoorTriggerCube: {fileID: 0}
+  KillingZoneTriggerCube: {fileID: 0}
   MainDoor: {fileID: 0}
   KitchenKeyViewModel: {fileID: 4634532313940522177}
   WarehouseKeyViewModel: {fileID: 8184988004920500183}

@@ -34,6 +34,7 @@ namespace Assets.Code.Scripts.Player
         public GameObject RevealWindowTriggerCube; 
         public GameObject FinishedClimbingLadderTriggerCube;
         public GameObject KnockDoorTriggerCube;
+        public GameObject KillingZoneTriggerCube;
         public InteractableDoor MainDoor;
         
         public GameObject KitchenKeyViewModel;
@@ -72,6 +73,7 @@ namespace Assets.Code.Scripts.Player
             if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(false);
             if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(false);
             if (KnockDoorTriggerCube != null) KnockDoorTriggerCube.SetActive(false);
+            if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(false);
             
             if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
             if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
@@ -161,6 +163,7 @@ namespace Assets.Code.Scripts.Player
 
                 case TaskState.GettingOut:
                     if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(true);
+                    if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(true);
                     StartCoroutine(RunTaskLogic("Salir por la puerta trasera", "Buscar forma para salir por la puerta trasera de la cocina", 
                         null));
                     break;
@@ -282,6 +285,7 @@ namespace Assets.Code.Scripts.Player
 
             finishedClambingLadder = true;
             FinishedClimbingLadderTriggerCube.SetActive(false);
+            KillingZoneTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedClambingLadder);
         }
         

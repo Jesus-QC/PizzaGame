@@ -175,3 +175,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnockDoorTrigger
   cmDoor: {fileID: 506544873537196949}
+  doorKnockAudioSource: {fileID: 0}
+  doorKnockClip: {fileID: 8300000, guid: decc410c0c809ea428a989015f1b0197, type: 3}
