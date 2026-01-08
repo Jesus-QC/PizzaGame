@@ -34,6 +34,7 @@ namespace Assets.Code.Scripts.Player
         public GameObject RevealWindowTriggerCube; 
         public GameObject FinishedClimbingLadderTriggerCube;
         public GameObject KnockDoorTriggerCube;
+        public InteractableDoor MainDoor;
         
         public GameObject KitchenKeyViewModel;
         public GameObject WarehouseKeyViewModel;
@@ -236,9 +237,11 @@ namespace Assets.Code.Scripts.Player
 
         public bool OnFinishedTakingOutTrash()
         {
-            if (currentTask != TaskState.TakingOutTrash) return false;
+            if (currentTask != TaskState.TakingOutTrash || finishedTakingOutTrash) return false;
 
             finishedTakingOutTrash = true;
+            MainDoor.CloseDoor();
+            KnockDoorTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedTakingOutTrash);
             return true;
         }
@@ -259,6 +262,7 @@ namespace Assets.Code.Scripts.Player
             if (currentTask != TaskState.GettingOut) return false;
 
             finishedGettingOut = true;
+            RevealWindowTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedGettingOut);
             return true;
         }
@@ -277,6 +281,7 @@ namespace Assets.Code.Scripts.Player
             if (currentTask != TaskState.ClimbingLadder) return; // CONTROL DE ORDEN
 
             finishedClambingLadder = true;
+            FinishedClimbingLadderTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedClambingLadder);
         }
         
@@ -285,7 +290,7 @@ namespace Assets.Code.Scripts.Player
             if (currentTask != TaskState.TakingOutTrash) return;
 
             HasPlayedKnockDoorDialogue = true; 
-            SaveGameAndPlayDialogue(KnockDoorDialogue);
+            PlayerController.Instance.DialogueManager.StartDialogue(KnockDoorDialogue);
         }
         
         

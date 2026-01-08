@@ -35,6 +35,7 @@ public class KnockDoorTrigger : MonoBehaviour
         
         doorKnockAudioSource.PlayOneShot(doorKnockClip);
         yield return new WaitForSeconds(doorKnockClip.length);
+        yield return new WaitForSeconds(1f);
         
         cmDoor.Priority = 20;
         PlayerController.Instance.TaskController.OnKnockDoor();
