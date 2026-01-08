@@ -348,6 +348,11 @@ namespace Assets.Code.Scripts.Player
             TestAnimator.SetBool(OpenAnimation, false);
         }
         
+        public void CloseCurrentTaskUI()
+        {
+            CloseUI();
+        }
+        
         public void Save(GameStateData data)
         {
             data.interactableStates[id+"_homework"] = finishedHomework;
