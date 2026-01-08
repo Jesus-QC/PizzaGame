@@ -473,8 +473,8 @@ MonoBehaviour:
   Player: {fileID: 0}
   StoppingDistance: 0
   maxChaseDistance: 15
-  DetectionRadius: 5
-  DetectionHeightThreshold: 2.5
+  DetectionRadius: 3
+  DetectionHeightThreshold: 1
   PatrolSpeed: 2
   ChaseSpeed: 5
   RotationSpeed: 5
