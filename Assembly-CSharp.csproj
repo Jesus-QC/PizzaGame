@@ -56,6 +56,7 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Z Axis -1\Drawer_Pull_Zopp.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Enemy\EnemyMovementAI.cs" />
+    <Compile Include="Assets\Code\Scripts\Enemy\EnemyModelController.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipR.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\AnswerButton.cs" />
     <Compile Include="Assets\Code\Scripts\Dialogue\Dialogue.cs" />

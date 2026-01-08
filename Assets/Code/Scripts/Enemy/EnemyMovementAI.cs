@@ -27,6 +27,7 @@ namespace Code.Scripts.Enemy
         public float PatrolWaitTime = 2.0f;
         
         private NavMeshAgent _agent;
+        private Animator _animator;
         private int _currentPatrolIndex;
         private float _waitTimer;
         public EnemyState CurrentState { get; private set; } = EnemyState.Patrolling;
@@ -34,6 +35,7 @@ namespace Code.Scripts.Enemy
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
             _agent.updateRotation = false; 
         }
 
@@ -46,6 +48,7 @@ namespace Code.Scripts.Enemy
         private void Update()
         {
             SmoothRotate();
+            UpdateAnimation();
             
             if (CurrentState != EnemyState.Chasing)
             {
@@ -79,6 +82,15 @@ namespace Code.Scripts.Enemy
             }
         }
         
+        private void UpdateAnimation()
+        {
+            if (_animator == null) return;
+
+            bool isMoving = CurrentState != EnemyState.Idle && _agent.velocity.sqrMagnitude > 0.1f;
+            
+            _animator.SetBool("IsMoving", isMoving);
+        }
+        
         private void CheckProximityToPlayer()
         {
             if (Player == null) return;
@@ -100,6 +112,8 @@ namespace Code.Scripts.Enemy
             {
                 CurrentState = EnemyState.Idle;
                 _waitTimer = PatrolWaitTime;
+                _agent.isStopped = true;
+                _agent.velocity = Vector3.zero;
             }
         }
         
@@ -134,6 +148,7 @@ namespace Code.Scripts.Enemy
         {
             if (PatrolPoints == null || PatrolPoints.Length == 0)
                 return;
+            _agent.isStopped = false;
             _agent.speed = PatrolSpeed;
             _agent.stoppingDistance = 0f;
             _agent.destination = PatrolPoints[_currentPatrolIndex].position;

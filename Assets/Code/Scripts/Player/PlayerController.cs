@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Code.Scripts.Enemy;
 using UnityEngine;
 
 namespace Assets.Code.Scripts.Player
@@ -19,9 +20,10 @@ namespace Assets.Code.Scripts.Player
         public KeypadController KeypadController;
         public DialogueManager DialogueManager;
         public GameStateController GameStateController;
-        
+        public EnemyModelController EnemyModel;
+
+        public GameObject Cursor;
         public GameObject RealEnemy;
-        public GameObject EnemyModel;
         public BloodScreen BloodScreen; 
         public float TimeBeforeReload = 5f;
         
@@ -34,7 +36,7 @@ namespace Assets.Code.Scripts.Player
         
         private void Start() 
         {
-            if (EnemyModel != null) EnemyModel.SetActive(false);
+            if (EnemyModel != null) EnemyModel.gameObject.SetActive(false);
             if (BloodScreen != null) BloodScreen.gameObject.SetActive(false);
         }
         
@@ -51,6 +53,9 @@ namespace Assets.Code.Scripts.Player
             if (MovementController) MovementController.enabled = false;
             if (CameraController) CameraController.enabled = false;
             if (PlayerRigidbody) PlayerRigidbody.isKinematic = true;
+            Cursor.SetActive(false);
+            
+            if (TaskController) TaskController.CloseCurrentTaskUI();
 
             if (RealEnemy != null)
             {
@@ -59,7 +64,8 @@ namespace Assets.Code.Scripts.Player
             
             if (EnemyModel != null)
             {
-                EnemyModel.SetActive(true);
+                EnemyModel.gameObject.SetActive(true);
+                EnemyModel.ShowAndPlay();
             }
             
             if (BloodScreen != null)
@@ -72,7 +78,7 @@ namespace Assets.Code.Scripts.Player
             
             if (EnemyModel != null)
             {
-                EnemyModel.SetActive(false);
+                EnemyModel.gameObject.SetActive(false);
             }
 
             if (BloodScreen != null)
@@ -84,6 +90,7 @@ namespace Assets.Code.Scripts.Player
             if (PlayerRigidbody) PlayerRigidbody.isKinematic = false;
             if (MovementController) MovementController.enabled = true;
             if (CameraController) CameraController.enabled = true;
+            Cursor.SetActive(true);
 
             GameStateController.LoadIfExists();
         }
