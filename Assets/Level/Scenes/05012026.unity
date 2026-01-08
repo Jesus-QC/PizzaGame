@@ -9285,46 +9285,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7217108244281953845, guid: 8425ddc8cbd014e80beea57b8d6f41e3, type: 3}
   m_PrefabInstance: {fileID: 1688431347}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1694098133 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3339736223172004348, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-  m_PrefabInstance: {fileID: 4965367046280924996}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1694098135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694098133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325ff809f77d93940b93853f12f0af24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Scripts.Enemy.EnemyModelController
-  Animator: {fileID: 1694098136}
---- !u!95 &1694098136
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694098133}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a1f28f376bb19349b0a3edfe72fe806, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!64 &1698967137
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16595,10 +16555,6 @@ PrefabInstance:
       propertyPath: safe
       value: 
       objectReference: {fileID: 449449610}
-    - target: {fileID: 3339736223172004348, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_Name
-      value: Enemy Model
-      objectReference: {fileID: 0}
     - target: {fileID: 6286130559205053654, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: Enemy
       value: 
@@ -16609,19 +16565,7 @@ PrefabInstance:
       objectReference: {fileID: 103894486}
     - target: {fileID: 7262254505894450856, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_VersionIndex
-      value: 3914
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345514074352658555, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345514074352658555, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.176
-      objectReference: {fileID: 0}
-    - target: {fileID: 7345514074352658555, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.177
+      value: 3926
       objectReference: {fileID: 0}
     - target: {fileID: 7763541786723728707, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16671,20 +16615,10 @@ PrefabInstance:
       propertyPath: RealEnemy
       value: 
       objectReference: {fileID: 924382640}
-    - target: {fileID: 7970051845130666120, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: EnemyModel
-      value: 
-      objectReference: {fileID: 1694098135}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3339736223172004348, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1694098135}
-    - targetCorrespondingSourceObject: {fileID: 3339736223172004348, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1694098136}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
 --- !u!23 &5048987239903831106
 MeshRenderer:
