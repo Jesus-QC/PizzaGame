@@ -33,6 +33,7 @@ namespace Assets.Code.Scripts.Player
         
         public GameObject RevealWindowTriggerCube; 
         public GameObject FinishedClimbingLadderTriggerCube;
+        public GameObject KnockDoorTriggerCube;
         
         public GameObject KitchenKeyViewModel;
         public GameObject WarehouseKeyViewModel;
@@ -45,6 +46,7 @@ namespace Assets.Code.Scripts.Player
         public Dialogue FinishedGettingOut;
         public Dialogue FinishedGettingLadder;
         public Dialogue FinishedClambingLadder;
+        public Dialogue KnockDoorDialogue;
         
         private DialogueManager dialogueManager;
         
@@ -56,6 +58,7 @@ namespace Assets.Code.Scripts.Player
         private bool finishedGettingOut = false;
         private bool finishedGettingLadder = false;
         private bool finishedClambingLadder = false;
+        private bool HasPlayedKnockDoorDialogue = false;
 
         private void Start()
         {
@@ -67,6 +70,7 @@ namespace Assets.Code.Scripts.Player
             
             if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(false);
             if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(false);
+            if (KnockDoorTriggerCube != null) KnockDoorTriggerCube.SetActive(false);
             
             if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
             if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
@@ -97,6 +101,8 @@ namespace Assets.Code.Scripts.Player
                     break;
 
                 case TaskState.TakingOutTrash:
+                    if (HasPlayedKnockDoorDialogue && !finishedTakingOutTrash)
+                        CallKnockDoorTrigger();
                     if (finishedTakingOutTrash) 
                         StartCoroutine(TransitionToNextTask(TaskState.WatchingTV));
                     break;
@@ -141,6 +147,7 @@ namespace Assets.Code.Scripts.Player
                     break;
                     
                 case TaskState.TakingOutTrash:
+                    if (KnockDoorTriggerCube != null) KnockDoorTriggerCube.SetActive(true);
                     StartCoroutine(RunTaskLogic("Saca la basura", "Lleva la bolsa de basura de la cocina al contenedor fuera de casa", 
                         null));
                     break;
@@ -273,6 +280,14 @@ namespace Assets.Code.Scripts.Player
             SaveGameAndPlayDialogue(FinishedClambingLadder);
         }
         
+        public void OnKnockDoor()
+        {
+            if (currentTask != TaskState.TakingOutTrash) return;
+
+            HasPlayedKnockDoorDialogue = true; 
+            SaveGameAndPlayDialogue(KnockDoorDialogue);
+        }
+        
         
         // ----------------------------------------------------------------
         // ----------------------------TRIGGERS----------------------------
@@ -292,6 +307,15 @@ namespace Assets.Code.Scripts.Player
             if (FinishedClimbingLadderTriggerCube != null)
             {
                 var trigger = FinishedClimbingLadderTriggerCube.GetComponent<FinishedClambingLadderTrigger>();
+                if (trigger != null) trigger.OnDialogueFinished();
+            }
+        }
+        
+        public void CallKnockDoorTrigger()
+        {
+            if (KnockDoorTriggerCube != null)
+            {
+                var trigger = KnockDoorTriggerCube.GetComponent<KnockDoorTrigger>();
                 if (trigger != null) trigger.OnDialogueFinished();
             }
         }
@@ -363,6 +387,7 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates[id+"_clambingladder"] = finishedClambingLadder;
             data.interactableStates[id+"_hasKitchenKey"] = HasKitchenKey;
             data.interactableStates[id+"_hasWarehouseKey"] = HasWarehouseKey;
+            data.interactableStates[id+"_hasPlayedKnockDoorDialogue"] = HasPlayedKnockDoorDialogue;
         }
 
         public void Load(GameStateData data)
@@ -375,6 +400,7 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates.TryGetValue(id+"_clambingladder", out finishedClambingLadder);
             data.interactableStates.TryGetValue(id+"_hasKitchenKey", out HasKitchenKey);
             data.interactableStates.TryGetValue(id+"_hasWarehouseKey", out HasWarehouseKey);
+            data.interactableStates.TryGetValue(id+"_hasPlayedKnockDoorDialogue", out HasPlayedKnockDoorDialogue);
             
             if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(HasKitchenKey);
             if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(HasWarehouseKey);
