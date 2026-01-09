@@ -53,9 +53,9 @@ namespace Assets.Code.Scripts.Player
             if (MovementController) MovementController.enabled = false;
             if (CameraController) CameraController.enabled = false;
             if (PlayerRigidbody) PlayerRigidbody.isKinematic = true;
+            if (TaskController) TaskController.CloseCurrentTaskUI();
             Cursor.SetActive(false);
             
-            if (TaskController) TaskController.CloseCurrentTaskUI();
 
             if (RealEnemy != null)
             {
