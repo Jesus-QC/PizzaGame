@@ -1096,6 +1096,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5132822982072529754, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7262254505894450856, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_Mesh
       value: 
