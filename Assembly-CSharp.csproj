@@ -42,7 +42,7 @@
     <UnityVersion>6000.2.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\wangl\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\jingy\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -88,6 +88,7 @@
     <Compile Include="Assets\Code\Scripts\Cooking\CookingStep.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\BRGlassDoor.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\Z Axis\Drawer_Pull_Z.cs" />
+    <Compile Include="Assets\SimpleSkeleton\script\SimpleSkeletonController.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\InteractuableHomework.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableItem.cs" />
     <Compile Include="Assets\Code\Scripts\Dialogue\DialogueManager.cs" />
     <Compile Include="Assets\Code\Scripts\Player\LadderController.cs" />
+    <Compile Include="Assets\Code\Scripts\Dialogue\KillingZoneTrigger.cs" />
     <Compile Include="Assets\Code\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDoor_L.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\PlayerMovement.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableContainer.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\ISaveable.cs" />
+    <Compile Include="Assets\Code\Scripts\Menu\MainMenuController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\IInteractable.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Cooking\KeyPopUp.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Windows\opencloseWindowApt.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InterfaceController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\KeypadController.cs" />
+    <Compile Include="Assets\Code\Scripts\Dialogue\KnockDoorTrigger.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
     <Compile Include="Assets\Code\Scripts\Menu\StartTransitioner.cs" />
   </ItemGroup>
@@ -128,6 +132,7 @@
     <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatFree.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Level\UI\MainMenu.uxml" />
+    <None Include="Assets\SimpleSkeleton\Readme_SimpleSkeleton.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Art\Materials\Armchair\StandardColorMask.shader" />
@@ -1353,12 +1358,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Multiplayer.Center.Common">
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Center.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst">
@@ -1459,6 +1464,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Polyperfect.Universal.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>

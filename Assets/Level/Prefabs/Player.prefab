@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3923
+  m_VersionIndex: 3986
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2396,6 +2396,7 @@ MonoBehaviour:
   DialogueManager: {fileID: 7398682879113186026}
   GameStateController: {fileID: 6286130559205053654}
   EnemyModel: {fileID: 710862626612526362}
+  MainMenuController: {fileID: 0}
   Cursor: {fileID: 137399553979535143}
   RealEnemy: {fileID: 0}
   BloodScreen: {fileID: 3797440251830539320}
@@ -2497,18 +2498,30 @@ MonoBehaviour:
   ObjectiveTitle: {fileID: 5232095882330291636}
   ObjectiveDescription: {fileID: 7920822959837207053}
   NewTask: {fileID: 8300000, guid: b232eaacb9d0c3645869d79b8c394c21, type: 3}
+  PressEText: {fileID: 4752330845452378418}
+  Crosshair: {fileID: 137399553979535143}
   RevealWindowTriggerCube: {fileID: 0}
   FinishedClimbingLadderTriggerCube: {fileID: 0}
+  KnockDoorTriggerCube: {fileID: 0}
+  KillingZoneTriggerCube: {fileID: 0}
+  MainDoor: {fileID: 0}
   KitchenKeyViewModel: {fileID: 4634532313940522177}
   WarehouseKeyViewModel: {fileID: 8184988004920500183}
   HasKitchenKey: 0
   HasWarehouseKey: 0
+  HomeWorkCamera: {fileID: 0}
+  TrashCamera: {fileID: 0}
+  TVCamera: {fileID: 0}
+  GettingOutCamera: {fileID: 0}
+  GettingLadderCamera: {fileID: 0}
+  ClimbingLadderCamera: {fileID: 0}
   FinishedHomework: {fileID: 11400000, guid: 421051b3e0ca35d4dbf71fb6f6c087d5, type: 2}
   FinishedTakingOutTrash: {fileID: 11400000, guid: de7122e14efbdee4b9eb3d0406e38cbb, type: 2}
   FinishedWatchingTV: {fileID: 11400000, guid: 6d555328755104d4cb7890ed2832e802, type: 2}
   FinishedGettingOut: {fileID: 11400000, guid: 892b7681ca5ca5b439a904fee9ccde97, type: 2}
   FinishedGettingLadder: {fileID: 11400000, guid: b681b382c35fbe449b54b2d6b1da9c3a, type: 2}
   FinishedClambingLadder: {fileID: 11400000, guid: 737ee242635d6234dbaba73e8a38057d, type: 2}
+  KnockDoorDialogue: {fileID: 11400000, guid: 5bcb4d4e5f36a1640b5811778d6ef2ee, type: 2}
 --- !u!114 &2716707674201793522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,6 +5289,85 @@ Transform:
   - {fileID: 7345514074352658555}
   m_Father: {fileID: 7763541786723728707}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4752330845452378418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4301781822453273394}
+  - component: {fileID: 5223485597413113845}
+  - component: {fileID: 8056346656384564369}
+  m_Layer: 5
+  m_Name: Space/Click
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4301781822453273394
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752330845452378418}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 415980477817965254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 249.99998}
+  m_SizeDelta: {x: 300, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5223485597413113845
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752330845452378418}
+  m_CullTransparentMesh: 1
+--- !u!114 &8056346656384564369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752330845452378418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6509804}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '[ Presiona E para avanzar ]'
 --- !u!1 &4810391051261121654
 GameObject:
   m_ObjectHideFlags: 0
@@ -8577,7 +8669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8050101364407603145}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -8766,6 +8858,7 @@ RectTransform:
   m_Children:
   - {fileID: 4327380884010413114}
   - {fileID: 8068729767481052079}
+  - {fileID: 4301781822453273394}
   m_Father: {fileID: 6604992794385145415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9447,6 +9540,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras:
+  - {fileID: 0}
   - {fileID: 7523432969605136105}
   m_RendererIndex: -1
   m_VolumeLayerMask:

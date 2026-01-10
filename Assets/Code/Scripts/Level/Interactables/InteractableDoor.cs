@@ -20,25 +20,31 @@ namespace Code.Scripts.Level.Interactables
         public bool IsOpen
         {
             get => _isOpen;
-            set
-            {
-                _isOpen = value;
-                if (_isOpen) 
-                    Open();
-                else 
-                    Close();
-                
-                DoorAnimator.SetBool(OpenAnimation, _isOpen);
-                _lastInteractionTime = Time.time;
-            }
+            set => SetState(value, true); 
         }
 
         public void Interact()
         {
             if (Time.time - _lastInteractionTime < CooldownTime)
                 return;
-            
+
             IsOpen = !IsOpen;
+        }
+
+        private void SetState(bool newState, bool updateCooldown)
+        {
+            if (_isOpen == newState) return;
+
+            _isOpen = newState;
+            if (_isOpen)
+                Open();
+            else
+                Close();
+
+            DoorAnimator.SetBool(OpenAnimation, _isOpen);
+            
+            if (updateCooldown)
+                _lastInteractionTime = Time.time;
         }
 
         private void Open()
@@ -61,6 +67,11 @@ namespace Code.Scripts.Level.Interactables
             data.interactableStates.TryGetValue(id, out _isOpen);
             DoorAnimator.SetBool(OpenAnimation, _isOpen);
             
+        }
+
+        public void CloseDoor()
+        {
+            SetState(false, false);
         }
     }
 }
