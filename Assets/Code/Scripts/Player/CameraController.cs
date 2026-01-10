@@ -9,7 +9,7 @@ namespace Assets.Code.Scripts.Player
 {
     public class CameraController : MonoBehaviour
     {
-        public float Sensitivity = 0.15f;
+        public float Sensitivity = 0.18f;
         public float ShakeAmount = 0.008f;
         public float VignetteIntensity = 0.27f;
         public float ChromaticAberrationIntensity = 1f;
@@ -135,6 +135,25 @@ namespace Assets.Code.Scripts.Player
             if (_depthOfField != null)
             {
                 _depthOfField.aperture.value = Mathf.Lerp(_depthOfField.aperture.value, targetAperture, speed);
+            }
+        }
+        
+        public void SetMenuBlur(bool active)
+        {
+            if (_depthOfField == null) return;
+
+            float blurValue = 0.5f; 
+            float defaultValue = 16f;
+
+            if (active)
+            {
+                _depthOfField.mode.value = DepthOfFieldMode.Bokeh;
+                _depthOfField.focusDistance.value = 0.1f;
+                _depthOfField.aperture.value = blurValue;
+            }
+            else
+            {
+                _depthOfField.aperture.value = defaultValue;
             }
         }
     }

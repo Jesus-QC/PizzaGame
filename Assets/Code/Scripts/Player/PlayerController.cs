@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using Code.Scripts.Enemy;
+using Code.Scripts.Menu;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets.Code.Scripts.Player
 {
@@ -21,6 +23,7 @@ namespace Assets.Code.Scripts.Player
         public DialogueManager DialogueManager;
         public GameStateController GameStateController;
         public EnemyModelController EnemyModel;
+        public MainMenuController MainMenuController;
 
         public GameObject Cursor;
         public GameObject RealEnemy;
@@ -38,6 +41,26 @@ namespace Assets.Code.Scripts.Player
         {
             if (EnemyModel != null) EnemyModel.gameObject.SetActive(false);
             if (BloodScreen != null) BloodScreen.gameObject.SetActive(false);
+        }
+        
+        public void OnPause(InputValue value)
+        {
+            if (_isDying) return;
+
+            if (MainMenuController != null)
+            {
+                MainMenuController.OnPause();
+            }
+        }
+        
+        public void OnCancel(InputValue value)
+        {
+            if (_isDying) return;
+
+            if (MainMenuController != null)
+            {
+                MainMenuController.OnCancel();
+            }
         }
         
         public void OnkilledByEnemy()

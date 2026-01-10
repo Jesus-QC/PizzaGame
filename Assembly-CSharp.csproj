@@ -108,6 +108,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableContainer.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\ISaveable.cs" />
+    <Compile Include="Assets\Code\Scripts\Menu\MainMenuController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\IInteractable.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Cooking\KeyPopUp.cs" />

@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3962
+  m_VersionIndex: 3986
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2396,6 +2396,7 @@ MonoBehaviour:
   DialogueManager: {fileID: 7398682879113186026}
   GameStateController: {fileID: 6286130559205053654}
   EnemyModel: {fileID: 710862626612526362}
+  MainMenuController: {fileID: 0}
   Cursor: {fileID: 137399553979535143}
   RealEnemy: {fileID: 0}
   BloodScreen: {fileID: 3797440251830539320}
@@ -8668,7 +8669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8050101364407603145}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -9539,6 +9540,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras:
+  - {fileID: 0}
   - {fileID: 7523432969605136105}
   m_RendererIndex: -1
   m_VolumeLayerMask:
