@@ -4,7 +4,9 @@ using Code.Scripts.Checkpoint;
 using Code.Scripts.Enemy;
 using Code.Scripts.Level.Interactables;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Code.Scripts.Player
 {
@@ -30,14 +32,26 @@ namespace Assets.Code.Scripts.Player
         public TextMeshProUGUI ObjectiveTitle;
         public TextMeshProUGUI ObjectiveDescription;
         public AudioClip NewTask;
+        public GameObject PressEText;
+        public GameObject Crosshair;
         
         public GameObject RevealWindowTriggerCube; 
         public GameObject FinishedClimbingLadderTriggerCube;
+        public GameObject KnockDoorTriggerCube;
+        public GameObject KillingZoneTriggerCube;
+        public InteractableDoor MainDoor;
         
         public GameObject KitchenKeyViewModel;
         public GameObject WarehouseKeyViewModel;
         public bool HasKitchenKey = false;
         public bool HasWarehouseKey = false;
+        
+        public CinemachineCamera HomeWorkCamera;
+        public CinemachineCamera TrashCamera;
+        public CinemachineCamera TVCamera;
+        public CinemachineCamera GettingOutCamera;
+        public CinemachineCamera GettingLadderCamera;
+        public CinemachineCamera ClimbingLadderCamera;
         
         public Dialogue FinishedHomework;
         public Dialogue FinishedTakingOutTrash;
@@ -45,10 +59,14 @@ namespace Assets.Code.Scripts.Player
         public Dialogue FinishedGettingOut;
         public Dialogue FinishedGettingLadder;
         public Dialogue FinishedClambingLadder;
+        public Dialogue KnockDoorDialogue;
         
         private DialogueManager dialogueManager;
         
         private TaskState currentTask = TaskState.None;
+        
+        private bool _isTaskUIOpen = false;
+        public bool IsTaskUIOpen => _isTaskUIOpen;
         
         private bool finishedHomework = false;
         private bool finishedTakingOutTrash = false;
@@ -56,6 +74,7 @@ namespace Assets.Code.Scripts.Player
         private bool finishedGettingOut = false;
         private bool finishedGettingLadder = false;
         private bool finishedClambingLadder = false;
+        private bool HasPlayedKnockDoorDialogue = false;
 
         private void Start()
         {
@@ -67,9 +86,21 @@ namespace Assets.Code.Scripts.Player
             
             if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(false);
             if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(false);
+            if (KnockDoorTriggerCube != null) KnockDoorTriggerCube.SetActive(false);
+            if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(false);
             
             if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
             if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
+            
+            if (PressEText != null) PressEText.SetActive(false);
+        }
+        
+        public void Interact()
+        {
+            if (_isTaskUIOpen)
+            {
+                _isTaskUIOpen = false;
+            }
         }
         
         private void OnDestroy()
@@ -97,6 +128,8 @@ namespace Assets.Code.Scripts.Player
                     break;
 
                 case TaskState.TakingOutTrash:
+                    if (HasPlayedKnockDoorDialogue && !finishedTakingOutTrash)
+                        CallKnockDoorTrigger();
                     if (finishedTakingOutTrash) 
                         StartCoroutine(TransitionToNextTask(TaskState.WatchingTV));
                     break;
@@ -137,41 +170,43 @@ namespace Assets.Code.Scripts.Player
             {
                 case TaskState.Homework:
                     StartCoroutine(RunTaskLogic("Haz los deberes", "Abre moodle en el ordenador del escritorio", 
-                        () => InteractableHomework.HasStartedHomework));
+                        () => InteractableHomework.HasStartedHomework, HomeWorkCamera));
                     break;
                     
                 case TaskState.TakingOutTrash:
+                    if (KnockDoorTriggerCube != null) KnockDoorTriggerCube.SetActive(true);
                     StartCoroutine(RunTaskLogic("Saca la basura", "Lleva la bolsa de basura de la cocina al contenedor fuera de casa", 
-                        null));
+                        null, TrashCamera));
                     break;
 
                 case TaskState.WatchingTV:
                     StartCoroutine(RunTaskLogic("Mira la television", "Sientate en el sillon y entretente un rato viendo la television", 
-                        null));
+                        null, TVCamera));
                     StartCoroutine(WatchTVRoutine());
                     break;
 
                 case TaskState.GettingOut:
                     if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(true);
+                    if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(true);
                     StartCoroutine(RunTaskLogic("Salir por la puerta trasera", "Buscar forma para salir por la puerta trasera de la cocina", 
-                        null));
+                        null, GettingOutCamera));
                     break;
 
                 case TaskState.GettingLadder:
                     StartCoroutine(RunTaskLogic("Conseguir la escalera de la caseta", "Buscar forma para conseguir la llave de la caseta", 
-                        null));
+                        null, GettingLadderCamera));
                     break;
 
                 case TaskState.ClimbingLadder:
                     if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(true);
                     StartCoroutine(RunTaskLogic("Colocar y subir por la escalera", "Coloca la escalera sobre la casa y subir por ella", 
-                        null));
+                        null, ClimbingLadderCamera));
                     break;
             }
             yield return null;
         }
         
-        private IEnumerator RunTaskLogic(string title, string desc, Func<bool> earlyExitCondition)
+        private IEnumerator RunTaskLogic(string title, string desc, Func<bool> earlyExitCondition, CinemachineCamera lookAtCamera = null)
         {
             yield return new WaitForSeconds(1f);
 
@@ -179,21 +214,69 @@ namespace Assets.Code.Scripts.Player
 
             ObjectiveTitle.text = title;
             ObjectiveDescription.text = desc;
-            OpenUI();
 
-            float elapsedTime = 0f;
-            while (elapsedTime < 5f)
+            if (lookAtCamera != null)
+            {
+                lookAtCamera.Priority = 20;
+                lookAtCamera.gameObject.SetActive(true);
+            }
+            
+            OpenUI();
+            _isTaskUIOpen = true;
+            SetPlayerAndEnemyControllers(false);
+
+            float animationTimer = 0f;
+            while(animationTimer < 1f && _isTaskUIOpen)
+            {
+                animationTimer += Time.deltaTime;
+                yield return null;
+            }
+            
+            while (_isTaskUIOpen)
             {
                 if (earlyExitCondition != null && earlyExitCondition.Invoke())
                 {
-                    CloseUI();
-                    yield break;
+                    _isTaskUIOpen = false;
                 }
-                elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
+            if (lookAtCamera != null)
+            {
+                lookAtCamera.Priority = 0;
+                lookAtCamera.gameObject.SetActive(false);
+            }
+            
             CloseUI();
+            SetPlayerAndEnemyControllers(true);
+        }
+        
+        private void SetPlayerAndEnemyControllers(bool enabled)
+        {
+            PlayerController.Instance.MovementController.enabled = enabled;
+            PlayerController.Instance.CameraController.enabled = enabled;
+            if (EnemyController.Instance != null && EnemyController.Instance.gameObject.activeInHierarchy)
+            {
+                EnemyController.Instance.enabled = enabled;
+
+                if (EnemyController.Instance.MovementAI != null)
+                {
+                    EnemyController.Instance.MovementAI.enabled = enabled;
+                }
+
+                var agent = EnemyController.Instance.GetComponent<NavMeshAgent>();
+                if (agent != null && agent.isOnNavMesh && agent.isActiveAndEnabled)
+                {
+                    agent.isStopped = !enabled;
+                    if (!enabled) agent.velocity = Vector3.zero;
+                }
+
+                var animator = EnemyController.Instance.GetComponentInChildren<Animator>();
+                if (animator != null)
+                {
+                    animator.speed = enabled ? 1f : 0f;
+                }
+            }
         }
         
         private IEnumerator WatchTVRoutine()
@@ -229,9 +312,11 @@ namespace Assets.Code.Scripts.Player
 
         public bool OnFinishedTakingOutTrash()
         {
-            if (currentTask != TaskState.TakingOutTrash) return false;
+            if (currentTask != TaskState.TakingOutTrash || finishedTakingOutTrash) return false;
 
             finishedTakingOutTrash = true;
+            MainDoor.CloseDoor();
+            KnockDoorTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedTakingOutTrash);
             return true;
         }
@@ -252,6 +337,7 @@ namespace Assets.Code.Scripts.Player
             if (currentTask != TaskState.GettingOut) return false;
 
             finishedGettingOut = true;
+            RevealWindowTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedGettingOut);
             return true;
         }
@@ -270,7 +356,17 @@ namespace Assets.Code.Scripts.Player
             if (currentTask != TaskState.ClimbingLadder) return; // CONTROL DE ORDEN
 
             finishedClambingLadder = true;
+            FinishedClimbingLadderTriggerCube.SetActive(false);
+            KillingZoneTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedClambingLadder);
+        }
+        
+        public void OnKnockDoor()
+        {
+            if (currentTask != TaskState.TakingOutTrash) return;
+
+            HasPlayedKnockDoorDialogue = true; 
+            PlayerController.Instance.DialogueManager.StartDialogue(KnockDoorDialogue);
         }
         
         
@@ -292,6 +388,15 @@ namespace Assets.Code.Scripts.Player
             if (FinishedClimbingLadderTriggerCube != null)
             {
                 var trigger = FinishedClimbingLadderTriggerCube.GetComponent<FinishedClambingLadderTrigger>();
+                if (trigger != null) trigger.OnDialogueFinished();
+            }
+        }
+        
+        public void CallKnockDoorTrigger()
+        {
+            if (KnockDoorTriggerCube != null)
+            {
+                var trigger = KnockDoorTriggerCube.GetComponent<KnockDoorTrigger>();
                 if (trigger != null) trigger.OnDialogueFinished();
             }
         }
@@ -341,11 +446,21 @@ namespace Assets.Code.Scripts.Player
         {
             TestAnimator.SetBool(OpenAnimation, true);
             PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.1f);
+            PressEText.SetActive(true);
+            Crosshair.SetActive(false);
         }
 
         private void CloseUI()
         {
             TestAnimator.SetBool(OpenAnimation, false);
+            _isTaskUIOpen = false;
+            PressEText.SetActive(false);
+            Crosshair.SetActive(true);
+        }
+        
+        public void CloseCurrentTaskUI()
+        {
+            CloseUI();
         }
         
         public void Save(GameStateData data)
@@ -358,6 +473,7 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates[id+"_clambingladder"] = finishedClambingLadder;
             data.interactableStates[id+"_hasKitchenKey"] = HasKitchenKey;
             data.interactableStates[id+"_hasWarehouseKey"] = HasWarehouseKey;
+            data.interactableStates[id+"_hasPlayedKnockDoorDialogue"] = HasPlayedKnockDoorDialogue;
         }
 
         public void Load(GameStateData data)
@@ -370,11 +486,14 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates.TryGetValue(id+"_clambingladder", out finishedClambingLadder);
             data.interactableStates.TryGetValue(id+"_hasKitchenKey", out HasKitchenKey);
             data.interactableStates.TryGetValue(id+"_hasWarehouseKey", out HasWarehouseKey);
+            data.interactableStates.TryGetValue(id+"_hasPlayedKnockDoorDialogue", out HasPlayedKnockDoorDialogue);
             
             if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(HasKitchenKey);
             if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(HasWarehouseKey);
             
-           
+            if (finishedWatchTV && EnemyController.Instance != null)
+                EnemyController.Instance.gameObject.SetActive(true);
+            
             if (!finishedHomework)
                 StartCoroutine(TransitionToNextTask(TaskState.Homework));
             else if (!finishedTakingOutTrash)

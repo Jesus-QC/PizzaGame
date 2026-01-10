@@ -19,6 +19,12 @@ namespace Assets.Code.Scripts.Player
                 return;
             }
 
+            if (PlayerController.Instance.TaskController.IsTaskUIOpen)
+            {
+                PlayerController.Instance.TaskController.Interact();
+                return;
+            }
+
             IInteractable interactable = GetInteractable();
 
             if (interactable == null)

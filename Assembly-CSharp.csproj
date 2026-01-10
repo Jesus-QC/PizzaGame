@@ -58,6 +58,7 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Z Axis -1\Drawer_Pull_Zopp.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InteractableController.cs" />
     <Compile Include="Assets\Code\Scripts\Enemy\EnemyMovementAI.cs" />
+    <Compile Include="Assets\Code\Scripts\Enemy\EnemyModelController.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipR.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\AnswerButton.cs" />
     <Compile Include="Assets\Code\Scripts\Dialogue\Dialogue.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractuableHomeWork\LivesUI.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDoor_.cs" />
     <Compile Include="Assets\Code\Scripts\Player\GameStateController.cs" />
+    <Compile Include="Assets\Code\Scripts\UI\BloodScreen.cs" />
     <Compile Include="Assets\Code\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\ItemsController.cs" />
     <Compile Include="Assets\Code\Scripts\Cooking\CookingStep.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableItem.cs" />
     <Compile Include="Assets\Code\Scripts\Dialogue\DialogueManager.cs" />
     <Compile Include="Assets\Code\Scripts\Player\LadderController.cs" />
+    <Compile Include="Assets\Code\Scripts\Dialogue\KillingZoneTrigger.cs" />
     <Compile Include="Assets\Code\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableWardrobeDoor_L.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\PlayerMovement.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="Assets\Code\Scripts\Level\Interactables\InteractableContainer.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
     <Compile Include="Assets\Code\Scripts\Checkpoint\ISaveable.cs" />
+    <Compile Include="Assets\Code\Scripts\Menu\MainMenuController.cs" />
     <Compile Include="Assets\Code\Scripts\Level\Interactables\IInteractable.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
     <Compile Include="Assets\Code\Scripts\Cooking\KeyPopUp.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Windows\opencloseWindowApt.cs" />
     <Compile Include="Assets\Code\Scripts\Player\InterfaceController.cs" />
     <Compile Include="Assets\Code\Scripts\Player\KeypadController.cs" />
+    <Compile Include="Assets\Code\Scripts\Dialogue\KnockDoorTrigger.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
     <Compile Include="Assets\Code\Scripts\Menu\StartTransitioner.cs" />
   </ItemGroup>
