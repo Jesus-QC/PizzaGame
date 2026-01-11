@@ -14,6 +14,7 @@ namespace Code.Scripts.Menu
         public GameObject background;
         public GameObject mainPanel;
         public GameObject optionsPanel;
+        public GameObject tutorialPanel;
         
         public Slider sensitivitySlider;
         public TextMeshProUGUI sensitivityText;
@@ -31,6 +32,7 @@ namespace Code.Scripts.Menu
         {
             mainPanel.SetActive(false);
             optionsPanel.SetActive(false);
+            tutorialPanel.SetActive(false);
             background.SetActive(false);
         }
         
@@ -113,7 +115,14 @@ namespace Code.Scripts.Menu
         public void BackToMain()
         {
             if (optionsPanel) optionsPanel.SetActive(false);
+            if (tutorialPanel) tutorialPanel.SetActive(false);
             if (mainPanel) mainPanel.SetActive(true);
+        }
+
+        public void Tutorial()
+        {
+            if (mainPanel) mainPanel.SetActive(false);
+            if (tutorialPanel) tutorialPanel.SetActive(true);
         }
         
         public void Credits()
@@ -125,6 +134,7 @@ namespace Code.Scripts.Menu
         {
             mainPanel.SetActive(true);
             optionsPanel.SetActive(false);
+            tutorialPanel.SetActive(false);
             background.SetActive(true);
             EventSystem.current.SetSelectedGameObject(null);
             
@@ -172,6 +182,7 @@ namespace Code.Scripts.Menu
             
             if (mainPanel) mainPanel.SetActive(false);
             if (optionsPanel) optionsPanel.SetActive(false);
+            if (tutorialPanel) tutorialPanel.SetActive(false);
             if (background) background.SetActive(false);
         }
     }
