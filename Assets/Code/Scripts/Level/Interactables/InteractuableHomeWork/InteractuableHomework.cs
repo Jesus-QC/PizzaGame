@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using Assets.Code.Scripts.Player;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +22,8 @@ namespace Code.Scripts.Level.Interactables
         [SerializeField] private QuestionsAndAnswers questionsAndAnswers;
         [SerializeField] private LivesUI livesUI;
         [SerializeField] private MonoBehaviour cameraController;
+        [SerializeField] private CinemachineCamera homeworkCamera;
+        [SerializeField] private GameObject crosshair;
 
         [Header("Level Data")]
         [SerializeField] private int totalQuestions;
@@ -48,11 +52,14 @@ namespace Code.Scripts.Level.Interactables
             if (homeworkPanel.activeSelf || startPanel.activeSelf || finishPanel.activeSelf || HasStartedHomework) return;
             HasStartedHomework = true;
 
-            startPanel.SetActive(true);
+            //startPanel.SetActive(true);
+            crosshair.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             cameraController.enabled = false;
+            homeworkCamera.Priority = 20;
 
+            StartCoroutine(showPanelAfterCamera());
             startHomeworkButton.onClick.RemoveAllListeners();
             startHomeworkButton.onClick.AddListener(StartHomework);
         }
@@ -60,6 +67,7 @@ namespace Code.Scripts.Level.Interactables
         private void StartHomework()
         {
             startPanel.SetActive(false);
+            
             homeworkPanel.SetActive(true);
             currentQuestion = 0;
             lives = 3;
@@ -159,7 +167,10 @@ namespace Code.Scripts.Level.Interactables
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             cameraController.enabled = true;
+            homeworkCamera.Priority = 0;
+            StartCoroutine(showCrosshairAfterCamera());
             PlayerController.Instance.TaskController.OnFinishedHomework();
+            
         }
 
         //Animar el cambio del slider de tiempo hacia arriba
@@ -186,5 +197,25 @@ namespace Code.Scripts.Level.Interactables
             yield return new WaitForSeconds(0.2f);
             homeworkPanelBackground.color = originalColor;
         }
+        private IEnumerator showPanelAfterCamera()
+        {
+            float waitTime = Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time;
+            {
+                yield return new WaitForSeconds(waitTime);
+            }
+            startPanel.SetActive(true);
+        }
+
+         private IEnumerator showCrosshairAfterCamera()
+        {
+            float waitTime = Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time;
+            {
+                yield return new WaitForSeconds(waitTime);
+            }
+            crosshair.SetActive(true);
+        }
     }
+
+    
 }
+
