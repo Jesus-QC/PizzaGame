@@ -192,18 +192,18 @@ namespace Assets.Code.Scripts.Player
                 case TaskState.GettingOut:
                     if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(true);
                     if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(true);
-                    StartCoroutine(RunTaskLogic("Salir por la puerta trasera", "Buscar forma para salir por la puerta trasera de la cocina", 
+                    StartCoroutine(RunTaskLogic("LLAMA A LA POLICIA!", "Busca la forma de llegar a tu habitación por la puerta trasera", 
                         null, GettingOutCamera));
                     break;
 
                 case TaskState.GettingLadder:
-                    StartCoroutine(RunTaskLogic("Conseguir la escalera de la caseta", "Buscar forma para conseguir la llave de la caseta", 
+                    StartCoroutine(RunTaskLogic("Consigue una escalera", "Busca la forma de conseguir la llave de la caseta para subir por la ventana", 
                         null, GettingLadderCamera));
                     break;
 
                 case TaskState.ClimbingLadder:
                     if (FinishedClimbingLadderTriggerCube != null) FinishedClimbingLadderTriggerCube.SetActive(true);
-                    StartCoroutine(RunTaskLogic("Colocar y subir por la escalera", "Coloca la escalera sobre la casa y subir por ella", 
+                    StartCoroutine(RunTaskLogic("Cuelate por la ventana", "Coloca la escalera al lado de la ventana y sube por ella", 
                         null, ClimbingLadderCamera));
                     break;
             }
