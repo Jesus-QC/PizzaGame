@@ -39,18 +39,26 @@ namespace Code.Scripts.Level.Interactables
         {
             PlayerController.Instance.MovementController.enabled = false;
             PlayerController.Instance.CameraController.enabled = false;
-            
+
             keypadCamera.enabled = true;
             keypadPanel.SetActive(true);
-            
+
             if (PlayerController.Instance != null && PlayerController.Instance.CameraController != null)
             {
                 PlayerController.Instance.CameraController.SetMenuBlur(true);
             }
-            
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
 
+        void Update()
+        {
+            if (IsDecoding)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
 
         public void CloseKeypad()

@@ -87,6 +87,8 @@ namespace Assets.Code.Scripts.Player
         private bool finishedClambingLadder = false;
         private bool HasPlayedKnockDoorDialogue = false;
 
+        private float lastShownTaskTime = 0f;
+
         private void Start()
         {
             dialogueManager = FindFirstObjectByType<DialogueManager>();
@@ -108,6 +110,9 @@ namespace Assets.Code.Scripts.Player
 
         public void Interact()
         {
+            if (Time.time - lastShownTaskTime < 1f)
+                return;
+
             if (_isTaskUIOpen)
             {
                 _isTaskUIOpen = false;
@@ -293,7 +298,7 @@ namespace Assets.Code.Scripts.Player
                 case TaskState.GettingOut:
                     if (RevealWindowTriggerCube != null) RevealWindowTriggerCube.SetActive(true);
                     if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(true);
-                    StartCoroutine(RunTaskLogic("LLAMA A LA POLICIA!", "Busca la forma de llegar a tu habitación por la puerta trasera", 
+                    StartCoroutine(RunTaskLogic("LLAMA A LA POLICIA!", "Busca la forma de llegar a tu habitacion por la puerta trasera", 
                         null, GettingOutCamera));
                     break;
 
@@ -558,8 +563,15 @@ namespace Assets.Code.Scripts.Player
         {
             TestAnimator.SetBool(OpenAnimation, true);
             PlayerController.Instance.GlobalAudioSource.PlayOneShot(NewTask, 0.1f);
-            PressEText.SetActive(true);
             Crosshair.SetActive(false);
+            lastShownTaskTime = Time.time;
+            StartCoroutine(ShowEPress());
+        }
+        
+        private IEnumerator ShowEPress()
+        {
+            yield return new WaitForSeconds(1f);
+            PressEText.SetActive(true);
         }
 
         private void CloseUI()
