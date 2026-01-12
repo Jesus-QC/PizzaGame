@@ -64,9 +64,11 @@ namespace Assets.Code.Scripts.Player
         public Dialogue KnockDoorDialogue;
 
         public AudioClip EnemyEntered;
-        
+
+        public GameObject LoadingScreen;
+
         private DialogueManager dialogueManager;
-        
+
         private TaskState currentTask = TaskState.None;
         
         private bool _isTaskUIOpen = false;
@@ -98,7 +100,7 @@ namespace Assets.Code.Scripts.Player
             
             if (PressEText != null) PressEText.SetActive(false);
         }
-        
+
         public void Interact()
         {
             if (_isTaskUIOpen)
@@ -114,7 +116,7 @@ namespace Assets.Code.Scripts.Player
                 dialogueManager.OnDialogueEnded -= HandleDialogueEnded;
             }
         }
-        
+
         private void HandleDialogueEnded()
         {
             switch (currentTask)
@@ -125,21 +127,21 @@ namespace Assets.Code.Scripts.Player
                         StartCoroutine(TransitionToNextTask(TaskState.Homework));
                     }
                     break;
-                
+
                 case TaskState.Homework:
-                    if (finishedHomework) 
+                    if (finishedHomework)
                         StartCoroutine(TransitionToNextTask(TaskState.TakingOutTrash));
                     break;
 
                 case TaskState.TakingOutTrash:
                     if (HasPlayedKnockDoorDialogue && !finishedTakingOutTrash)
                         CallKnockDoorTrigger();
-                    if (finishedTakingOutTrash) 
+                    if (finishedTakingOutTrash)
                         StartCoroutine(TransitionToNextTask(TaskState.WatchingTV));
                     break;
 
                 case TaskState.WatchingTV:
-                    if (finishedWatchTV) 
+                    if (finishedWatchTV)
                         StartCoroutine(TransitionToNextTask(TaskState.GettingOut));
                     break;
 
@@ -162,6 +164,87 @@ namespace Assets.Code.Scripts.Player
                         CallFinishedClambingLadderTrigger();
                         currentTask = TaskState.Completed;
                     }
+                    break;
+            }
+        }
+
+        public void SkipTask()
+        {
+            TaskState oldTask = currentTask;
+
+            LoadingScreen.SetActive(true);
+
+            foreach (InteractableDoor door in FindObjectsByType<InteractableDoor>(FindObjectsSortMode.None))
+            {
+                door.CloseDoor();
+            }
+
+            switch (oldTask)
+            {
+                case TaskState.None:
+                    PlayerController.Instance.transform.position = new Vector3();
+                    break;
+
+                case TaskState.Homework:
+                    PlayerController.Instance.transform.position = new Vector3();
+                    break;
+
+                case TaskState.TakingOutTrash:
+                    PlayerController.Instance.transform.position = new Vector3();
+                    break;
+
+                case TaskState.WatchingTV:
+                    PlayerController.Instance.transform.position = new Vector3();
+                    break;
+
+                case TaskState.GettingOut:
+                    PlayerController.Instance.transform.position = new Vector3();
+                    break;
+
+                case TaskState.GettingLadder:
+                    PlayerController.Instance.transform.position = new Vector3();
+                    break;
+            }
+
+            currentTask = (TaskState) ((int) oldTask + 1);
+
+            StartCoroutine(AfterSkipTask(oldTask));
+        }
+        
+        public IEnumerator AfterSkipTask(TaskState oldTask)
+        {
+            yield return new WaitForSeconds(1.5f);
+            LoadingScreen.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            
+            switch (oldTask)
+            {
+                case TaskState.None:
+                    StartCoroutine(TransitionToNextTask(TaskState.Homework));
+                    break;
+
+                case TaskState.Homework:
+                    OnFinishedHomework();
+                    break;
+
+                case TaskState.TakingOutTrash:
+                    OnFinishedTakingOutTrash();
+                    break;
+
+                case TaskState.WatchingTV:
+                    OnFinishedWatchingTV();
+                    break;
+
+                case TaskState.GettingOut:
+                    OnFinishedGettingOut();
+                    break;
+
+                case TaskState.GettingLadder:
+                    OnFinishedGettingLadder();
+                    break;
+
+                case TaskState.ClimbingLadder:
+                    OnFinishedClambingLadder();
                     break;
             }
         }
@@ -489,22 +572,29 @@ namespace Assets.Code.Scripts.Player
 
         public void Load(GameStateData data)
         {
-            data.interactableStates.TryGetValue(id+"_homework", out finishedHomework);
-            data.interactableStates.TryGetValue(id+"_trash", out finishedTakingOutTrash);
-            data.interactableStates.TryGetValue(id+"_tv", out finishedWatchTV);
-            data.interactableStates.TryGetValue(id+"_gettingout", out finishedGettingOut);
-            data.interactableStates.TryGetValue(id+"_gettingladder", out finishedGettingLadder);
-            data.interactableStates.TryGetValue(id+"_clambingladder", out finishedClambingLadder);
-            data.interactableStates.TryGetValue(id+"_hasKitchenKey", out HasKitchenKey);
-            data.interactableStates.TryGetValue(id+"_hasWarehouseKey", out HasWarehouseKey);
-            data.interactableStates.TryGetValue(id+"_hasPlayedKnockDoorDialogue", out HasPlayedKnockDoorDialogue);
-            
+            StartCoroutine(LoadGameState(data));
+        }
+        
+        private IEnumerator LoadGameState(GameStateData data)
+        {
+            yield return new WaitForSeconds(1.5f); 
+
+            data.interactableStates.TryGetValue(id + "_homework", out finishedHomework);
+            data.interactableStates.TryGetValue(id + "_trash", out finishedTakingOutTrash);
+            data.interactableStates.TryGetValue(id + "_tv", out finishedWatchTV);
+            data.interactableStates.TryGetValue(id + "_gettingout", out finishedGettingOut);
+            data.interactableStates.TryGetValue(id + "_gettingladder", out finishedGettingLadder);
+            data.interactableStates.TryGetValue(id + "_clambingladder", out finishedClambingLadder);
+            data.interactableStates.TryGetValue(id + "_hasKitchenKey", out HasKitchenKey);
+            data.interactableStates.TryGetValue(id + "_hasWarehouseKey", out HasWarehouseKey);
+            data.interactableStates.TryGetValue(id + "_hasPlayedKnockDoorDialogue", out HasPlayedKnockDoorDialogue);
+
             if (KitchenKeyIcon != null) KitchenKeyIcon.SetActive(HasKitchenKey);
             if (WarehouseKeyIcon != null) WarehouseKeyIcon.SetActive(HasWarehouseKey);
-            
+
             if (finishedWatchTV && EnemyController.Instance != null)
                 EnemyController.Instance.gameObject.SetActive(true);
-            
+
             if (!finishedHomework)
                 StartCoroutine(TransitionToNextTask(TaskState.Homework));
             else if (!finishedTakingOutTrash)
