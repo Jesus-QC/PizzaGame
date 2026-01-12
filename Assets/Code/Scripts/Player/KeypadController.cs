@@ -42,7 +42,7 @@ namespace Assets.Code.Scripts.Player
                 safe.GetComponent<AudioSource>().PlayOneShot(openSafe);
                 safe.GetComponent<InteractableSafe>().CloseKeypad();
                 SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
-                PlayerController.Instance.GameStateController.SaveGame();
+                //PlayerController.Instance.GameStateController.SaveGame();
             } 
             else
             {
@@ -74,6 +74,15 @@ namespace Assets.Code.Scripts.Player
                 safe.GetComponent<Animator>().Play("OpenSafe");
                 SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
             }
+        }
+        
+        public void SetSafeResolved()
+        {
+            isSolved = true;
+            safe.GetComponent<AudioSource>().PlayOneShot(correctPassword);
+            safe.GetComponent<Animator>().Play("OpenSafe");
+            safe.GetComponent<AudioSource>().PlayOneShot(openSafe);
+            SetLayerRecursively(safe, LayerMask.NameToLayer("Ignore Raycast"));
         }
     }
 }

@@ -214,6 +214,11 @@ namespace Code.Scripts.Level.Interactables
             }
             crosshair.SetActive(true);
         }
+         
+         public void SetHomeworkDone()
+         {
+             HasStartedHomework = true;
+         }
     }
 
     

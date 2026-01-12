@@ -85,5 +85,10 @@ namespace Code.Scripts.Level.Interactables
             }
             
         }
+        
+        public void TurnOnTV()
+        {
+            IsOn = true;
+        }
     }
 }

@@ -9,6 +9,8 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
 
     public Transform windowCenter;
     
+    public CanvasGroup ToBeContinued;
+    
     public AudioClip openWindowSound;
     public AudioClip jumpSound;
     private AudioSource windowAudioSource;
@@ -131,8 +133,6 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
         yield return WaitForAnimation(playerAnimator, "EnteringWindow");
         playerAnimator.enabled = false;
         
-        Debug.Log("Reactivating player control");
-        
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -142,6 +142,8 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
         PlayerController.Instance.CameraController.enabled = true;
         
         PlayerController.Instance.enabled = true;
+
+        yield return StartCoroutine(ShowTobeContinued());
         
         gameObject.SetActive(false);
     }
@@ -150,5 +152,27 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
     {
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(stateName));
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+    }
+    
+    private IEnumerator ShowTobeContinued()
+    {
+        float maxAlpha = 1f;
+        ToBeContinued.alpha = maxAlpha;
+        ToBeContinued.gameObject.SetActive(true);
+    
+        float timer = 0f;
+        float fadeDuration = 5f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = Mathf.Clamp01(timer / fadeDuration);
+        
+            ToBeContinued.alpha = Mathf.Lerp(maxAlpha, 0f, progress);
+            yield return null;
+        }
+
+        ToBeContinued.alpha = 0f;
+        ToBeContinued.gameObject.SetActive(false);
     }
 }

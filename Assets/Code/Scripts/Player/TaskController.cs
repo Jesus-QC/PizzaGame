@@ -43,6 +43,11 @@ namespace Assets.Code.Scripts.Player
         public GameObject KillingZoneTriggerCube;
         public InteractableDoor MainDoor;
         
+        public InteractableHomework Homework;
+        public GameObject TrashBag;
+        public InteractableTV TV;
+        public InteractableLadder Ladder;
+        
         public GameObject KitchenKeyIcon;
         public GameObject WarehouseKeyIcon;
         public bool HasKitchenKey = false;
@@ -170,6 +175,9 @@ namespace Assets.Code.Scripts.Player
 
         public void SkipTask()
         {
+            PlayerController.Instance.MovementController.enabled = false;
+            PlayerController.Instance.CameraController.enabled = false;
+            
             TaskState oldTask = currentTask;
 
             LoadingScreen.SetActive(true);
@@ -182,23 +190,38 @@ namespace Assets.Code.Scripts.Player
             switch (oldTask)
             {
                 case TaskState.Homework:
-                    PlayerController.Instance.transform.position = new Vector3(5.49731255f, 5.02614927f, 1.94516492f);
+                    Homework.SetHomeworkDone();
+                    PlayerController.Instance.transform.position = new Vector3(6.905857f, 5.026149f, 0.5067683f);
+                    PlayerController.Instance.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
                     break;
 
                 case TaskState.TakingOutTrash:
-                    PlayerController.Instance.transform.position = new Vector3(1.42268801f, 0.0150843859f, 20.150135f);
+                    Destroy(TrashBag);
+                    PlayerController.Instance.transform.position = new Vector3(3.927075f, 0.01508456f, 20.29372f);
+                    PlayerController.Instance.transform.rotation = Quaternion.Euler(0f, -322.2f, 0f);
                     break;
 
                 case TaskState.WatchingTV:
-                    PlayerController.Instance.transform.position = new Vector3(-4.82459164f, 0.805140376f, 9.67527199f);
+                    TV.TurnOnTV();
+                    PlayerController.Instance.transform.position = new Vector3(-5.514044f, 0.8098506f, 7.013662f);
+                    PlayerController.Instance.transform.rotation = Quaternion.Euler(0f, -270.18f, 0f);
                     break;
 
                 case TaskState.GettingOut:
-                    PlayerController.Instance.transform.position = new Vector3(-1.20284283f, 0.805139303f, -5.73326111f);
+                    PlayerController.Instance.transform.position = new Vector3(-4.994442f, 0.8051406f, 4.213091f);
+                    PlayerController.Instance.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
                     break;
 
                 case TaskState.GettingLadder:
-                    PlayerController.Instance.transform.position = new Vector3();
+                    PlayerController.Instance.KeypadController.SetSafeResolved();
+                    PlayerController.Instance.transform.position = new Vector3(8.818032f, 0.8051378f, -5.290257f);
+                    PlayerController.Instance.transform.rotation = Quaternion.Euler(0f, -180f, 0f);
+                    break;
+                
+                case TaskState.ClimbingLadder:
+                    Ladder.StepSignal();
+                    PlayerController.Instance.transform.position = new Vector3(1.999956f, -9.977818e-05f, -12.93886f);
+                    PlayerController.Instance.transform.rotation = Quaternion.Euler(0f, -360f, 0f);
                     break;
             }
 
@@ -210,6 +233,8 @@ namespace Assets.Code.Scripts.Player
             yield return new WaitForSeconds(1.5f);
             LoadingScreen.SetActive(false);
             yield return new WaitForSeconds(0.5f);
+            PlayerController.Instance.MovementController.enabled = true;
+            PlayerController.Instance.CameraController.enabled = true;
             
             switch (oldTask)
             {
@@ -226,15 +251,18 @@ namespace Assets.Code.Scripts.Player
                     break;
 
                 case TaskState.GettingOut:
-                    OnFinishedGettingOut();
+                    //Transportamos jugador delante de la llave en vez de tener ya la llave
+                    //OnFinishedGettingOut();
                     break;
 
                 case TaskState.GettingLadder:
-                    OnFinishedGettingLadder();
+                    //Transportamos jugador delante de la llave en vez de tener ya la llave
+                    //OnFinishedGettingLadder();
                     break;
 
                 case TaskState.ClimbingLadder:
-                    OnFinishedClambingLadder();
+                    //Colocamos la escalera para que el jugador suba el mismo
+                    //OnFinishedClambingLadder();
                     break;
             }
         }
