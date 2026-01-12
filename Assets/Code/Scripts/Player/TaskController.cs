@@ -41,8 +41,8 @@ namespace Assets.Code.Scripts.Player
         public GameObject KillingZoneTriggerCube;
         public InteractableDoor MainDoor;
         
-        public GameObject KitchenKeyViewModel;
-        public GameObject WarehouseKeyViewModel;
+        public GameObject KitchenKeyIcon;
+        public GameObject WarehouseKeyIcon;
         public bool HasKitchenKey = false;
         public bool HasWarehouseKey = false;
         
@@ -89,8 +89,8 @@ namespace Assets.Code.Scripts.Player
             if (KnockDoorTriggerCube != null) KnockDoorTriggerCube.SetActive(false);
             if (KillingZoneTriggerCube != null) KillingZoneTriggerCube.SetActive(false);
             
-            if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
-            if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
+            if (KitchenKeyIcon != null) KitchenKeyIcon.SetActive(false);
+            if (WarehouseKeyIcon != null) WarehouseKeyIcon.SetActive(false);
             
             if (PressEText != null) PressEText.SetActive(false);
         }
@@ -337,7 +337,7 @@ namespace Assets.Code.Scripts.Player
             if (currentTask != TaskState.GettingOut) return false;
 
             finishedGettingOut = true;
-            RevealWindowTriggerCube.SetActive(false);
+            //RevealWindowTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedGettingOut);
             return true;
         }
@@ -353,10 +353,10 @@ namespace Assets.Code.Scripts.Player
         
         public void OnFinishedClambingLadder()
         {
-            if (currentTask != TaskState.ClimbingLadder) return; // CONTROL DE ORDEN
+            if (currentTask != TaskState.ClimbingLadder) return;
 
             finishedClambingLadder = true;
-            FinishedClimbingLadderTriggerCube.SetActive(false);
+            //FinishedClimbingLadderTriggerCube.SetActive(false);
             KillingZoneTriggerCube.SetActive(false);
             SaveGameAndPlayDialogue(FinishedClambingLadder);
         }
@@ -410,12 +410,12 @@ namespace Assets.Code.Scripts.Player
             if (keyType == "Kitchen")
             {
                 HasKitchenKey = true;
-                if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(true);
+                if (KitchenKeyIcon != null) KitchenKeyIcon.SetActive(true);
             }
             else if (keyType == "Warehouse")
             {
                 HasWarehouseKey = true;
-                if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(true);
+                if (WarehouseKeyIcon != null) WarehouseKeyIcon.SetActive(true);
             }
         }
         
@@ -423,11 +423,11 @@ namespace Assets.Code.Scripts.Player
         {
             if (keyType == "Kitchen")
             {
-                if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(false);
+                if (KitchenKeyIcon != null) KitchenKeyIcon.SetActive(false);
             }
             else if (keyType == "Warehouse")
             {
-                if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(false);
+                if (WarehouseKeyIcon != null) WarehouseKeyIcon.SetActive(false);
             }
         }
         
@@ -488,8 +488,8 @@ namespace Assets.Code.Scripts.Player
             data.interactableStates.TryGetValue(id+"_hasWarehouseKey", out HasWarehouseKey);
             data.interactableStates.TryGetValue(id+"_hasPlayedKnockDoorDialogue", out HasPlayedKnockDoorDialogue);
             
-            if (KitchenKeyViewModel != null) KitchenKeyViewModel.SetActive(HasKitchenKey);
-            if (WarehouseKeyViewModel != null) WarehouseKeyViewModel.SetActive(HasWarehouseKey);
+            if (KitchenKeyIcon != null) KitchenKeyIcon.SetActive(HasKitchenKey);
+            if (WarehouseKeyIcon != null) WarehouseKeyIcon.SetActive(HasWarehouseKey);
             
             if (finishedWatchTV && EnemyController.Instance != null)
                 EnemyController.Instance.gameObject.SetActive(true);
