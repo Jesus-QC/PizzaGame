@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Scripts.Checkpoint;
+using Code.Scripts.Level.Interactables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -67,6 +68,11 @@ namespace Assets.Code.Scripts.Player
             foreach (ISaveable saveable in _saveables)
             {
                 saveable.Load(data);
+            }
+
+            foreach (InteractableDoor door in FindObjectsByType<InteractableDoor>(sortMode: FindObjectsSortMode.None))
+            {
+                door.CloseDoor();
             }
         }
     }

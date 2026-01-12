@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - text: "No puede ser... \xBFOtra vez cerrada?"
-  - text: "Seguramente la llave est\xE1 en esa habitac\xEDon de la planta 0."
+  - text: "Seguramente haya una llave en la habitaci\xF3n en frente a la cocina..."
