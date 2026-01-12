@@ -186,6 +186,7 @@ namespace Assets.Code.Scripts.Player
             TaskState oldTask = currentTask;
 
             LoadingScreen.SetActive(true);
+            AudioListener.volume = 0f;
 
             foreach (InteractableDoor door in FindObjectsByType<InteractableDoor>(FindObjectsSortMode.None))
             {
@@ -236,6 +237,7 @@ namespace Assets.Code.Scripts.Player
         public IEnumerator AfterSkipTask(TaskState oldTask)
         {
             yield return new WaitForSeconds(1.5f);
+            AudioListener.volume = 1f;
             LoadingScreen.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             PlayerController.Instance.MovementController.enabled = true;

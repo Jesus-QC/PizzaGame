@@ -58,6 +58,7 @@ namespace Assets.Code.Scripts.Player
                 return;
 
             PlayerController.Instance.TaskController.LoadingScreen.SetActive(true);
+            AudioListener.volume = 0f;
 
             Debug.Log($"[LoadIfExists] Scene={data.currentScene}, pos={data.playerPosition}, rot={data.playerRotation}, keys={data.interactableStates.Count}");
 
@@ -79,6 +80,7 @@ namespace Assets.Code.Scripts.Player
         public IEnumerator AfterLoad()
         {
             yield return new WaitForSeconds(1f);
+            AudioListener.volume = 1f;
             PlayerController.Instance.TaskController.LoadingScreen.SetActive(false);
         }
     }

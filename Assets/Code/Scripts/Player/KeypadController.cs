@@ -18,7 +18,6 @@ namespace Assets.Code.Scripts.Player
         public AudioClip openSafe;
         public bool isSolved = false;
         
-
         public void AddDigit(string digit)
         {
             currentInput += digit;
