@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using Assets.Code.Scripts.Player;
+using Code.Scripts.Level.Interactables;
 
 namespace Code.Scripts.Menu
 {
@@ -22,7 +23,9 @@ namespace Code.Scripts.Menu
         public PlayerInput playerInput;
         public UnityEvent onPaused;
         public UnityEvent onResumed;
-        
+
+        public static MainMenuController Instance { get; private set; }
+
         private const float DefaultSensitivity = 0.18f; 
         private string playerActionMap = "Player";
         private string uiActionMap = "UI";
@@ -34,10 +37,13 @@ namespace Code.Scripts.Menu
             optionsPanel.SetActive(false);
             tutorialPanel.SetActive(false);
             background.SetActive(false);
+            Instance = this;
         }
         
         public void OnPause()
         {
+            if (InteractableSafe.IsUnlockingSafe) return;
+
             if (isPaused) Resume();
             else Pause();
         }
@@ -126,18 +132,12 @@ namespace Code.Scripts.Menu
             if (tutorialPanel) tutorialPanel.SetActive(true);
         }
         
-        public void Credits()
-        {
-            
-        }
-        
         private void Pause()
         {
             mainPanel.SetActive(true);
             optionsPanel.SetActive(false);
             tutorialPanel.SetActive(false);
             background.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(null);
             
             if (PlayerController.Instance != null && PlayerController.Instance.CameraController != null)
             {
@@ -160,8 +160,6 @@ namespace Code.Scripts.Menu
 
         private void Resume()
         {
-            EventSystem.current.SetSelectedGameObject(null);
-            
             Time.timeScale = 1f;
             
             if (PlayerController.Instance != null && PlayerController.Instance.CameraController != null)
@@ -170,15 +168,15 @@ namespace Code.Scripts.Menu
             }
             
             isPaused = false;
-            
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            
+
             if (playerInput != null)
             {
                 playerInput.SwitchCurrentActionMap(playerActionMap);
             }
-            
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             onResumed?.Invoke();
             
             if (mainPanel) mainPanel.SetActive(false);

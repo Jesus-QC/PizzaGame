@@ -1,10 +1,12 @@
 using Assets.Code.Scripts.Player;
+using Code.Scripts.Menu;
 using UnityEngine;
 
 namespace Code.Scripts.Level.Interactables
 {
     public class InteractableSafe : MonoBehaviour, IInteractable
     {
+        public static bool IsUnlockingSafe;
 
         public GameObject keypadPanel;
         public Camera keypadCamera;
@@ -42,20 +44,17 @@ namespace Code.Scripts.Level.Interactables
 
             keypadCamera.enabled = true;
             keypadPanel.SetActive(true);
-        }
+            IsUnlockingSafe = true;
 
-        void Update()
-        {
-            if (IsDecoding)
+            if (PlayerController.Instance != null && PlayerController.Instance.CameraController != null)
             {
-                if (PlayerController.Instance != null && PlayerController.Instance.CameraController != null)
-                {
-                    PlayerController.Instance.CameraController.SetMenuBlur(true);
-                }
-
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                PlayerController.Instance.CameraController.SetMenuBlur(true);
             }
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            MainMenuController.Instance.playerInput.SwitchCurrentActionMap("UI");
         }
 
         public void CloseKeypad()
@@ -73,7 +72,10 @@ namespace Code.Scripts.Level.Interactables
             
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-    
+
+            IsUnlockingSafe = false;
+
+            MainMenuController.Instance.playerInput.SwitchCurrentActionMap("Player");
         }
     }
     
