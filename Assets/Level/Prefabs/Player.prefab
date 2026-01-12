@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4040
+  m_VersionIndex: 4046
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -10941,9 +10941,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -164
       objectReference: {fileID: 0}
+    - target: {fileID: 2355856701405369067, guid: a80abbdfdf7c3c448b7fd92d63b550ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 261
+      objectReference: {fileID: 0}
     - target: {fileID: 2731222145064847785, guid: a80abbdfdf7c3c448b7fd92d63b550ad, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3567577348108632277, guid: a80abbdfdf7c3c448b7fd92d63b550ad, type: 3}
       propertyPath: m_Pivot.x
@@ -11035,7 +11039,7 @@ PrefabInstance:
       objectReference: {fileID: 1394561120270361768}
     - target: {fileID: 8634232373090406964, guid: a80abbdfdf7c3c448b7fd92d63b550ad, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

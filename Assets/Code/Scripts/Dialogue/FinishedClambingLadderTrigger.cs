@@ -137,9 +137,6 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
         {
             rb.isKinematic = false;
         }
-
-        PlayerController.Instance.MovementController.enabled = true;
-        PlayerController.Instance.CameraController.enabled = true;
         
         PlayerController.Instance.enabled = true;
 
@@ -161,7 +158,7 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
         ToBeContinued.gameObject.SetActive(true);
     
         float timer = 0f;
-        float fadeDuration = 5f;
+        float fadeDuration = 3f;
 
         while (timer < fadeDuration)
         {
