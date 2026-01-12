@@ -46,7 +46,8 @@ namespace Code.Scripts.Menu
         {
             if (!isPaused) return;
 
-            if (optionsPanel != null && optionsPanel.activeSelf)
+            if ((optionsPanel != null && optionsPanel.activeSelf) ||
+                (tutorialPanel != null && tutorialPanel.activeSelf))
             {
                 BackToMain();
             }

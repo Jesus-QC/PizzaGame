@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Scripts.Checkpoint;
+using Code.Scripts.Level.Interactables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -54,11 +56,13 @@ namespace Assets.Code.Scripts.Player
             GameStateData data = SaveManager.Load();
             if (data == null)
                 return;
-            
+
+            PlayerController.Instance.TaskController.LoadingScreen.SetActive(true);
+
             Debug.Log($"[LoadIfExists] Scene={data.currentScene}, pos={data.playerPosition}, rot={data.playerRotation}, keys={data.interactableStates.Count}");
 
             RegisterSaveables();
-            
+
             PlayerController.Instance.transform.position = data.playerPosition;
             PlayerController.Instance.transform.rotation = data.playerRotation;
             Enemy.position = data.enemyPosition;
@@ -68,6 +72,14 @@ namespace Assets.Code.Scripts.Player
             {
                 saveable.Load(data);
             }
+
+            StartCoroutine(AfterLoad());
+        }
+
+        public IEnumerator AfterLoad()
+        {
+            yield return new WaitForSeconds(1f);
+            PlayerController.Instance.TaskController.LoadingScreen.SetActive(false);
         }
     }
 }

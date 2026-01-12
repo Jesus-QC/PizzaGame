@@ -48,3 +48,6 @@ Jump scare sound 3 by dangthaiduy007 -- https://freesound.org/s/341670/ -- Licen
 DevDen ArchViz Vol 1 - Scotland HDRP by DevDen -- https://assetstore.unity.com/packages/3d/environments/urban/devden-archviz-vol-1-scotland-hdrp-180062 -- License: Extension Asset
 Street Lights Pack 01 by Sat Productions -- https://assetstore.unity.com/packages/3d/props/exterior/street-lights-pack-01-309482 -- License: Extension Asset
 Customizable Lights and Candles by DC Assets -- https://assetstore.unity.com/packages/3d/characters/customizable-lights-and-candles-104628 -- License: Extension Asset
+Horror scream by gss_13 -- https://freesound.org/s/423164/ -- License: Attribution NonCommercial 4.0
+Creaking floorboards_01.wav by SpencerBarkerMedia101 -- https://freesound.org/s/404680/ -- License: Attribution 3.0
+Horror ambient.mp3 by ZHRØ -- https://freesound.org/s/540634/ -- License: Creative Commons 0

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: FinishedWatchingTV
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - text: '! ! ! HA ENTRADO ALGUIEN EN LA CASA ! ! !'
-  - text: "! ! ! MI M\xD3VIL EST\xC1 EN LA HABITACI\xD3N ! ! !"
-  - text: '! ! ! PERO NO PUEDO SUBIR POR LA ESCALERA ! ! !'
-  - text: '! ! ! TENGO QUE SALIR POR LA PUERTA TRASERA DE LA COCINA ! ! !'
+  - text: ALGUIEN SE HA COLADO EN LA CASA!!
+  - text: TENGO QUE LLAMAR A LA POLICIA PERO MI TELEFONO ESTA EN LA HABITACION
+  - text: HAY QUE BUSCAR OTRA FORMA DE SALIR

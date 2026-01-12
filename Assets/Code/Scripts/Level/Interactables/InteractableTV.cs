@@ -16,7 +16,7 @@ namespace Code.Scripts.Level.Interactables
 
         public static bool TvOn;
         
-        private string _videoName = "NoSignalVideo.mp4";
+        private string _videoName = "Noticia.mp4";
 
         private void Awake()
         {
