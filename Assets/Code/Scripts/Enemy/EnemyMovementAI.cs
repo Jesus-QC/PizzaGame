@@ -22,7 +22,7 @@ namespace Code.Scripts.Enemy
         public float DetectionHeightThreshold = 1f;
         
         public float PatrolSpeed = 2.0f;
-        public float ChaseSpeed = 5.0f;
+        public float ChaseSpeed = 7.0f;
         public float RotationSpeed = 5.0f;
         public float PatrolWaitTime = 2.0f;
         

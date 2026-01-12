@@ -64,9 +64,7 @@ namespace Code.Scripts.Level.Interactables
         
         public void Load(GameStateData data)
         {
-            data.interactableStates.TryGetValue(id, out _isOpen);
-            DoorAnimator.SetBool(OpenAnimation, _isOpen);
-            
+            DoorAnimator.SetBool(OpenAnimation, false);   
         }
 
         public void CloseDoor()
