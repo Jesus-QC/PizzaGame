@@ -444,28 +444,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2048722547}
     - target: {fileID: 7083405795244078374, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_TargetGraphic
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7083405795244078374, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7083405795244078374, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1280257243}
-    - target: {fileID: 7083405795244078374, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_IsDecoding
-      objectReference: {fileID: 0}
     - target: {fileID: 7262254505894450856, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 305624104}
     - target: {fileID: 7262254505894450856, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_VersionIndex
-      value: 4082
+      value: 4088
       objectReference: {fileID: 0}
     - target: {fileID: 7763541786723728707, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
       propertyPath: m_LocalPosition.x
@@ -515,10 +503,6 @@ PrefabInstance:
       propertyPath: RealEnemy
       value: 
       objectReference: {fileID: 2048722546}
-    - target: {fileID: 8050101364407603145, guid: 448a70d4442db3445aa46e66e087b110, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

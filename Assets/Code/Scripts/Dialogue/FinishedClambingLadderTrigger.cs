@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Assets.Code.Scripts.Player;
+using UnityEngine.SceneManagement;
 
 public class FinishedClambingLadderTrigger : MonoBehaviour
 {
@@ -164,12 +165,11 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
         {
             timer += Time.deltaTime;
             float progress = Mathf.Clamp01(timer / fadeDuration);
-        
+
             ToBeContinued.alpha = Mathf.Lerp(maxAlpha, 0f, progress);
             yield return null;
         }
 
-        ToBeContinued.alpha = 0f;
-        ToBeContinued.gameObject.SetActive(false);
+        SceneManager.LoadScene("Ending");
     }
 }
