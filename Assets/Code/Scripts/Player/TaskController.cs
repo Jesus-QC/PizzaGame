@@ -31,6 +31,8 @@ namespace Assets.Code.Scripts.Player
         public Animator TestAnimator;
         public TextMeshProUGUI ObjectiveTitle;
         public TextMeshProUGUI ObjectiveDescription;
+        public TextMeshProUGUI ObjectiveTitleMiniMap;
+        public TextMeshProUGUI ObjectiveDescriptionMiniMap;
         public AudioClip NewTask;
         public GameObject PressEText;
         public GameObject Crosshair;
@@ -60,6 +62,8 @@ namespace Assets.Code.Scripts.Player
         public Dialogue FinishedGettingLadder;
         public Dialogue FinishedClambingLadder;
         public Dialogue KnockDoorDialogue;
+
+        public AudioClip EnemyEntered;
         
         private DialogueManager dialogueManager;
         
@@ -180,7 +184,7 @@ namespace Assets.Code.Scripts.Player
                     break;
 
                 case TaskState.WatchingTV:
-                    StartCoroutine(RunTaskLogic("Mira la television", "Sientate en el sillon y entretente un rato viendo la television", 
+                    StartCoroutine(RunTaskLogic("Mira la television", "Enciende la television y sientate en el sillon", 
                         null, TVCamera));
                     StartCoroutine(WatchTVRoutine());
                     break;
@@ -212,8 +216,8 @@ namespace Assets.Code.Scripts.Player
 
             if (earlyExitCondition != null && earlyExitCondition.Invoke()) yield break;
 
-            ObjectiveTitle.text = title;
-            ObjectiveDescription.text = desc;
+            ObjectiveTitle.text = ObjectiveTitleMiniMap.text = title;
+            ObjectiveDescription.text = ObjectiveDescriptionMiniMap.text = desc;
 
             if (lookAtCamera != null)
             {
@@ -293,6 +297,9 @@ namespace Assets.Code.Scripts.Player
             
             if (currentTask == TaskState.WatchingTV)
             {
+
+                PlayerController.Instance.GlobalAudioSource.PlayOneShot(EnemyEntered);
+                yield return new WaitForSeconds(3f);
                 OnFinishedWatchingTV();
             }
         }
@@ -320,14 +327,18 @@ namespace Assets.Code.Scripts.Player
             SaveGameAndPlayDialogue(FinishedTakingOutTrash);
             return true;
         }
-        
+
         public void OnFinishedWatchingTV()
         {
             if (currentTask != TaskState.WatchingTV) return;
 
             finishedWatchTV = true;
-            if (EnemyController.Instance != null) EnemyController.Instance.gameObject.SetActive(true);
+
+            if (EnemyController.Instance != null)
+                EnemyController.Instance.gameObject.SetActive(true);
+
             SaveGameAndPlayDialogue(FinishedWatchingTV);
+            EnemyController.Instance.PlayEffects();
         }
         
         public bool IsGettingOutTaskActive() => currentTask == TaskState.GettingOut;

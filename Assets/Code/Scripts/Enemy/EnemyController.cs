@@ -54,24 +54,29 @@ namespace Code.Scripts.Enemy
 
                 if (value)
                 {
-                    HeartbeatSource.volume = 1f;
-                    HeartbeatSource.clip = Heartbeat;
-                    HeartbeatSource.loop = true;
-                    
-                    if (!HeartbeatSource.isPlaying)
-                        HeartbeatSource.Play();
-                    
-                    EffectsSource.volume = 1f;
-                    if (TimeSinceLastSeen > MinStingerInterval)
-                    {
-                        //EffectsSource.PlayDelayed(5);
-                        EffectsSource.PlayOneShot(StingerEffect, 0.3f);
-                    }
-                } 
+                    PlayEffects();
+                }
                 TimeSinceLastSeen = 0f;
             }
         }
         
+        public void PlayEffects()
+        {
+            HeartbeatSource.volume = 1f;
+            HeartbeatSource.clip = Heartbeat;
+            HeartbeatSource.loop = true;
+
+            if (!HeartbeatSource.isPlaying)
+                HeartbeatSource.Play();
+
+            EffectsSource.volume = 1f;
+            if (TimeSinceLastSeen > MinStingerInterval)
+            {
+                //EffectsSource.PlayDelayed(5);
+                EffectsSource.PlayOneShot(StingerEffect, 0.3f);
+            }
+        }
+
         private void Awake()
         {
             Instance = this;
