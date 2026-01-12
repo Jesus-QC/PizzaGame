@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: OpeningDialogue
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - text: "Qu\xE9 susto me ha dado, pero qui\xE9n ha dise\xF1ado ese juego."
+  - text: Pff, solo ha sido una pesadilla. Que juego tan raro.
   - text: Uy tengo que hacer el cuestionario ya que sino no da tiempo.
