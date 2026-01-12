@@ -181,32 +181,26 @@ namespace Assets.Code.Scripts.Player
 
             switch (oldTask)
             {
-                case TaskState.None:
-                    PlayerController.Instance.transform.position = new Vector3();
-                    break;
-
                 case TaskState.Homework:
-                    PlayerController.Instance.transform.position = new Vector3();
+                    PlayerController.Instance.transform.position = new Vector3(5.49731255f, 5.02614927f, 1.94516492f);
                     break;
 
                 case TaskState.TakingOutTrash:
-                    PlayerController.Instance.transform.position = new Vector3();
+                    PlayerController.Instance.transform.position = new Vector3(1.42268801f, 0.0150843859f, 20.150135f);
                     break;
 
                 case TaskState.WatchingTV:
-                    PlayerController.Instance.transform.position = new Vector3();
+                    PlayerController.Instance.transform.position = new Vector3(-4.82459164f, 0.805140376f, 9.67527199f);
                     break;
 
                 case TaskState.GettingOut:
-                    PlayerController.Instance.transform.position = new Vector3();
+                    PlayerController.Instance.transform.position = new Vector3(-1.20284283f, 0.805139303f, -5.73326111f);
                     break;
 
                 case TaskState.GettingLadder:
                     PlayerController.Instance.transform.position = new Vector3();
                     break;
             }
-
-            currentTask = (TaskState) ((int) oldTask + 1);
 
             StartCoroutine(AfterSkipTask(oldTask));
         }
@@ -219,10 +213,6 @@ namespace Assets.Code.Scripts.Player
             
             switch (oldTask)
             {
-                case TaskState.None:
-                    StartCoroutine(TransitionToNextTask(TaskState.Homework));
-                    break;
-
                 case TaskState.Homework:
                     OnFinishedHomework();
                     break;
