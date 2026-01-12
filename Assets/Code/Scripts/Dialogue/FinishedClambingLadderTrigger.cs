@@ -142,6 +142,8 @@ public class FinishedClambingLadderTrigger : MonoBehaviour
         PlayerController.Instance.CameraController.enabled = true;
         
         PlayerController.Instance.enabled = true;
+        
+        gameObject.SetActive(false);
     }
 
     private IEnumerator WaitForAnimation(Animator animator, string stateName)

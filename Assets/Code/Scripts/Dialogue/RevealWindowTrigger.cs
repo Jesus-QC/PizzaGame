@@ -38,6 +38,8 @@ public class RevealWindowTrigger : MonoBehaviour
         cmWindow.Priority = 0;
         PlayerController.Instance.CameraController.enabled = true;
         PlayerController.Instance.MovementController.enabled = true;
+        
+        gameObject.SetActive(false);
     }
     
 }
