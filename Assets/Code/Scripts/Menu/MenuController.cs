@@ -8,5 +8,10 @@ namespace Code.Scripts.Menu
         {
             StartTransitioner.Instance.StartTransitionToScene("Cooking");
         }
+
+        public void OpenCredits()
+        {
+            StartTransitioner.Instance.StartTransitionToScene("Credits");
+        }
     }
 }
